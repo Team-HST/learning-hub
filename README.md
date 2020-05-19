@@ -4,12 +4,12 @@
 ## \# Main concepts
 
 ## \# Project structure
-#### [reminder-be](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-be)
+#### [learning-hub-be](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-be)
 - RE:Minder Service Backend
 - Spring Boot + JPA
 - MySQL
 
-#### [reminder-fe](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-fe)
+#### [learning-hub-fe](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-fe)
 - RE:Minder Service Frontend
 - Vue.js
 
