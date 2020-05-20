@@ -10,7 +10,7 @@
 
 #### [learning-hub-fe](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-fe)
 - Vue.js  
-- Template : [tovo-vue](http://vue.pixelstrap.com/tovo/blog-rightside)
+- Template : [tovo-vue](https://themeforest.net/item/tovo-vue-js-app-landing-page/22714881)
 
 ## \# CI & CD
 
