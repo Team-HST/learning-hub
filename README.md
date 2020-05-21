@@ -5,13 +5,12 @@
 
 ## \# Project structure
 #### [learning-hub-be](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-be)
-- RE:Minder Service Backend
 - Spring Boot + JPA
 - MySQL
 
 #### [learning-hub-fe](https://github.com/Team-HST/learning-hub/tree/master/learning-hub-fe)
-- RE:Minder Service Frontend
-- Vue.js
+- Vue.js  
+- Template : [tovo-vue](https://themeforest.net/item/tovo-vue-js-app-landing-page/22714881)
 
 ## \# CI & CD
 
