@@ -1,3 +1,7 @@
+# Server Configurations
+server:
+  port: 8000
+
 # Framework Configurations
 spring:
   datasource:
