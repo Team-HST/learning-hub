@@ -4,14 +4,19 @@
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand class="navbar-brand" :to="{name:'Main_page'}"><img :src='"../assets/images/logo.png"' alt="logo"></b-navbar-brand>
     <b-collapse class="default-nav"  is-nav id="nav_collapse">
-      <b-navbar-nav class="navbar-nav ml-auto" id="mymenu">
-          <b-nav-item href="#home">Home</b-nav-item>
-          <b-nav-item href="#about">about</b-nav-item>
-          <b-nav-item href="#feature">feature</b-nav-item>
+      <b-navbar-nav class="navbar-nav mr-auto" id="mymenu">
+          <b-nav-item href="/">홈</b-nav-item>
+          <b-nav-item href="#about">소개</b-nav-item>
+          <b-nav-item href="contents">컨텐츠</b-nav-item>
+          <b-nav-item href="faq">FAQ</b-nav-item>
+<!--           <b-nav-item href="#feature">feature</b-nav-item>
           <b-nav-item href="#screenshot">screenshot</b-nav-item>
-          <b-nav-item href="#team">team</b-nav-item>
-
-          <b-nav-item-dropdown right-alignment text="blog" class="nav-link">
+          <b-nav-item href="#team">team</b-nav-item> -->
+          <b-nav-item-dropdown right-alignment text="나의 정보" class="nav-link">
+            <b-dropdown-item class="nav-link"  :href='"profile"'>프로필</b-dropdown-item>
+            <b-dropdown-item class="nav-link"  :to="{name:'myDonation'}" >기부금 관리</b-dropdown-item>
+          </b-nav-item-dropdown>
+        <!--   <b-nav-item-dropdown right-alignment text="blog" class="nav-link">
             <b-dropdown-item class="nav-link"   :href='"#blog"'>Blog</b-dropdown-item>
             <b-dropdown-item class="nav-link"  :to="{name:'blog_list'}" >Blog list</b-dropdown-item>
             <b-dropdown-item class="nav-link"  :to="{name:'Blog_details'}" >Blog details</b-dropdown-item>
@@ -34,7 +39,7 @@
             <b-dropdown-item class="nav-link"  :to="{name:'Faq'}" :href='"/tovo/faq"' >FAQ</b-dropdown-item>
             <b-dropdown-item class="nav-link"  :to="{name:'download'}" :href='"/tovo/download"' >Download</b-dropdown-item>
             <b-dropdown-item class="nav-link"  :to="{name:'coming_soon'}" :href='"/tovo/coming-soon"' >coming soon</b-dropdown-item>
-          </b-nav-item-dropdown>
+          </b-nav-item-dropdown>  -->
 
       </b-navbar-nav>
     </b-collapse>
