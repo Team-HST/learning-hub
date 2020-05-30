@@ -2,8 +2,13 @@
 server:
   port: 8000
 
+
+
 # Framework Configurations
 spring:
+  output:
+    ansi:
+      enabled: ALWAYS
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://133.186.219.16:3306/learning_hub?characterEncoding=utf8&useUnicode=true&serverTimezone=Asia/Seoul

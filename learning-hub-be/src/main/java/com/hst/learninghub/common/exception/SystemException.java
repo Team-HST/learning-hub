@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
  * @author dlgusrb0808@gmail.com
  */
 public class SystemException extends ReportableException {
-	private static final long serialVersionUID = -5318222511546494076L;
+	private static final long serialVersionUID = 1L;
 
 	public SystemException(Exception cause) {
 		super(cause);

@@ -1,12 +1,17 @@
 package com.hst.learninghub.user.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
+import com.hst.learninghub.user.type.UserRole;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,7 +23,12 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 @Getter
-public class User extends BaseTimeEntity implements UserDetails {
+@ToString
+@NoArgsConstructor
+public class User extends BaseTimeEntity implements UserDetails, Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_NO")
@@ -30,11 +40,15 @@ public class User extends BaseTimeEntity implements UserDetails {
 	@Column(name = "USER_NM")
 	private String name;
 
+	@Column(name = "USER_PWD")
+	private String password;
+
 	@Column(name = "USER_BIRTH")
 	private LocalDateTime birthDate;
 
 	@Column(name = "USER_ROLE_CD")
-	private String roleType;
+	@Convert(converter = UserRole.Converter.class)
+	private UserRole roleType;
 
 	@Column(name = "USER_JOIN_CD")
 	private String joinType;
@@ -42,11 +56,17 @@ public class User extends BaseTimeEntity implements UserDetails {
 	@Column(name = "DEL_YN")
 	private boolean deleted;
 
-	@Column(name = "USER_PWD")
-	private String password;
-
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+	@Builder
+	public User(String id, String name, String password, LocalDateTime birthDate, UserRole roleType) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.birthDate = birthDate;
+		this.roleType = roleType;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
