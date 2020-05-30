@@ -4,7 +4,7 @@ import axios from 'axios';
  * @description axios inteceptor reqeust 처리
  */
 axios.interceptors.request.use((config) => {
-  console.log(config);
+  return config;
 }, (error) => {
   return Promise.reject(error);
 });
