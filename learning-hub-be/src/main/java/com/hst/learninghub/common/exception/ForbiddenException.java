@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
  * @author dlgusrb0808@gmail.com
  */
 public class ForbiddenException extends ReportableException {
-	private static final long serialVersionUID = 4277415668534140140L;
+	private static final long serialVersionUID = 1L;
 
 	public ForbiddenException(String message, Object... args) {
 		super(message, args);

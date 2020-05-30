@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+	<!-- Console Appender -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%clr([%d{ISO8601} %d{Z}]){blue} %clr([%level]){green} %clr([%logger{30}]){cyan} %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="com.hst.learninghub" level="DEBUG" />
+
+	<root>
+		<level value="INFO"/>
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>
