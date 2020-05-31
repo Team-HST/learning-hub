@@ -27,7 +27,7 @@ import java.util.List;
 public class SwaggerConfiguration {
 	public static final String DEV_TOOLS_API_TAG = "0. Dev Tools APIs";
 	public static final String CODE_API_TAG = "1. Code APIs";
-	public static final String USER_API_TAG = "2. Member APIs";
+	public static final String USER_API_TAG = "2. User APIs";
 
 	@Bean
 	public Docket api() {

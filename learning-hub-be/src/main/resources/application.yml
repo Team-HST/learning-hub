@@ -5,6 +5,10 @@ server:
 
 
 # Framework Configurations
+app:
+  auth:
+    tokenSecret: Us#2lesf0237Eq
+    expirTime: 86400
 spring:
   output:
     ansi:

@@ -1,4 +1,4 @@
-package com.hst.learninghub.user.ui.request;
+package com.hst.learninghub.user.ui.response;
 
 import com.hst.learninghub.user.entity.User;
 import lombok.Getter;

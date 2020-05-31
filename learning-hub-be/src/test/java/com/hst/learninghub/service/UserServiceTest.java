@@ -3,15 +3,13 @@ package com.hst.learninghub.service;
 import com.hst.learninghub.user.service.UserService;
 import com.hst.learninghub.user.type.UserRole;
 import com.hst.learninghub.user.ui.request.SignUpRequest;
-import com.hst.learninghub.user.ui.request.UserResponse;
+import com.hst.learninghub.user.ui.response.UserResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 

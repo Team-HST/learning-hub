@@ -1,6 +1,7 @@
 package com.hst.learninghub.code.type;
 
 import com.hst.learninghub.common.type.PersistableType;
+import com.hst.learninghub.user.type.LoginStatus;
 import com.hst.learninghub.user.type.UserRole;
 import com.hst.learninghub.utils.EnumUtils;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 public enum GlobalCode {
-	USER_ROLE_CODE("user-roles", EnumSet.allOf(UserRole.class))
+	USER_ROLE_CODE("user-roles", EnumSet.allOf(UserRole.class)),
+	LOGIN_STATUS_CODE("ajssj", EnumSet.allOf(LoginStatus.class)),
 	;
 
 	private static final Map<String, GlobalCode> FINDER = EnumUtils.asMap(GlobalCode.class, e -> e.codeGroup);
