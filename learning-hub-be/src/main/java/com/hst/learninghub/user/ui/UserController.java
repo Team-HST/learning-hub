@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -33,5 +30,11 @@ public class UserController {
 	@PostMapping("sign-in")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody SignInRequest request) {
 		return ResponseEntity.ok(userService.signIn(request));
+	}
+
+	@ApiOperation(value = "사용자 조회", notes = "사용자 조회")
+	@GetMapping("/{userNo}")
+	public ResponseEntity<UserResponse> getUser(@PathVariable long userNo){
+		return ResponseEntity.ok(userService.getUser(userNo));
 	}
 }

@@ -2,6 +2,7 @@ package com.hst.learninghub.user.service;
 
 import com.hst.learninghub.authentication.AuthenticationToken;
 import com.hst.learninghub.authentication.JwtAuthenticationTokenProvider;
+import com.hst.learninghub.common.exception.NotFoundException;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.repository.UserRepository;
 import com.hst.learninghub.user.type.LoginStatus;
@@ -71,5 +72,13 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String no) throws UsernameNotFoundException {
 		return userRepository.findById(Long.valueOf(no))
 				.orElseThrow(() -> new UsernameNotFoundException(String.format("Not found id %s", no)));
+	}
+
+	public UserResponse getUser(long userNo) {
+		Optional<User> userOpts = userRepository.findById(userNo);
+		if (!userOpts.isPresent()) {
+			throw new NotFoundException("사용자", userNo);
+		}
+		return UserResponse.from(userOpts.get());
 	}
 }
