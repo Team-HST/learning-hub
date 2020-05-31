@@ -12,6 +12,6 @@ public class AppProperties {
     @Data
     public static class Auth {
         private String tokenSecret;
-        private long expirDate;
+        private long expiredMs;
     }
 }

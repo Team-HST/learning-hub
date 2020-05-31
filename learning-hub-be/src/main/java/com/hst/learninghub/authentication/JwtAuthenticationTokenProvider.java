@@ -6,7 +6,6 @@ import io.jsonwebtoken.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,11 @@ public class JwtAuthenticationTokenProvider {
         this.appProperties = appProperties;
     }
 
-    // 토큰 발급
+    /***
+     * 토큰 발급
+     * @param userNo 유저 No
+     * @return 토큰
+     */
     public AuthenticationToken issue(Long userNo) {
         return AuthenticationToken.builder()
                 .userNo(userNo)
@@ -33,18 +36,36 @@ public class JwtAuthenticationTokenProvider {
     // JWT 토큰 생성
     private String buildToken(Long userNo) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime expirDate = now.plus(appProperties.getAuth().getExpirDate(), ChronoUnit.MILLIS);
+        LocalDateTime expiredAt = now.plus(appProperties.getAuth().getExpiredMs(), ChronoUnit.MILLIS);
 
         return Jwts.builder()
                 .setSubject(String.valueOf(userNo))
                 .setIssuedAt(TimeUtils.toDate(now))
-                .setExpiration(TimeUtils.toDate(expirDate))
+                .setExpiration(TimeUtils.toDate(expiredAt))
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
     }
 
-    // 토큰 유효성 확인
-    private Boolean validToken(String token) {
+    /***
+     * 토큰에서 userNo 취득
+     * @param token 토큰
+     * @return userNo
+     */
+    public Long getTokenOwnerNo(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(appProperties.getAuth().getTokenSecret())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return Long.parseLong(claims.getSubject());
+    }
+
+    /***
+     * 토큰 유효성 검사
+     * @param token 토큰
+     * @return 유효여부
+     */
+    public boolean validateToken(String token) {
         if (StringUtils.isNotEmpty(token)) {
             try {
                 Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(token);

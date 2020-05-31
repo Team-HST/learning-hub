@@ -8,7 +8,7 @@ server:
 app:
   auth:
     tokenSecret: Us#2lesf0237Eq
-    expirTime: 86400
+    expiredMs: 864000000  # 10 days
 spring:
   output:
     ansi:

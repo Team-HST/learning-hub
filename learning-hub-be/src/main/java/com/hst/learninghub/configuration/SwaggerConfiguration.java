@@ -1,6 +1,5 @@
 package com.hst.learninghub.configuration;
 
-import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ParameterBuilder;
@@ -36,8 +35,7 @@ public class SwaggerConfiguration {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.globalOperationParameters(params)
 				.select()
-				.apis(Predicates.not(RequestHandlerSelectors.
-						basePackage("org.springframework.boot")))
+				.apis(RequestHandlerSelectors.basePackage("com.hst.learninghub"))
 				.paths(PathSelectors.any())
 				.build()
 				.tags(

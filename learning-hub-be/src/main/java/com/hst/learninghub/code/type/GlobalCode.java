@@ -18,7 +18,7 @@ import java.util.Set;
 @Getter
 public enum GlobalCode {
 	USER_ROLE_CODE("user-roles", EnumSet.allOf(UserRole.class)),
-	LOGIN_STATUS_CODE("ajssj", EnumSet.allOf(LoginStatus.class)),
+	LOGIN_STATUS_CODE("login-status", EnumSet.allOf(LoginStatus.class)),
 	;
 
 	private static final Map<String, GlobalCode> FINDER = EnumUtils.asMap(GlobalCode.class, e -> e.codeGroup);
