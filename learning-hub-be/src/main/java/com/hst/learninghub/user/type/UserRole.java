@@ -32,13 +32,13 @@ public enum UserRole implements PersistableType<String> {
 	}
 
 	@Override
-	public String getDescription() {
-		return this.description;
+	public String getCodeName() {
+		return codeName;
 	}
 
 	@Override
-	public String getCodeName() {
-		return this.codeName;
+	public String getDescription() {
+		return this.description;
 	}
 
 	public static UserRole get(String code) {

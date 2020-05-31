@@ -59,7 +59,7 @@ public class User extends BaseTimeEntity implements UserDetails, Serializable {
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
 
-	@Builder
+	@Builder(builderClassName = "SignUpBuilder", builderMethodName = "SignUpBuilder")
 	public User(String id, String name, String password, LocalDateTime birthDate, UserRole roleType) {
 		this.id = id;
 		this.name = name;
