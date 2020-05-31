@@ -21,7 +21,7 @@ public class SignUpResponse {
         response.id = entity.getId();
         response.name = entity.getName();
         response.birthDate = entity.getBirthDate();
-        response.roleType = entity.getRoleType().getCodeName();
+        response.roleType = entity.getRoleType().getCode();
         return response;
     }
 }
