@@ -1,6 +1,7 @@
 package com.hst.learninghub.code.type;
 
 import com.hst.learninghub.common.type.PersistableType;
+import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.user.type.LoginStatus;
 import com.hst.learninghub.user.type.UserRole;
 import com.hst.learninghub.utils.EnumUtils;
@@ -19,6 +20,7 @@ import java.util.Set;
 public enum GlobalCode {
 	USER_ROLE_CODE("user-roles", EnumSet.allOf(UserRole.class)),
 	LOGIN_STATUS_CODE("login-status", EnumSet.allOf(LoginStatus.class)),
+	JOB_CLASS("job-classes", EnumSet.allOf(JobClass.class)),
 	;
 
 	private static final Map<String, GlobalCode> FINDER = EnumUtils.asMap(GlobalCode.class, e -> e.codeGroup);
