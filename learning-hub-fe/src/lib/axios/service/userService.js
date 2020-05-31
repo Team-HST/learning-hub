@@ -1,12 +1,15 @@
-// import http form '../http';
-
+import http from '../http';
+ 
 // http.get *()
 
-const userService = {
-    searchUserInof: () => {
+export default {
+    searchUserInfo: () => {
         return http.get('')
             .then(response => {
                 return response.data;
             })
+    }, 
+    signIn: (userInfo) => {
+        return http.post('/api/users/sign-in', userInfo)            
     }
 }

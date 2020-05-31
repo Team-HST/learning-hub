@@ -11,10 +11,10 @@
       <div class="card">
         <form class="theme-form">
           <div class="form-group">
-            <input type="email" class="form-control" placeholder="email address" required="required">
+            <input v-model="userInfo.id" class="form-control" placeholder="ID" required="required">
           </div>
           <div class="form-group">
-            <input :type="showpassword ? 'password' : 'text'" required="" name="login[password]" class="form-control" placeholder="Password">
+            <input v-model="userInfo.password" :type="showpassword ? 'password' : 'text'" required="" name="login[password]" class="form-control" placeholder="Password">
             <div  v-on:click="showpassword = !showpassword" class="show-hide">
               <span :class="{show:showpassword}"></span>
             </div>
@@ -27,13 +27,7 @@
             <a :href='"/tovo/forget-Password"' class="text-right col-6 theme-link">lost your password</a>
           </div>
           <div class="form-button text-center">
-            <button type="submit" class="btn btn-custom btn-lg theme-color">Login</button>
-          </div>
-          <div class="or-saparator"><span>or</span></div>
-          <h6 class="text-center mt-0 mb-3">Sign in with:</h6>
-          <div class="form-button text-center social-btns">
-            <button type="submit" class="btn btn-custom fb">Facebook</button>
-            <button type="submit" class="btn btn-custom ggl">Google</button>
+            <button type="button" @click="signInUser" class="btn btn-custom btn-lg theme-color">Login</button>
           </div>
         </form>
       </div>
@@ -47,11 +41,24 @@
 <script>
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import { mapMutations, mapActions } from 'vuex'
+
   export default {
     name: 'Signin',
     data () {
       return {
+        userInfo: {
+          id: '',
+          password: ''
+        },
         showpassword: true
+      }
+    },
+    methods: {
+      ...mapMutations(['setUserInfo']),
+      ...mapActions('user', ['signIn']),
+      signInUser: function() {
+        this.signIn(this.userInfo);
       }
     }
   }
