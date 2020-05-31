@@ -9,8 +9,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SignInRequest {
-    @ApiModelProperty(name = "로그인 ID", example = "aaaa")
+    @ApiModelProperty(name = "로그인 ID", example = "gusrb0808")
     private String id;
-    @ApiModelProperty(name = "로그인 PW", example = "aaaasdasda")
+    @ApiModelProperty(name = "로그인 PW", example = "loginPassword")
     private String password;
 }

@@ -15,27 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author dlgusrb0808@gmail.com
- */
-
 @RestController
-@RequestMapping("users")
+@RequestMapping("user")
 @RequiredArgsConstructor
 @Api(tags = SwaggerConfiguration.USER_API_TAG)
 public class UserController {
-
 	private final UserService userService;
 
+	@ApiOperation(value = "사용자 회원가입", notes = "사용자 회원가입")
 	@PostMapping("sign-up")
-	public ResponseEntity<UserResponse> signUp(@RequestBody SignUpRequest request) {
-		return ResponseEntity.ok(userService.signUp(request));
+	public ResponseEntity<UserResponse> signUp(@RequestBody SignUpRequest request){
+		UserResponse response = userService.signUp(request);
+		return ResponseEntity.ok(response);
 	}
 
-	@ApiOperation(value = "로그인", notes = "로그인")
+	@ApiOperation(value = "사용자 로그인", notes = "로그인 인증 및 토큰 발급")
 	@PostMapping("sign-in")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody SignInRequest request) {
 		return ResponseEntity.ok(userService.signIn(request));
 	}
-
 }

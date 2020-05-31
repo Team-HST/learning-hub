@@ -2,6 +2,7 @@ package com.hst.learninghub.user.ui.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.hst.learninghub.authentication.AuthenticationToken;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.type.LoginStatus;
 import lombok.Getter;
@@ -21,13 +22,11 @@ public class SignInResponse {
      * @param token
      * @return response
      */
-    public static SignInResponse successLogin(User user, String token) {
+    public static SignInResponse successLogin(User user, AuthenticationToken token) {
         SignInResponse response = new SignInResponse();
-
-        response.token = token;
+        response.token = token.getToken();
         response.user = UserResponse.from(user);
         response.status = LoginStatus.SUCCESS;
-
         return response;
     }
 
@@ -38,9 +37,7 @@ public class SignInResponse {
      */
     public static SignInResponse failedLogin(LoginStatus status) {
         SignInResponse response = new SignInResponse();
-
         response.status = status;
-
         return response;
     }
 }

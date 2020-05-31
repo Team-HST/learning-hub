@@ -13,7 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -41,7 +42,7 @@ public class UserServiceTest {
 
 	// 테스트 유저 회원가입 요청
 	private SignUpRequest createSignUpRequest() {
-		return SignUpRequest.builder()
+		return SignUpRequest.SignUpBuilder()
 				.id("gusrb0808")
 				.name("이현규")
 				.password("hst!!!")
