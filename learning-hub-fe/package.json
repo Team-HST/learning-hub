@@ -28,7 +28,8 @@
     "vue-window-modal": "git+https://github.com/ropbla9/vue-window-modal.git",
     "vuejs-countdown": "^0.2.1",
     "vuetify": "^2.2.29",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.0",

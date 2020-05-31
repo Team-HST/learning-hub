@@ -27,7 +27,7 @@
          <div class="col-sm-6 offset-md-1">
            <div class="home-right">
              <!-- Tile js start -->
-             <Tile :image = '"mobile.png"'/>
+             <!-- <tilt :image = '"mobile.png"'/> -->
              <!-- Tile js end -->
            </div>
          </div>
@@ -42,8 +42,20 @@
 </template>
   
 <script>
-  export default {
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState('code', ['codeMap'])
+  },
+  created() {
+    this.initCodeMap();
+    console.log(this.codeMap['user-roles'])
+  },
+  methods: {
+    ...mapActions('code', ['initCodeMap'])
   }
+}
 </script>
 
 <style>
