@@ -21,7 +21,7 @@ import java.util.Set;
  * @author dlgusrb0808@gmail.com
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "user")
 @Getter
 @ToString
 @NoArgsConstructor
@@ -31,29 +31,29 @@ public class User extends BaseTimeEntity implements UserDetails, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_NO")
+	@Column(name = "user_no")
 	private Long no;
 
-	@Column(name = "USER_ID")
+	@Column(name = "user_id")
 	private String id;
 
 	@Column(name = "USER_NM")
 	private String name;
 
-	@Column(name = "USER_PWD")
+	@Column(name = "user_pwd")
 	private String password;
 
-	@Column(name = "USER_BIRTH")
+	@Column(name = "user_birth")
 	private LocalDateTime birthDate;
 
-	@Column(name = "USER_ROLE_CD")
+	@Column(name = "user_role_cd")
 	@Convert(converter = UserRole.Converter.class)
 	private UserRole roleType;
 
-	@Column(name = "USER_JOIN_CD")
+	@Column(name = "user_join_cd")
 	private String joinType;
 
-	@Column(name = "DEL_YN")
+	@Column(name = "del_yn")
 	private boolean deleted;
 
 	@Transient

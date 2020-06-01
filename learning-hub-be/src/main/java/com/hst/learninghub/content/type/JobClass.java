@@ -1,6 +1,10 @@
 package com.hst.learninghub.content.type;
 
+import com.hst.learninghub.common.converter.EnumAttributeConverter;
 import com.hst.learninghub.common.type.PersistableType;
+import com.hst.learninghub.utils.EnumUtils;
+
+import java.util.Map;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -20,6 +24,8 @@ public enum JobClass implements PersistableType<String> {
 	EDUCATION("J012", "교육", "교육 카테고리"),
 	SERVICE("J013", "서비스", "서비스 카테고리")
 	;
+
+	private static final Map<String, JobClass> FINDER = EnumUtils.asMap(JobClass.class);
 
 	private String code;
 	private String codeName;
@@ -44,5 +50,15 @@ public enum JobClass implements PersistableType<String> {
 	@Override
 	public String getDescription() {
 		return description;
+	}
+
+	public static JobClass get(String code) {
+		return FINDER.get(code);
+	}
+
+	public static class Converter extends EnumAttributeConverter<JobClass, String> {
+		public Converter() {
+			super(JobClass.class, false);
+		}
 	}
 }

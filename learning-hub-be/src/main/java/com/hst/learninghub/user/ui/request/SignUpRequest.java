@@ -1,6 +1,5 @@
 package com.hst.learninghub.user.ui.request;
 
-import com.hst.learninghub.user.type.UserRole;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;

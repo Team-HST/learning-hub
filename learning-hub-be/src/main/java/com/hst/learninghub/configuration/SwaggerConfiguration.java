@@ -1,10 +1,15 @@
 package com.hst.learninghub.configuration;
 
+import com.fasterxml.classmate.TypeResolver;
+import com.hst.learninghub.common.ui.request.PaginationRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -23,16 +28,23 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@RequiredArgsConstructor
 public class SwaggerConfiguration {
 	public static final String DEV_TOOLS_API_TAG = "0. Dev Tools APIs";
 	public static final String CODE_API_TAG = "1. Code APIs";
 	public static final String USER_API_TAG = "2. User APIs";
+	public static final String CONTENT_API_TAG = "3. Content APIs";
+
+	private final TypeResolver typeResolver;
 
 	@Bean
 	public Docket api() {
 		List<Parameter> params = createGlobalParameters();
 
 		return new Docket(DocumentationType.SWAGGER_2)
+				.alternateTypeRules(
+					AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(PaginationRequest.class))
+				)
 				.globalOperationParameters(params)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.hst.learninghub"))
@@ -41,7 +53,8 @@ public class SwaggerConfiguration {
 				.tags(
 					new Tag(DEV_TOOLS_API_TAG, "개발자 편의 기능 제공 API", 1),
 					new Tag(CODE_API_TAG, "전체 시스템에서 사용하는 코드 관련 API", 2),
-					new Tag(USER_API_TAG, "회원(사용자) 관련 API", 3)
+					new Tag(USER_API_TAG, "회원(사용자) 관련 API", 3),
+					new Tag(CONTENT_API_TAG, "컨텐츠 관련 API", 4)
 				)
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false);
