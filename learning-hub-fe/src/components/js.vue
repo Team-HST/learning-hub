@@ -1,6 +1,5 @@
 <template>
-    <div>
-    <div></div>
+  <div>
     <div id="fb-root"></div>
     <div class="fb-customerchat"
          attribution=setup_tool
@@ -9,7 +8,7 @@
          logged_in_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?"
          logged_out_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?">
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import $ from 'jquery'

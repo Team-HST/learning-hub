@@ -5,23 +5,10 @@
     <div class="page-margin">
 
       <!--breadcrumb start-->
-      <div class="breadcrumb-bg">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-text-center d-align-center">
-              <h2 class="title"><span>FAQ</span></h2>
-            </div>
-            <div class="col-md-6 col-sm-6 col-text-center">
-              <nav aria-label="breadcrumb" class="blog-bradcrumb ">
-                <ol class="breadcrumb bg-transparent mb-0">
-                  <li class="breadcrumb-item"><a :href='"/tovo"'>Home</a></li>
-                  <li class="breadcrumb-item active"><a href="#">FAQ</a></li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Breadcrumb 
+        title="FAQ"
+        v-bind:breadcrumb="breadcrumb"
+      />
       <!--breadcrumb end -->
 
       <!-- sign in -->
@@ -97,5 +84,13 @@
 
 export default {
   name: 'Faq',
+  data() {
+    return {
+      breadcrumb: [
+        {name: '홈', to: '/'},
+        {name: 'FAQ', to: '/faq'}
+      ]
+    }
+  }
 }
 </script>

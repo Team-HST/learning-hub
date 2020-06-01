@@ -1,9 +1,21 @@
 import axios from 'axios';
+// import store from '@/modules/store'
+// import { StringUtils } from '@/utils/common'
+
+// token 검사 목록
+// const authAPI = [''];
 
 /**
  * @description axios inteceptor reqeust 처리
  */
 axios.interceptors.request.use((config) => {
+  // 로그인 유저 token 조회
+  // const token = store.getters['user/getUserToken'];
+
+  // if (StringUtils.isNotEmpty(token)) {
+  //   config.headers.Authorization = `Bearer ${token}`
+  // }
+  
   return config;
 }, (error) => {
   return Promise.reject(error);

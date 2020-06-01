@@ -7,10 +7,13 @@ import Js from '@/components/js'
 import Home from '@/page/home'
 import SignIn from '@/page/sign_in'
 import SignUp from '@/page/sign_up'
-import Content from '@/page/contentList'
+import Content from '@/page/content'
 import ContentForm from '@/page/contentForm'
 import Faq from '@/page/faq'
-import ContentLeftside from '@/components/content_leftside'
+import ContentList from '@/components/contents/content_list'
+import ContentListItem from '@/components/contents/content_list_item';
+import ContentLeftside from '@/components/contents/content_leftside'
+import Breadcrumb from '@/components/common/breadcrumb'
 
 Vue.component('Navbar', Navbar) // 상단 메뉴 컴포넌트
 Vue.component('About', About)
@@ -21,6 +24,9 @@ Vue.component('SingUp', SignUp)
 Vue.component('Faq', Faq)
 Vue.component('ContentForm', ContentForm)
 Vue.component('ContentLeftside', ContentLeftside)
+Vue.component('ContentListItem', ContentListItem)
+Vue.component('ContentList', ContentList)
+Vue.component('Breadcrumb', Breadcrumb)
 Vue.use(Router)
 
 export default new Router({

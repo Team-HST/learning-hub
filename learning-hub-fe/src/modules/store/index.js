@@ -5,12 +5,14 @@ import createPersistedState from 'vuex-persistedstate'
 
 import user from './domain/user'
 import code from './domain/code'
+import content from './domain/content'
 
 Vue.use(Vuex)
 
 const modules = {
   user,
-  code
+  code,
+  content
 };
 
 const plugins = [
