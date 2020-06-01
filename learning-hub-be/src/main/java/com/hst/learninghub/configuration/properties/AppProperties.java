@@ -8,10 +8,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AppProperties {
 
     private Auth auth;
+    private Scheduler scheduler;
 
     @Data
     public static class Auth {
         private String tokenSecret;
         private long expirDate;
+    }
+
+    @Data
+    public static class Scheduler {
+        private int poolSize;
     }
 }

@@ -9,6 +9,8 @@ app:
   auth:
     tokenSecret: Us#2lesf0237Eq
     expirTime: 86400
+  scheduler:
+    poolSize: 5
 spring:
   output:
     ansi:
