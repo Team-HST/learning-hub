@@ -34,22 +34,6 @@
           </ul>
         </div>
       </div>
-      <div class="sidebar-space">
-        <h4 class="blog-title">Popular Tag</h4>
-        <div class="blog-divider"></div>
-        <div class="tags marg-20">
-          <a href="#"><span class="badge badge-theme">Responsive design</span></a>
-          <a href="#"><span class="badge badge-theme">Color options</span></a>
-          <a href="#"><span class="badge badge-theme">Multiple demos</span></a>
-          <a href="#"><span class="badge badge-theme">Dedicated support</span></a>
-          <a href="#"><span class="badge badge-theme">Documentation</span></a>
-          <a href="#"><span class="badge badge-theme">PSD is included</span></a>
-          <a href="#"><span class="badge badge-theme">Text</span></a>
-          <a href="#"><span class="badge badge-theme">Support</span></a>
-          <a href="#"><span class="badge badge-theme">Responsive</span></a>
-          <a href="#"><span class="badge badge-theme">Design</span></a>
-        </div>
-      </div>
       <h4 class="blog-title">Recent Post</h4>
       <div class="blog-divider"></div>
       <div class="recent-blog marg-20">
