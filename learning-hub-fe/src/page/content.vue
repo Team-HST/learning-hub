@@ -57,7 +57,7 @@
 </template>
 <script>
 export default {
-  name: 'contentList',
+  name: 'content',
   data () {
     return {
       breadcrumb: [

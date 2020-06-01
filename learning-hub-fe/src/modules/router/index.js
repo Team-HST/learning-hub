@@ -5,8 +5,8 @@ import Navbar from '@/components/navbar'
 import About from '@/components/about'
 import Js from '@/components/js'
 import Home from '@/page/home'
-import SignIn from '@/page/sign_in'
-import SignUp from '@/page/sign_up'
+import Login from '@/page/login'
+import Join from '@/page/join'
 import Content from '@/page/content'
 import ContentForm from '@/page/contentForm'
 import Faq from '@/page/faq'
@@ -15,19 +15,19 @@ import ContentListItem from '@/components/contents/content_list_item';
 import ContentLeftside from '@/components/contents/content_leftside'
 import Breadcrumb from '@/components/common/breadcrumb'
 
+Vue.use(Router)
 Vue.component('Navbar', Navbar) // 상단 메뉴 컴포넌트
 Vue.component('About', About)
 Vue.component('Js', Js)
 Vue.component('Home', Home)
-Vue.component('SignIn', SignIn)
-Vue.component('SingUp', SignUp)
+Vue.component('Join', Join)
+Vue.component('Login', Login)
 Vue.component('Faq', Faq)
 Vue.component('ContentForm', ContentForm)
 Vue.component('ContentLeftside', ContentLeftside)
 Vue.component('ContentListItem', ContentListItem)
 Vue.component('ContentList', ContentList)
 Vue.component('Breadcrumb', Breadcrumb)
-Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -41,18 +41,14 @@ export default new Router({
       }
     },
     {
-      path: '/signIn',
-      name: 'signIn',
-      components: {
-        default: SignIn
-      }
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/join',
-      name: 'register',
-      components: {
-        default: SignUp
-      }
+      name: 'Join',
+      component: Join
     },
     {
       path: '/contents',
