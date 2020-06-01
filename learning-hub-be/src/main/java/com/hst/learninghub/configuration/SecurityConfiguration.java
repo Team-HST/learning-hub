@@ -31,8 +31,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //			"/**"
 	};
 
-	private final UserService userService;
-
 	@Bean
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
