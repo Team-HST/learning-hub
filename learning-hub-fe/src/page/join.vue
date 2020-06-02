@@ -12,37 +12,62 @@
         <div class="theme-form">
           <div class="form-group">
             <div class="md-fgrup-margin">
-              <input type="text" class="form-control" placeholder="아이디를 입력하세요." required="required">
+              <input 
+                type="text" class="form-control" 
+                placeholder="아이디를 입력하여 주세요." required="required"
+                v-model="join.id"
+              />
             </div>
           </div>
           <div class="form-group">
             <input 
               type="txet" class="form-control" 
+              placeholder="이름을 입력하여 주세요." required="required"
+              v-model="join.name"
+            />
+          </div>
+          <div class="form-group">
+            <input 
+              type="txet" class="form-control" required="required"
               placeholder="생년월일을 입력하여 주세요. 예) 1964-10-30"
-              required="required">
+              v-model="join.birthDate"
+            />
           </div>
           <div class="form-group">
             <input 
               :type="showPassword ? 'password' : 'text'" required="" 
-              class="form-control" placeholder="비밀번호를 입력하세요.">
+              class="form-control" placeholder="비밀번호를 입력하세요."
+              v-model="join.password"
+            />
             <div v-on:click="showPassword = !showPassword" class="show-hide">
               <span :class="{show:showPassword}"></span>
             </div>
           </div>
           <div class="form-group">
             <input 
-              :type="showConfirmPassword ? 'password' : 'text'" required="required" 
-              name="login[conform_password]" class="form-control" placeholder="비밀번호를 한번 더 입력하세요.">
+              :type="showConfirmPassword ? 'password' : 'text'" 
+              name="login[conform_password]" class="form-control" 
+              placeholder="비밀번호를 한번 더 입력하세요." required="required" 
+              v-model="join.confirmPassword"
+            />
             <div v-on:click="showConfirmPassword = !showConfirmPassword" class="show-hide">
               <span :class="{show:showConfirmPassword}"></span>
             </div>
           </div>
-          <div class="form-group row">
-            <div class="custom-control custom-checkbox col-6">
-              <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-              <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
-            </div>
-            <a :href='"/tovo/forget-Password"' class="text-right col-6 theme-link">lost your password</a>
+          <div class="form-group text-center">
+            <b-form-radio-group
+              id="btn-radios-1"
+              v-model="join.roleType"
+              :options="roleRadioOptions"
+              buttons
+              name="radios-btn-default"
+            ></b-form-radio-group>
+            <!-- <b-form-radio-group
+              v-model="join.roleType"
+              :options="roleRadioOptions"
+              plain
+              name="radios-btn-default"
+            ></b-form-radio-group> -->
           </div>
           <div class="form-button text-center">
             <button type="submit" class="btn btn-custom theme-color">회원가입</button>
@@ -62,7 +87,19 @@ export default {
   data () {
     return {
       showPassword: true,
-      showConfirmPassword: true
+      showConfirmPassword: true,
+      join: {
+        id: '',
+        name: '',
+        birthDate: '',
+        password: '',
+        confirmPassword: '',
+        roleType: 'U001'
+      },
+      roleRadioOptions: [
+        { text: '오팔회원', value: 'U001' },
+        { text: '일반회원', value: 'U002' }
+      ]
     }
   },
   methods: {
@@ -70,3 +107,13 @@ export default {
   }
 }
 </script>
+
+<style>
+  .btn {
+    background-color: #FCCC5B !important
+  }
+
+  .btn.active {
+    background-color: #18e7d3 !important
+  }
+</style>
