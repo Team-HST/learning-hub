@@ -42,12 +42,12 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
       path: '/join',
-      name: 'Join',
+      name: 'join',
       component: Join
     },
     {
