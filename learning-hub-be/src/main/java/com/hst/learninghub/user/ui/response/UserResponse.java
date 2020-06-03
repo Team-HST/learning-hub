@@ -28,7 +28,7 @@ public class UserResponse {
 		response.no = entity.getNo();
 		response.id = entity.getId();
 		response.name = entity.getName();
-		response.birthDate = entity.getBirthDate().toLocalDate();
+		response.birthDate = entity.getBirthDate();
 		response.roleType = entity.getRoleType().getCode();
 
 		return response;

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -43,7 +43,7 @@ public class User extends BaseTimeEntity implements UserDetails, Serializable {
 	private String password;
 
 	@Column(name = "user_birth")
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 
 	@Column(name = "user_role_cd")
 	@Convert(converter = UserRole.Converter.class)
