@@ -15,6 +15,7 @@
               <input 
                 type="text" class="form-control" 
                 placeholder="아이디를 입력하여 주세요." required="required"
+                maxlength=29
                 v-model="join.id"
               />
             </div>
@@ -23,13 +24,14 @@
             <input 
               type="txet" class="form-control" 
               placeholder="이름을 입력하여 주세요." required="required"
+              maxlength=49
               v-model="join.name"
             />
           </div>
           <div class="form-group">
             <input 
               type="txet" class="form-control" required="required"
-              placeholder="생년월일을 입력하여 주세요. 예) 1964-10-30"
+              placeholder="생년월일을 입력하여 주세요. 예) 1964-01-10"
               v-model="join.birthDate"
             />
           </div>
@@ -70,7 +72,10 @@
             ></b-form-radio-group> -->
           </div>
           <div class="form-button text-center">
-            <button type="submit" class="btn btn-custom theme-color">회원가입</button>
+            <button 
+              type="button" class="btn btn-custom theme-color" 
+              @click="clickJoinBtn">회원가입
+            </button>
           </div>
         </div>
       </div>
@@ -81,6 +86,8 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { userService } from '@/lib/axios/service'
+import * as HttpConstants from '@/constants/HttpConstants'
 
 export default {
   name: 'join',
@@ -103,7 +110,38 @@ export default {
     }
   },
   methods: {
-    // pattern="/^\d{4}-\d{1,2}-\d{1,2}$/" 생년월일 정규식
+    clickJoinBtn: async function() {
+      if (!this.validUserJoinInfo()) return
+      
+      const response = await userService.userJoin(this.join)
+
+      if (response.status === HttpConstants.HTTP_SUCCESS_CDOE)
+      alert('회원가입이 정상적으로 처리되었습니다.')
+      this.$router.push('/join')
+    },
+    validUserJoinInfo: function() {
+      const { id, name, birthDate, password, confirmPassword } = this.join
+      const birthDateRegex = /^\d{4}-\d{2}-\d{2}$/
+
+      if (id.length === 0) {
+        alert("아이디를 입력하세요.")
+        return false
+      } else if (name.length === 0) {
+        alert("이름을 입력하세요.")
+        return false
+      } else if (!birthDateRegex.test(birthDate)) {
+        alert("생년월일을 정확하게 입력하여 주세요.")
+        return false
+      } else if (password.length === 0) {
+        alert("비밀번호를 입력하여 주세.");
+        return false
+      } else if (password !== confirmPassword) {
+        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
+        return false
+      } 
+
+      return true
+    }
   }
 }
 </script>

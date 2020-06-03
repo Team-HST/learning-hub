@@ -7,8 +7,11 @@ const userService = {
           return response.data;
       })
   }, 
-  signIn: (userInfo) => {
-      return http.post('/api/users/sign-in', userInfo)            
+  userLogin: (userInfo) => {
+    return http.post('/api/users/sign-in', userInfo)            
+  },
+  userJoin: (joinInfo) => {
+    return http.post('/api/user/sign-up', joinInfo)
   }
 }
 
