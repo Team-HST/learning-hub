@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
 				.id(request.getId())
 				.name(request.getName())
 				.password(passwordEncoder.encode(request.getPassword()))
-				.birthDate(request.getBirthDate().atStartOfDay())
+				.birthDate(request.getBirthDate())
 				.roleType(UserRole.get(request.getRoleType()))
 				.deleted(false)
 				.build();
