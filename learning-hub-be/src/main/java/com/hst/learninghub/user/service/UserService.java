@@ -37,12 +37,13 @@ public class UserService implements UserDetailsService {
 	}
 
 	public UserResponse signUp(SignUpRequest request) {
-		User user = User.SignUpBuilder()
+		User user = User.builder()
 				.id(request.getId())
 				.name(request.getName())
 				.password(passwordEncoder.encode(request.getPassword()))
-				.birthDate(request.getBirthDate())
+				.birthDate(request.getBirthDate().atStartOfDay())
 				.roleType(UserRole.get(request.getRoleType()))
+				.deleted(false)
 				.build();
 		userRepository.save(user);
 		return UserResponse.from(user);

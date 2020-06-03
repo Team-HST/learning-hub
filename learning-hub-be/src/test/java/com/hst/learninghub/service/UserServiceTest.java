@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -46,7 +46,7 @@ public class UserServiceTest {
 				.id("gusrb0808")
 				.name("이현규")
 				.password("hst!!!")
-				.birthDate(LocalDateTime.of(1992, 8, 8, 20, 0))
+				.birthDate(LocalDate.of(1992, 8, 8))
 				.roleType(UserRole.NORMAL.getCode())
 				.build();
 	}

@@ -2,10 +2,7 @@ package com.hst.learninghub.user.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
 import com.hst.learninghub.user.type.UserRole;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +21,9 @@ import java.util.Set;
 @Table(name = "user")
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User extends BaseTimeEntity implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,19 +53,10 @@ public class User extends BaseTimeEntity implements UserDetails, Serializable {
 	private String joinType;
 
 	@Column(name = "del_yn")
-	private boolean deleted;
+	private Boolean deleted;
 
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
-
-	@Builder(builderClassName = "SignUpBuilder", builderMethodName = "SignUpBuilder")
-	public User(String id, String name, String password, LocalDateTime birthDate, UserRole roleType) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.birthDate = birthDate;
-		this.roleType = roleType;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -4,7 +4,7 @@ import com.hst.learninghub.user.entity.User;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -15,7 +15,7 @@ public class UserResponse {
 	private Long no;
 	private String id;
 	private String name;
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 	private String roleType;
 
 	/***
@@ -28,7 +28,7 @@ public class UserResponse {
 		response.no = entity.getNo();
 		response.id = entity.getId();
 		response.name = entity.getName();
-		response.birthDate = entity.getBirthDate();
+		response.birthDate = entity.getBirthDate().toLocalDate();
 		response.roleType = entity.getRoleType().getCode();
 
 		return response;
