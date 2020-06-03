@@ -1,0 +1,5 @@
+export const HTTP_SUCCESS_CDOE = 200;
+export const HTTP_FAIL_CDOE = 400;
+export const HTTP_NOTFOUND_ERROR_CDOE = 404;
+export const HTTP_SERVER_INTERNAL_ERROR_CDOE = 500;
+

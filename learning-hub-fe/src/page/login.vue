@@ -60,7 +60,7 @@
       ...mapMutations(['setUserInfo']),
       ...mapActions('user', ['signIn']),
       clickLoginBtn: function() {
-        this.signIn(this.userInfo)
+        this.userLogin(this.userInfo)
       },
       clickToJoinBtn: function() {
         this.$router.push('/join')
