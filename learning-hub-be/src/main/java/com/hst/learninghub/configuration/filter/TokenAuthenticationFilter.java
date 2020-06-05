@@ -1,6 +1,7 @@
 package com.hst.learninghub.configuration.filter;
 
-import com.hst.learninghub.authentication.JwtAuthenticationTokenProvider;
+import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
+import com.hst.learninghub.authentication.provider.JwtAuthenticationTokenProvider;
 import com.hst.learninghub.common.exception.ForbiddenException;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.service.UserService;
@@ -24,7 +25,7 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtAuthenticationTokenProvider authenticationTokenProvider;
+	private AuthenticationTokenProvider authenticationTokenProvider;
 
 	@Autowired
 	private UserService userService;

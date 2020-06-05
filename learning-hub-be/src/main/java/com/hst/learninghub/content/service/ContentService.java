@@ -4,6 +4,7 @@ import com.hst.learninghub.content.entity.Content;
 import com.hst.learninghub.content.entity.specs.ContentSpecifications;
 import com.hst.learninghub.content.repository.ContentRepository;
 import com.hst.learninghub.content.type.JobClass;
+import com.hst.learninghub.content.ui.response.ContentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,9 @@ public class ContentService {
 	 * @param pageable 페이징
 	 * @return 검색결과
 	 */
-	public List<Content> searchContents(JobClass jobClass, String title, Pageable pageable) {
+	public List<ContentResponse> searchContents(JobClass jobClass, String title, Pageable pageable) {
 		Specification<Content> searchSpec = ContentSpecifications.byJobClassAndTitle(jobClass, title);
 		Page<Content> searchResult = contentRepository.findAll(searchSpec, pageable);
-		return searchResult.getContent();
+		return searchResult.map(ContentResponse::from).getContent();
 	}
 }

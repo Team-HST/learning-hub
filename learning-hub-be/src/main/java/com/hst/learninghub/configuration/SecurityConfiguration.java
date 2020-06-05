@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/",
 			"/favicon.ico",
 			"/error",
-			"/user/sign-in",
-			"/user/sign-up",
+			"/users/sign-in",
+			"/users/sign-up",
 //			"/**"
 	};
 

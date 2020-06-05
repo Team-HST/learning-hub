@@ -6,18 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
-
-    private Auth auth;
-    private Scheduler scheduler;
-
-    @Data
-    public static class Auth {
-        private String tokenSecret;
-        private long expiredMs;
-    }
-
-    @Data
-    public static class Scheduler {
-        private int poolSize;
-    }
+    private AuthProperties auth;
+    private SchedulerProperties scheduler;
 }

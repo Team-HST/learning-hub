@@ -1,8 +1,7 @@
 package com.hst.learninghub.user.ui.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.hst.learninghub.authentication.AuthenticationToken;
+import com.hst.learninghub.authentication.model.AuthenticationToken;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.type.LoginStatus;
 import lombok.Getter;

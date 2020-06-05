@@ -21,7 +21,7 @@ public class BooleanAttributeConverter implements AttributeConverter<Boolean, St
 
 	@Override
 	public Boolean convertToEntityAttribute(String yn) {
-		if (StringUtils.equalsAny(yn, YES, NO)) {
+		if (!StringUtils.equalsAny(yn, YES, NO)) {
 			String msg = String.format("Not supported character %s. Only \"Y\" or \"N\"", yn);
 			throw new IllegalStateException(msg);
 		}

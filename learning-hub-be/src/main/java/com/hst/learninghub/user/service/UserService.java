@@ -1,7 +1,8 @@
 package com.hst.learninghub.user.service;
 
-import com.hst.learninghub.authentication.AuthenticationToken;
-import com.hst.learninghub.authentication.JwtAuthenticationTokenProvider;
+import com.hst.learninghub.authentication.model.AuthenticationToken;
+import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
+import com.hst.learninghub.authentication.provider.JwtAuthenticationTokenProvider;
 import com.hst.learninghub.common.exception.NotFoundException;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.repository.UserRepository;
@@ -28,11 +29,11 @@ public class UserService implements UserDetailsService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final JwtAuthenticationTokenProvider jwtTokenProvider;
+	private final AuthenticationTokenProvider authenticationTokenProvider;
 
-	public UserService(UserRepository userRepository, JwtAuthenticationTokenProvider jwtTokenProvider) {
+	public UserService(UserRepository userRepository, AuthenticationTokenProvider authenticationTokenProvider) {
 		this.userRepository = userRepository;
-		this.jwtTokenProvider = jwtTokenProvider;
+		this.authenticationTokenProvider = authenticationTokenProvider;
 		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
@@ -65,7 +66,7 @@ public class UserService implements UserDetailsService {
 			return SignInResponse.failedLogin(LoginStatus.INVALID_PASSWORD);
 		}
 
-		AuthenticationToken token = jwtTokenProvider.issue(user.getNo());
+		AuthenticationToken token = authenticationTokenProvider.issue(user.getNo());
 		return SignInResponse.successLogin(user, token);
 	}
 

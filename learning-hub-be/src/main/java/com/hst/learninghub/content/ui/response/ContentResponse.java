@@ -1,0 +1,31 @@
+package com.hst.learninghub.content.ui.response;
+
+import com.hst.learninghub.content.entity.Content;
+import com.hst.learninghub.user.ui.response.UserResponse;
+import lombok.Builder;
+import lombok.Getter;
+
+/**
+ * @author dlgusrb0808@gmail.com
+ */
+@Getter
+@Builder
+public class ContentResponse {
+	private Long no;
+	private String title;
+	private String contents;
+	private String jobClassType;
+	private Integer donationRatio;
+	private UserResponse registrant;
+
+	public static ContentResponse from(Content content) {
+		return builder()
+				.no(content.getNo())
+				.title(content.getTitle())
+				.contents(content.getContents())
+				.jobClassType(content.getJobClass().getCode())
+				.donationRatio(content.getDonationRatio())
+				.registrant(UserResponse.from(content.getRegistrant()))
+				.build();
+	}
+}
