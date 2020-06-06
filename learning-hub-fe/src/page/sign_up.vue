@@ -90,7 +90,7 @@ import { userService } from '@/lib/axios/service'
 import * as HttpConstants from '@/constants/HttpConstants'
 
 export default {
-  name: 'join',
+  name: 'sign_up',
   data () {
     return {
       showPassword: true,

@@ -2079,6 +2079,37 @@ iframe.video-play {
     .faq .card-header[aria-expanded="true"] a i:before {
       content: "\f106"; }
 
+      /*========================
+ 22. Faq Page
+==========================*/
+.content_create .card {
+  border-radius: 25px;
+  border-color: #f1f1f1; }
+.content_create .theme-form {
+  margin-top: 0px;
+}
+.content_create a i {
+  float: right;
+  transition: all 0.3s ease;
+  padding-top: 3px;
+  font-size: 20px; }
+.content_create .card-body {
+  line-height: 1.7; }
+.content_create .card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
+  padding: 15px 35px;
+  border-radius: 25px; }
+  .content_create .card-header a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #797979; }
+  .content_create .card-header[aria-expanded="true"] a {
+    color: #2bd4df; }
+    .content_create .card-header[aria-expanded="true"] a i:before {
+      content: "\f106"; }
+
 .thanks-section img {
   margin-bottom: 15px; }
 .thanks-section h2 {

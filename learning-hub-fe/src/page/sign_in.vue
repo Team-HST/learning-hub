@@ -46,7 +46,7 @@
   import { mapMutations, mapActions } from 'vuex'
 
   export default {
-    name: 'login',
+    name: 'sign_in',
     data () {
       return {
         userInfo: {
@@ -63,7 +63,7 @@
         this.userLogin(this.userInfo)
       },
       clickToJoinBtn: function() {
-        this.$router.push('/join')
+        this.$router.push('/signUp')
       }
     }
   }
