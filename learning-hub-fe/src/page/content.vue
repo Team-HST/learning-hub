@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  name: 'content',
+  name: 'Content',
   data () {
     return {
       breadcrumb: [

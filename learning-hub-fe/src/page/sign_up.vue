@@ -90,7 +90,7 @@ import { userService } from '@/lib/axios/service'
 import * as HttpConstants from '@/constants/HttpConstants'
 
 export default {
-  name: 'sign_up',
+  name: 'SignUp',
   data () {
     return {
       showPassword: true,
@@ -117,7 +117,7 @@ export default {
 
       if (response.status === HttpConstants.HTTP_SUCCESS_CDOE)
       alert('회원가입이 정상적으로 처리되었습니다.')
-      this.$router.push('/join')
+      this.$router.push('/sginIn')
     },
     validUserJoinInfo: function() {
       const { id, name, birthDate, password, confirmPassword } = this.join

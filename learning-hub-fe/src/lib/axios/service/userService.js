@@ -11,7 +11,7 @@ const userService = {
     return http.post('/api/users/sign-in', userInfo)            
   },
   userJoin: (joinInfo) => {
-    return http.post('/api/user/sign-up', joinInfo)
+    return http.post('/api/users/sign-up', joinInfo)
   }
 }
 

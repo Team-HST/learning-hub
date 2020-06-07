@@ -5,8 +5,7 @@ const state = {
   userInfo: {}
 }
 
-const getters = {
-  
+const getters = {  
   getUserToken: (state) => {
     return state.token;
   },
