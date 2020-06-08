@@ -4,6 +4,7 @@ import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
 import com.hst.learninghub.common.exception.ForbiddenException;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationFilter.class);
 
-	private final AuthenticationTokenProvider authenticationTokenProvider;
-
-	public TokenAuthenticationFilter(AuthenticationTokenProvider authenticationTokenProvider) {
-		this.authenticationTokenProvider = authenticationTokenProvider;
-	}
+	@Autowired
+	private AuthenticationTokenProvider authenticationTokenProvider;
 
 	@Autowired
 	private UserService userService;
@@ -39,7 +37,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		String token = getJwtFromRequest(request);
+		String token = authenticationTokenProvider.parseTokenString(request);
 		if (authenticationTokenProvider.validateToken(token)) {
 			Long userNo = authenticationTokenProvider.getTokenOwnerNo(token);
 			try {
@@ -53,15 +51,5 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 			}
 		}
 		filterChain.doFilter(request, response);
-	}
-
-
-	// HTTP 요청에서 인증토근 취득
-	private String getJwtFromRequest(HttpServletRequest request) {
-		String bearerToken = request.getHeader("Authorization");
-		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
-			return bearerToken.substring(7);
-		}
-		return null;
 	}
 }

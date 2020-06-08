@@ -35,9 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/users/sign-up"
 	};
 
-	@Autowired
-	public AuthenticationTokenProvider authenticationTokenProvider;
-
 	@Bean
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -81,11 +78,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		;
 
 		http.addFilterBefore(exceptionHandlingFilter(), CorsFilter.class);
-		http.addFilterBefore(new TokenAuthenticationFilter(authenticationTokenProvider), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Bean
 	public ExceptionHandlingFilter exceptionHandlingFilter() {
 		return new ExceptionHandlingFilter();
+	}
+
+	@Bean
+	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+		return new TokenAuthenticationFilter();
 	}
 }

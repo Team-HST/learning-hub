@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author hyungyu.lee@nhn.com
  */
@@ -18,6 +20,11 @@ public class FreepassAuthenticationTokenProvider implements AuthenticationTokenP
 
 	public FreepassAuthenticationTokenProvider(AppProperties appProperties) {
 		this.appProperties = appProperties;
+	}
+
+	@Override
+	public String parseTokenString(HttpServletRequest request) {
+		return request.getHeader("Authorization");
 	}
 
 	@Override

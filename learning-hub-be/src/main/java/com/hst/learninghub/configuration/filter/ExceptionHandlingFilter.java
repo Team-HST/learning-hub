@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,8 +27,8 @@ public class ExceptionHandlingFilter extends OncePerRequestFilter {
 		try {
 			filterChain.doFilter(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("Exception occur on filter", e);
+			String msg = String.format("Exception occur on filter on %s", request.getRequestURI());
+			LOGGER.error(msg, e);
 			sendErrorResponse(e, response);
 		}
 	}
