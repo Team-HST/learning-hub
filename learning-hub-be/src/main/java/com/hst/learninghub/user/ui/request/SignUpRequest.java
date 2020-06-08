@@ -16,8 +16,6 @@ public class SignUpRequest {
     @ApiModelProperty(position = 3, example = "이름")
     private String name;
     @ApiModelProperty(position = 4, example = "생년월일")
-//    @JsonFormat(pattern = "yyyy-MM-dd")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @ApiModelProperty(position = 5, example = "역할")
     private String roleType;

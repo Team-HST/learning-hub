@@ -3,6 +3,7 @@ package com.hst.learninghub.authentication.provider;
 import com.hst.learninghub.authentication.model.AuthenticationToken;
 import com.hst.learninghub.configuration.properties.AppProperties;
 import com.hst.learninghub.configuration.properties.AuthProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,7 @@ public class FreepassAuthenticationTokenProvider implements AuthenticationTokenP
 
 	@Override
 	public boolean validateToken(String token) {
-		return true;
+		return StringUtils.isNotEmpty(token);
 	}
 
 	private AuthProperties.FreepassProperties getFreePassProps() {

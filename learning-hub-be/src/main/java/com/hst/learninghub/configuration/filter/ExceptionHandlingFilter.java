@@ -26,6 +26,7 @@ public class ExceptionHandlingFilter extends OncePerRequestFilter {
 		try {
 			filterChain.doFilter(request, response);
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOGGER.error("Exception occur on filter", e);
 			sendErrorResponse(e, response);
 		}

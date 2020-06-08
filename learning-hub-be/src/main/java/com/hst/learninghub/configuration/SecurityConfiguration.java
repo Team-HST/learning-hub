@@ -1,17 +1,23 @@
 package com.hst.learninghub.configuration;
 
+import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
 import com.hst.learninghub.configuration.entrypoint.RestAuthenticationEntryPoint;
 import com.hst.learninghub.configuration.filter.ExceptionHandlingFilter;
 import com.hst.learninghub.configuration.filter.TokenAuthenticationFilter;
 import com.hst.learninghub.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
@@ -24,12 +30,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_URI = {
 			"/",
-			"/favicon.ico",
 			"/error",
 			"/users/sign-in",
-			"/users/sign-up",
-//			"/**"
+			"/users/sign-up"
 	};
+
+	@Autowired
+	public AuthenticationTokenProvider authenticationTokenProvider;
 
 	@Bean
 	@Override
@@ -39,8 +46,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**",
-				"/swagger-ui.html", "/webjars/**", "/swagger/**");
+		web.ignoring()
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+				.antMatchers("/v2/api-docs",
+						"/configuration/ui",
+						"/swagger-resources/**",
+						"/configuration/security",
+						"/swagger-ui.html",
+						"/webjars/**", "/csrf");
 	}
 
 	@Override
@@ -68,14 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		;
 
 		http.addFilterBefore(exceptionHandlingFilter(), CorsFilter.class);
-		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new TokenAuthenticationFilter(authenticationTokenProvider), UsernamePasswordAuthenticationFilter.class);
 	}
-
-	@Bean
-	public TokenAuthenticationFilter tokenAuthenticationFilter() {
-		return new TokenAuthenticationFilter();
-	}
-
 
 	@Bean
 	public ExceptionHandlingFilter exceptionHandlingFilter() {

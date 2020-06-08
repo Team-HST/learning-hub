@@ -12,8 +12,8 @@ import lombok.Setter;
 @Setter
 @ApiModel
 public class PaginationRequest {
-	@ApiModelProperty(value = "페이지 번호(0..N)")
+	@ApiModelProperty(value = "페이지 번호(0..N)", example = "0")
 	private int page;
-	@ApiModelProperty(value = "페이지 크기", allowableValues = "range[0, 100]")
+	@ApiModelProperty(value = "페이지 크기", example = "0", allowableValues = "range[0, 100]")
 	private int size;
 }
