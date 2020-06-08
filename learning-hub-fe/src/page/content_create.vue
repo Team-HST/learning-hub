@@ -43,8 +43,8 @@
                         v-model="jobSelected"
                       >
                         <template v-slot:first>
-                          <b-form-select-option :value="null" disabled
-                            >-- 직무분야를 선택하세요. --
+                          <b-form-select-option :value="null" disabled>
+                            -- 직무분야를 선택하세요. --
                           </b-form-select-option>
                         </template>
 
@@ -61,8 +61,8 @@
                         v-model="donRangeSelected"
                       >
                         <template v-slot:first>
-                          <b-form-select-option :value="null" disabled
-                            >-- 기부율을 선택하세요. --
+                          <b-form-select-option :value="null" disabled>
+                            -- 기부율을 선택하세요. --
                           </b-form-select-option>
                         </template>
 
@@ -74,15 +74,22 @@
                       </b-form-select>
                     </div>
                     <div class="form-group">
-                      <div class="form-row">
-                        <div class="col-4">
-                          <label for="file" class="btn btn-custom theme-color">파일찾기</label>
-                          <input type="file" id="file">
-                        </div>
-                        <div class="col-8">
-                          <input type="tel" value="파일을 선택하여 주세요." class="form-control digits mb-1">
-                        </div>
-                      </div>
+                      <CreateFileInput
+                        id="banner_file"
+                        :placeholder="this.bannerFile ? this.bannerFile.name : '배너이미지를 선택하여 주세요.'"
+                        btnText="파일찾기"
+                        accept="image/jpg, image/png"
+                        :change="changeBannerFile"
+                      ></CreateFileInput>
+                    </div>
+                    <div class="form-group">
+                      <CreateFileInput
+                        id="video_file"
+                        :placeholder="this.videoFile ? this.videoFile.name : '영상을 선택하여 주세요.'"
+                        btnText="파일찾기"
+                        accept="video/avi, video/mp4, video/mkv"
+                        :change="changeVideoFile"
+                      ></CreateFileInput>
                     </div>
                     <div class="form-button text-center">
                       <button 
@@ -116,6 +123,8 @@ export default {
     return {
       jobSelected: null,
       donRangeSelected: null,
+      bannerFile: null,
+      videoFile: null,
       breadcrumb: [
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'},
@@ -130,6 +139,25 @@ export default {
     clickContentCreate: function() {
       console.log(this.getCodeMap['job-classes'][0])
       alert('등록')
+    },
+    changeBannerFile: function(event) {
+      alert('banner')
+      const file = event.target.files
+
+      if (file.length > 0) {
+        this.bannerFile = file[0]
+      } else {
+        this.bannerFile = null
+      }
+    },
+    changeVideoFile: function(event) {
+      const file = event.target.files
+      
+      if (file.length > 0) {
+        this.videoFile = file[0]
+      } else {
+        this.videoFile = null
+      }
     }
   }
 }
@@ -137,23 +165,7 @@ export default {
 
 <style scoped>
 section {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.form-group label {
-  display: inline-block;
-  width: 100%;
-}
-
-.form-group input[type="file"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  padding-top: 19px;
+  padding-bottom: 19px;
 }
 </style>

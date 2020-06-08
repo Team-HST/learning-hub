@@ -12,7 +12,6 @@
                 <router-link :to="item.to">{{item.name}}</router-link>
               </li>
 
-
               <!-- <li class="breadcrumb-item"><router-link :to='"/tovo"'>Home</router-link></li>
               <li class="breadcrumb-item"><router-link :to='"/tovo/blog-list"'>Blog</router-link></li>
               <li class="breadcrumb-item active"><a href="#">Left Sidebar</a></li>  -->

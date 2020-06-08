@@ -117,7 +117,7 @@ export default {
 
       if (response.status === HttpConstants.HTTP_SUCCESS_CDOE)
       alert('회원가입이 정상적으로 처리되었습니다.')
-      this.$router.push('/sginIn')
+      this.$router.push('/signIn')
     },
     validUserJoinInfo: function() {
       const { id, name, birthDate, password, confirmPassword } = this.join
