@@ -42,18 +42,22 @@
 </template>
   
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex' 
 
 export default {
-  computed: {
-    ...mapState('code', ['codeMap'])
-  },
-  created() {
-    this.initCodeMap();
-    console.log(this.codeMap['user-roles'])
+  name: 'Home',
+    computed: {
+    ...mapGetters('code', ['getCodeMap', 'getIsCodeSetting'])
   },
   methods: {
-    ...mapActions('code', ['initCodeMap'])
+    ...mapActions('code', ['initCodeMap']),
+    ...mapMutations('code', ['setIsCodeSetting'])
+  },
+  mounted () {
+    if (!this.getIsCodeSetting) {
+      this.initCodeMap();
+      this.setIsCodeSetting(true);
+    }
   }
 }
 </script>

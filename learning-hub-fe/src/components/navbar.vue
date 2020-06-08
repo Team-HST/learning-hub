@@ -13,7 +13,7 @@
           <b-dropdown-item class="nav-link"  :href='"profile"'>프로필</b-dropdown-item>
           <b-dropdown-item class="nav-link"  :to="{name:'myDonation'}" >기부금 관리</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item class="nav-link" :href='"/login"'>로그인</b-nav-item>
+        <b-nav-item class="nav-link" :href='"/signIn"'>로그인</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
     </div>

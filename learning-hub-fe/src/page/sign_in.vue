@@ -27,11 +27,11 @@
             <a :href='"/tovo/forget-Password"' class="text-right col-6 theme-link">lost your password</a>
           </div>
           <div class="form-button text-center">
-            <button type="button" @click="clickLoginBtn" class="btn btn-custom btn-lg theme-color">로그인</button>
+            <button type="button" @click="clickSignInBtn" class="btn btn-custom btn-lg theme-color">로그인</button>
           </div>
           <div class="or-saparator"><span>or</span></div>
           <div class="form-button text-center">
-            <button type="button" @click="clickToJoinBtn" class="btn btn-custom btn-lg theme-color">회원가입</button>
+            <button type="button" @click="clickToSignUpBtn" class="btn btn-custom btn-lg theme-color">회원가입</button>
           </div>
         </form>
       </div>
@@ -46,7 +46,7 @@
   import { mapMutations, mapActions } from 'vuex'
 
   export default {
-    name: 'login',
+    name: 'SignIn',
     data () {
       return {
         userInfo: {
@@ -59,11 +59,11 @@
     methods: {
       ...mapMutations(['setUserInfo']),
       ...mapActions('user', ['signIn']),
-      clickLoginBtn: function() {
-        this.userLogin(this.userInfo)
+      clickSignInBtn: function() {
+        this.signIn(this.userInfo)
       },
-      clickToJoinBtn: function() {
-        this.$router.push('/join')
+      clickToSignUpBtn: function() {
+        this.$router.push('/signUp')
       }
     }
   }

@@ -38,7 +38,7 @@
               </nav>
             </div>
             <div class="col-md-2 ml-auto">
-              <button type="button" class="btn btn-custom theme-color" @click="moveContentForm">등록하기</button>
+              <button type="button" class="btn btn-custom theme-color" @click="clickToContentCreate">등록하기</button>
             </div>
             <!-- paginations end-->
           </div>
@@ -55,9 +55,10 @@
     <!-- blog Section end -->
   </div>
 </template>
+
 <script>
 export default {
-  name: 'content',
+  name: 'Content',
   data () {
     return {
       breadcrumb: [
@@ -67,8 +68,8 @@ export default {
     }
   },
   methods: {
-    moveContentForm : function () {
-      this.$router.push('contentForm');
+    clickToContentCreate : function () {
+      this.$router.push('/contentCreate');
     }
   }
 }
