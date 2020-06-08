@@ -6,6 +6,7 @@ import com.hst.learninghub.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -45,4 +46,7 @@ public class Content extends BaseTimeEntity {
 	@ManyToOne
 	@JoinColumn(name = "reg_user_no")
 	private User registrant;
+
+	@OneToMany(mappedBy = "id.contentNo")
+	private List<ContentFile> contentFiles;
 }
