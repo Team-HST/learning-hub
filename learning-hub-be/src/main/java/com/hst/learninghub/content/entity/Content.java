@@ -3,9 +3,7 @@ package com.hst.learninghub.content.entity;
 import com.hst.learninghub.common.entity.BaseTimeEntity;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.user.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,6 +15,8 @@ import javax.persistence.*;
 @Getter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Content extends BaseTimeEntity {
 
 	private static final long serialVersionUID = 1L;

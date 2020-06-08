@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author hyungyu.lee@nhn.com
+ * @author dlgusrb0808@gmail.com
  */
 @Component
 @ConditionalOnProperty(prefix = "app", name = "auth.freepass.enable", havingValue = "true")
