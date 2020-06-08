@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -22,6 +23,15 @@ public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvid
 
     public JwtAuthenticationTokenProvider(AppProperties appProperties) {
         this.appProperties = appProperties;
+    }
+
+    @Override
+    public String parseTokenString(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     @Override

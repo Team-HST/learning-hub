@@ -37,6 +37,11 @@ public class UserService implements UserDetailsService {
 		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
+	/**
+	 * 회원가입
+	 * @param request 회원가입 요청
+	 * @return 가입된 회원정보
+	 */
 	public UserResponse signUp(SignUpRequest request) {
 		User user = User.builder()
 				.id(request.getId())
@@ -70,17 +75,28 @@ public class UserService implements UserDetailsService {
 		return SignInResponse.successLogin(user, token);
 	}
 
+	/***
+	 * 회원정보 조회
+	 * @param userNo 회원 No
+	 * @return 회원정보
+	 */
+	public UserResponse getUser(long userNo) {
+		return UserResponse.from(getUserEntity(userNo));
+	}
+
+	/***
+	 * 회원정보 엔티티 조회
+	 * @param userNo
+	 * @return
+	 */
+	public User getUserEntity(long userNo) {
+		Optional<User> userOpts = userRepository.findById(userNo);
+		return userOpts.orElseThrow(() -> new NotFoundException("사용자", userNo));
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String no) throws UsernameNotFoundException {
 		return userRepository.findById(Long.valueOf(no))
 				.orElseThrow(() -> new UsernameNotFoundException(String.format("Not found id %s", no)));
-	}
-
-	public UserResponse getUser(long userNo) {
-		Optional<User> userOpts = userRepository.findById(userNo);
-		if (!userOpts.isPresent()) {
-			throw new NotFoundException("사용자", userNo);
-		}
-		return UserResponse.from(userOpts.get());
 	}
 }

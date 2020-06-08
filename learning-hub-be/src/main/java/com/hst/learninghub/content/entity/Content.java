@@ -3,11 +3,10 @@ package com.hst.learninghub.content.entity;
 import com.hst.learninghub.common.entity.BaseTimeEntity;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.user.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -17,6 +16,8 @@ import javax.persistence.*;
 @Getter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Content extends BaseTimeEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -45,4 +46,7 @@ public class Content extends BaseTimeEntity {
 	@ManyToOne
 	@JoinColumn(name = "reg_user_no")
 	private User registrant;
+
+	@OneToMany(mappedBy = "id.contentNo")
+	private List<ContentFile> contentFiles;
 }
