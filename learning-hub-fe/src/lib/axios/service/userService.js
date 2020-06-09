@@ -1,6 +1,9 @@
 import http from '../http';
  
-const userService = {
+/**
+ * 유저 관련 API 서비스
+ */
+export default {
   searchUserInfo: () => {
     return http.get('')
       .then(response => {
@@ -14,5 +17,3 @@ const userService = {
     return http.post('/api/users/sign-up', joinInfo)
   }
 }
-
-export default userService;

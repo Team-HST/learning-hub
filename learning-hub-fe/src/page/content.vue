@@ -19,26 +19,16 @@
             <!-- sidebar section -->
             <!-- paginations -->
             <div class="col-md-12">
-              <nav aria-label="Page navigation" class="blog-pagination">
-                <ul class="pagination justify-content-center blog-pagin">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <Page
+                totalCnt=100,
+                pageCnt=5
+              ></Page>
             </div>
             <div class="col-md-2 ml-auto">
-              <button type="button" class="btn btn-custom theme-color" @click="clickToContentCreate">등록하기</button>
+              <button 
+                type="button" class="btn btn-custom theme-color" 
+                @click="clickToContentCreate"
+              >등록하기</button>
             </div>
             <!-- paginations end-->
           </div>
