@@ -1,5 +1,6 @@
 package com.hst.learninghub.donation.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name="cont_donation")
 @ToString
+@Builder
 @NoArgsConstructor
 public class ContDonation {
     private static final long serialVersionUID = 1L;

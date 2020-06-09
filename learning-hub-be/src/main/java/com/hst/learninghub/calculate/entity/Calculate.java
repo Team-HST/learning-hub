@@ -2,6 +2,7 @@ package com.hst.learninghub.calculate.entity;
 
 import com.hst.learninghub.calculate.type.CalculateType;
 import com.hst.learninghub.common.entity.BaseTimeEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -18,6 +19,7 @@ import java.util.Collection;
 @Table(name = "calculate")
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
 public class Calculate extends BaseTimeEntity {
 
