@@ -1,11 +1,13 @@
 package com.hst.learninghub.content.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
-import com.hst.learninghub.content.type.ContentFileType;
+import com.hst.learninghub.file.entity.FileInfo;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -14,10 +16,6 @@ import javax.persistence.*;
 @Table(name = "cont_file")
 @Getter
 @ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class ContentFile extends BaseTimeEntity {
 	@EmbeddedId
 	private ContentFileId id;
@@ -25,7 +23,10 @@ public class ContentFile extends BaseTimeEntity {
 	@Column(name = "del_yn")
 	private Boolean deleted;
 
-	@Column(name = "content_file_type")
-	@Convert(converter = ContentFileType.Converter.class)
-	private ContentFileType fileType;
+	public static ContentFile of(Content content, FileInfo file) {
+		ContentFile contentFile = new ContentFile();
+		contentFile.id = ContentFileId.of(content, file);
+		contentFile.deleted = false;
+		return contentFile;
+	}
 }

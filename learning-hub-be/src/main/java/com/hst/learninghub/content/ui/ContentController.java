@@ -9,10 +9,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
 @RequestMapping("contents")
 @Api(tags = SwaggerConfiguration.CONTENT_API_TAG)
 @RequiredArgsConstructor
+@Slf4j
 public class ContentController {
 
 	private final ContentService contentService;
@@ -39,14 +42,13 @@ public class ContentController {
 
 	@ApiOperation(value = "컨텐츠 등록", notes = "컨텐츠를 등록합니다.")
 	@PostMapping
-	public ResponseEntity<ContentResponse> createContent(@RequestBody ContentModifyingRequest request) {
+	public ResponseEntity<ContentResponse> createContent(
+			ContentModifyingRequest request,
+		 	@RequestParam(name = "thumbnail", required = false) MultipartFile thumbnail,
+			@RequestParam(name = "mainContent") MultipartFile mainContent) throws Exception {
+		request.setThumbnail(thumbnail);
+		request.setMailContent(mainContent);
 		ContentResponse response = contentService.createContent(request);
 		return ResponseEntity.ok(response);
 	}
-
-	@ApiOperation(value = "컨텐츠 썸네일 이미지 등록 / 수정", notes = "컨텐츠를 등록합니다.")
-	public ResponseEntity<String> uploadThumbnail() {
-		return ResponseEntity.ok("");
-	}
-
 }
