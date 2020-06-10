@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface CalculateRepository extends JpaRepository<Calculate, Long>, JpaSpecificationExecutor<Calculate> {
-    @Query("select MAX(C.culateNo) from Calculate C")
+    @Query("select MAX(C.no) from Calculate C")
     Calculate findMaxId();
 }

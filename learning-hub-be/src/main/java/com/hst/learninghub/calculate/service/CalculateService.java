@@ -42,8 +42,8 @@ public class CalculateService {
         Calculate calculate = calculateRepository.findMaxId();
         if (calculate == null) {
             calculate = Calculate.builder()
-                    .no(0)
-                    .calcType(CalculateType.PERIODICAL)
+                    .no(0L)
+                    .calcType(CalculateType.PERIODICAL.getCode())
                     .build();
         }
         // 1. 사용자측 기부금 - 정산되지 않은 내역 조회(전월 1일~말일)

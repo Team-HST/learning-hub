@@ -26,17 +26,17 @@ public enum CalculateType implements PersistableType<String> {
 
     @Override
     public String getCode() {
-        return null;
+        return this.code;
     }
 
     @Override
     public String getCodeName() {
-        return null;
+        return this.codeName;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return this.description;
     }
 
     public static class Converter extends EnumAttributeConverter<CalculateType, String> {
