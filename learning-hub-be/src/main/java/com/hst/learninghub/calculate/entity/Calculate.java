@@ -2,23 +2,19 @@ package com.hst.learninghub.calculate.entity;
 
 import com.hst.learninghub.calculate.type.CalculateType;
 import com.hst.learninghub.common.entity.BaseTimeEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 
 @Entity
 @Table(name = "calculate")
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Calculate extends BaseTimeEntity {
 
     private static final long serialVersionUID = 1L;

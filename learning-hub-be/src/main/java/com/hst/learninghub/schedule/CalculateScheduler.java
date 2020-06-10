@@ -3,6 +3,7 @@ package com.hst.learninghub.schedule;
 import com.hst.learninghub.calculate.service.CalculateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,10 @@ import java.util.Map;
 public class CalculateScheduler {
     private static final Logger logger = LoggerFactory.getLogger(CalculateScheduler.class);
 
+    @Autowired
     private CalculateService calculateService;
+
+
     /**
      * cron(* * * * * *)    > 초, 분, 시간, 일, 월, 요일
      * ************************************************
@@ -48,7 +52,7 @@ public class CalculateScheduler {
 
         try {
             // 정산 시작(UPDATE, INSERT), SERVICE == NULL
-            // Map<String ,Object> result = calculateService.periodicalCalculate(calcStartDate, calcEndDate);
+            Map<String ,Object> result = calculateService.periodicalCalculate(calcStartDate, calcEndDate);
         } catch (Exception e) {
             // 정산 실패 처리
             logger.error("=================== CALCULATE IS FAILED !!!", e); // 임시

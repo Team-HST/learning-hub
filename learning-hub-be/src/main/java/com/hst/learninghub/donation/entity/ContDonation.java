@@ -1,8 +1,6 @@
 package com.hst.learninghub.donation.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name="cont_donation")
 @ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ContDonation {
     private static final long serialVersionUID = 1L;
 

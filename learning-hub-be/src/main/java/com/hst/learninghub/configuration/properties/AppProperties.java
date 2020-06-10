@@ -8,4 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AppProperties {
     private AuthProperties auth;
     private SchedulerProperties scheduler;
+    private FilesProperties files;
 }

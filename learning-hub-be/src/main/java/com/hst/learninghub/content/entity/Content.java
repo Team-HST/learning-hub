@@ -6,6 +6,8 @@ import com.hst.learninghub.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "content")
 @Getter
-@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Content extends BaseTimeEntity {
-
+public class Content extends BaseTimeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,6 +45,15 @@ public class Content extends BaseTimeEntity {
 	@JoinColumn(name = "reg_user_no")
 	private User registrant;
 
-	@OneToMany(mappedBy = "id.contentNo")
-	private List<ContentFile> contentFiles;
+	@OneToMany(mappedBy = "id.content", cascade = CascadeType.ALL)
+	private List<ContentFile> contentFiles = new ArrayList<>();
+
+	@Builder
+	public Content(String title, String contents, JobClass jobClass, Integer donationRatio, User registrant) {
+		this.title = title;
+		this.contents = contents;
+		this.jobClass = jobClass;
+		this.donationRatio = donationRatio;
+		this.registrant = registrant;
+	}
 }
