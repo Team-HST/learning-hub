@@ -11,7 +11,7 @@ export default {
    * 
    * @returns 코드그룹 목록
    */
-  getCodes() {
+  getCodes: () => {
     return http.get('/api/codes');
   }
 }
