@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -56,4 +57,8 @@ public class FileInfo implements Serializable {
 	@CreatedDate
 	@Column(name = "REG_DTM")
 	private LocalDateTime createdAt;
+
+	public String getSavedPath() {
+		return String.format("%s%s%s", this.path, File.separator, this.savedName);
+	}
 }

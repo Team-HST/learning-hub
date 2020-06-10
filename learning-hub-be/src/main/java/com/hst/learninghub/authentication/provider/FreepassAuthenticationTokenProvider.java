@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -43,7 +44,7 @@ public class FreepassAuthenticationTokenProvider implements AuthenticationTokenP
 
 	@Override
 	public boolean validateToken(String token) {
-		return StringUtils.isNotEmpty(token);
+		return StringUtils.isNotEmpty(token) && Pattern.matches("\\S+_\\d+", token);
 	}
 
 	private AuthProperties.FreepassProperties getFreePassProps() {

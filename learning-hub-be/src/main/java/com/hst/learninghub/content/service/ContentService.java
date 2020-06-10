@@ -1,5 +1,6 @@
 package com.hst.learninghub.content.service;
 
+import com.hst.learninghub.common.exception.NotFoundException;
 import com.hst.learninghub.content.entity.Content;
 import com.hst.learninghub.content.entity.ContentFile;
 import com.hst.learninghub.content.entity.specs.ContentSpecifications;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,18 @@ public class ContentService {
 		Specification<Content> searchSpec = ContentSpecifications.byJobClassAndTitle(jobClass, title);
 		Page<Content> searchResult = contentRepository.findAll(searchSpec, pageable);
 		return ContentListResponse.from(searchResult);
+	}
+
+
+	/***
+	 * 컨텐츠 조회
+	 * @param contentNo 컨텐츠 번호
+	 * @return 컨텐츠
+	 */
+	public ContentResponse getContent(Long contentNo) {
+		return contentRepository.findById(contentNo)
+				.map(ContentResponse::from)
+				.orElseThrow(() -> new NotFoundException("컨텐츠", contentNo));
 	}
 
 	/***

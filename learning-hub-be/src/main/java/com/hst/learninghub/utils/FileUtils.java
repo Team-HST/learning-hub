@@ -11,8 +11,8 @@ import java.util.UUID;
 @UtilityClass
 public class FileUtils {
 
-	public static String generateFileName() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
+	public static String generateFileName(String extension) {
+		return UUID.randomUUID().toString().replaceAll("-", "") + "." + extension;
 	}
 
 	public static String getExtension(String fileName) {

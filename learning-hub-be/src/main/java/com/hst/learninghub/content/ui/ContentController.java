@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -39,6 +37,13 @@ public class ContentController {
 			@PageableDefault Pageable pageable) {
 		ContentListResponse searchResult = contentService.searchContents(JobClass.get(jobClass), title, pageable);
 		return ResponseEntity.ok(searchResult);
+	}
+
+	@ApiOperation(value = "컨텐츠 조회", notes = "컨텐츠 한 건을 검색합니다.")
+	@GetMapping("{contentNo}")
+	public ResponseEntity<ContentResponse> getContent(
+			@ApiParam(name = "contentNo", value = "컨텐츠 no") @PathVariable Long contentNo) {
+		return ResponseEntity.ok(contentService.getContent(contentNo));
 	}
 
 	@ApiOperation(value = "컨텐츠 등록", notes = "컨텐츠를 등록합니다.")
