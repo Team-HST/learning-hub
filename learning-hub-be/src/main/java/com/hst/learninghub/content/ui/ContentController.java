@@ -4,6 +4,7 @@ import com.hst.learninghub.configuration.SwaggerConfiguration;
 import com.hst.learninghub.content.service.ContentService;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
+import com.hst.learninghub.content.ui.response.ContentListResponse;
 import com.hst.learninghub.content.ui.response.ContentResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,11 +33,11 @@ public class ContentController {
 
 	@ApiOperation(value = "컨텐츠 검색 API", notes = "컨텐츠를 검색합니다.")
 	@GetMapping("search")
-	public ResponseEntity<List<ContentResponse>> search(
+	public ResponseEntity<ContentListResponse> search(
 			@ApiParam(name = "jobClass", value = "직무분야코드") @RequestParam(required = false) String jobClass,
 			@ApiParam(name = "title", value = "제목") @RequestParam(required = false) String title,
 			@PageableDefault Pageable pageable) {
-		List<ContentResponse> searchResult = contentService.searchContents(JobClass.get(jobClass), title, pageable);
+		ContentListResponse searchResult = contentService.searchContents(JobClass.get(jobClass), title, pageable);
 		return ResponseEntity.ok(searchResult);
 	}
 

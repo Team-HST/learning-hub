@@ -6,6 +6,7 @@ import com.hst.learninghub.content.entity.specs.ContentSpecifications;
 import com.hst.learninghub.content.repository.ContentRepository;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
+import com.hst.learninghub.content.ui.response.ContentListResponse;
 import com.hst.learninghub.content.ui.response.ContentResponse;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
@@ -39,10 +40,10 @@ public class ContentService {
 	 * @param pageable 페이징
 	 * @return 검색결과
 	 */
-	public List<ContentResponse> searchContents(JobClass jobClass, String title, Pageable pageable) {
+	public ContentListResponse searchContents(JobClass jobClass, String title, Pageable pageable) {
 		Specification<Content> searchSpec = ContentSpecifications.byJobClassAndTitle(jobClass, title);
 		Page<Content> searchResult = contentRepository.findAll(searchSpec, pageable);
-		return searchResult.map(ContentResponse::from).getContent();
+		return ContentListResponse.from(searchResult);
 	}
 
 	/***
