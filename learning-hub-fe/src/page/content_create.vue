@@ -138,10 +138,8 @@ export default {
   methods: {
     clickContentCreate: function() {
       console.log(this.getCodeMap['job-classes'][0])
-      alert('등록')
     },
     changeBannerFile: function(event) {
-      alert('banner')
       const file = event.target.files
 
       if (file.length > 0) {

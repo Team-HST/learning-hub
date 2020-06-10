@@ -19,6 +19,7 @@ import ContentLeftside from '@/components/contents/content_leftside'
 import Breadcrumb from '@/components/common/breadcrumb'
 import CreateFileInput from '@/components/contents/content_file_input'
 import Footer from '@/components/footer'
+import Page from '@/components/common/page';
 
 
 // pages
@@ -39,6 +40,7 @@ Vue.component('ContentListItem', ContentListItem)
 Vue.component('Breadcrumb', Breadcrumb)
 Vue.component('CreateFileInput', CreateFileInput)
 Vue.component('Footer', Footer)
+Vue.component('Page', Page)
 
 export default new Router({
   mode: 'history',

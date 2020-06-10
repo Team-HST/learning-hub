@@ -1,15 +1,22 @@
 <template>
   <div class="row blog-list">
-    <ContentListItem />
-    <ContentListItem />
-    <ContentListItem />
-    <ContentListItem />
-    <ContentListItem />
-    <ContentListItem />
+    <div 
+      class="col-lg-6 col-md-12"
+      v-for="(content ,index) in getContents" 
+      :key="index"
+    >
+      <ContentListItem :content="content" />
+    </div>
   </div>
 </template>
+
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  
+  name: 'ContentList',
+  computed: {
+    ...mapGetters('content', ['getContents'])
+  }
 }
 </script>

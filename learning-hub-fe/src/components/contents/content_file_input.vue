@@ -5,7 +5,7 @@
       <input type="file" :id="id" :accept="accept" @change="change">
     </div>
     <div class="col-8">
-      <input type="tel" :value="placeholder" class="form-control digits mb-1">
+      <input type="text" :value="placeholder" class="form-control digits mb-1">
     </div>
   </div>
 </template>
