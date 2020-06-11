@@ -42,7 +42,7 @@ public class ContentController {
 	@ApiOperation(value = "컨텐츠 조회", notes = "컨텐츠 한 건을 검색합니다.")
 	@GetMapping("{contentNo}")
 	public ResponseEntity<ContentResponse> getContent(
-			@ApiParam(name = "contentNo", value = "컨텐츠 no") @PathVariable Long contentNo) {
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo) {
 		return ResponseEntity.ok(contentService.getContent(contentNo));
 	}
 
