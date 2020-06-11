@@ -3,19 +3,21 @@ package com.hst.learninghub.content.service;
 import com.hst.learninghub.common.exception.NotFoundException;
 import com.hst.learninghub.content.entity.Content;
 import com.hst.learninghub.content.entity.ContentFile;
+import com.hst.learninghub.content.entity.ContentReply;
 import com.hst.learninghub.content.entity.specs.ContentSpecifications;
+import com.hst.learninghub.content.repository.ContentReplyRepository;
 import com.hst.learninghub.content.repository.ContentRepository;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
+import com.hst.learninghub.content.ui.request.ContentReplyModifyingRequest;
 import com.hst.learninghub.content.ui.response.ContentListResponse;
+import com.hst.learninghub.content.ui.response.ContentReplyResponse;
 import com.hst.learninghub.content.ui.response.ContentResponse;
 import com.hst.learninghub.donation.service.DonationService;
 import com.hst.learninghub.donation.ui.request.DonateContentRequest;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
 import com.hst.learninghub.file.type.FileType;
-import com.hst.learninghub.organization.service.OrganizationService;
-import com.hst.learninghub.organization.ui.response.OrganizationResponse;
 import com.hst.learninghub.user.service.UserService;
 import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -35,12 +36,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ContentService {
-
-//	private final ContentDonOrgRepository contentDonationOrgRepository;
 	private final ContentRepository contentRepository;
+	private final ContentReplyRepository contentReplyRepository;
 	private final UserService userService;
 	private final FileService fileService;
-	private final OrganizationService organizationService;
 	private final DonationService donationService;
 
 	/***
@@ -63,9 +62,7 @@ public class ContentService {
 	 * @return 컨텐츠
 	 */
 	public ContentResponse getContent(Long contentNo) {
-		return contentRepository.findById(contentNo)
-				.map(content -> ContentResponse.of(content, donationService.getContentDonationOrgs(contentNo)))
-				.orElseThrow(() -> new NotFoundException("컨텐츠", contentNo));
+		return ContentResponse.of(getContentEntity(contentNo), donationService.getContentDonationOrgs(contentNo));
 	}
 
 	/***
@@ -110,8 +107,7 @@ public class ContentService {
 	 */
 	@Transactional
 	public void donate(Long contentNo, Long orgNo, Integer donationAmount, Long donateUserNo) {
-		Content content = contentRepository.findById(contentNo)
-				.orElseThrow(() -> new NotFoundException("컨텐츠", contentNo));
+		Content content = getContentEntity(contentNo);
 
 		donationService.donate(DonateContentRequest.builder()
 				.content(content)
@@ -119,5 +115,27 @@ public class ContentService {
 				.donationAmount(donationAmount)
 				.donateUserNo(donateUserNo)
 				.build());
+	}
+
+	/***
+	 * 댓글 등록
+	 * @param request 요청
+	 * @return 등록 결과
+	 */
+	@Transactional
+	public ContentReplyResponse reply(ContentReplyModifyingRequest request) {
+		Content content = getContentEntity(request.getContentNo());
+		ContentReply reply = ContentReply.builder()
+				.content(content)
+				.contents(request.getContents())
+				.registrant(userService.getUserEntity(request.getRegistrantNo()))
+				.build();
+		contentReplyRepository.save(reply);
+		return ContentReplyResponse.from(reply);
+	}
+
+	private Content getContentEntity(Long contentNo) {
+		return contentRepository.findById(contentNo)
+				.orElseThrow(() -> new NotFoundException("컨텐츠", contentNo));
 	}
 }

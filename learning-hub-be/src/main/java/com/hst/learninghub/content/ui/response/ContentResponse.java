@@ -27,6 +27,7 @@ public class ContentResponse {
 	private UserResponse registrant;
 	private List<FileResponse> contentFiles;
 	private List<OrganizationResponse> donationOrgs;
+	private List<ContentReplyResponse> replies;
 
 	public static ContentResponse from(Content content) {
 		return builder()
@@ -58,6 +59,7 @@ public class ContentResponse {
 						.map(FileResponse::from)
 						.collect(Collectors.toList()))
 				.donationOrgs(donationOrgs.stream().map(OrganizationResponse::from).collect(Collectors.toList()))
+				.replies(content.getReplies().stream().map(ContentReplyResponse::from).collect(Collectors.toList()))
 				.build();
 	}
 }
