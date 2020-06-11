@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name="cont_donation")
+@Table(name="org_donation")
 @ToString
 @Builder
 @NoArgsConstructor
@@ -41,5 +41,9 @@ public class OrgDonation {
                 return false;
             }
             return true;
+        }
+
+        public void successCalculate(Long calculateNo) {
+                this.calculateNo = calculateNo;
         }
 }
