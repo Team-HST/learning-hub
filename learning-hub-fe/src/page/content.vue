@@ -16,7 +16,8 @@
                 <div class="col-10">
                   <input 
                     type="text" class="form-control digits mb-1 search-text"
-                    v-model="searchTitle"
+                    :value="getSearchInput"
+                    @input="changeSearchInput"
                     placeholder="제목를 입력하여 주세요."
                   />
                 </div>
@@ -71,18 +72,17 @@ export default {
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'}
       ],
-      searchTitle: ''
     }
   },
   computed: {
-    ...mapGetters('content', ['getPageNum', 'getTotalPage', 'getSearchTitle'])
+    ...mapGetters('content', ['getPageNum', 'getTotalPage', 'getSearchInput'])
   },
   created() {
-    this.searchContentPageList(this.getPageNum);
+    this.searchContentPageList()
   },
   methods: {
     ...mapActions('content', ['searchContentPageList']),
-    ...mapMutations('content', ['initPageNum', 'setPageNum', 'setSearchTitle']),
+    ...mapMutations('content', ['initPageNum', 'setPageNum', 'setSearchInput', 'setSearchTitle']),
     clickToContentCreate: function () {
       this.$router.push('/contentCreate');
     },
@@ -93,12 +93,14 @@ export default {
       this.searchContentPageList();
     },
     clickSearchBtn: function () {
-      console.log(this.searchTitle);
-      this.setSearchTitle(this.searchTitle)
+      this.setSearchTitle(this.getSearchInput)
       // 현재 페이지 초기화
-      this.initPageNum();
+      this.initPageNum()
       // 컨텐츠 조회
       this.searchContentPageList();
+    },
+    changeSearchInput: function (e) {
+      this.setSearchInput(e.target.value)
     }
   }
 }
