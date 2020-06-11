@@ -39,7 +39,7 @@ public class Content extends BaseTimeEntity implements Serializable {
 	private Integer donationRatio;
 
 	@Column(name = "del_yn")
-	private boolean deleted;
+	private Boolean deleted;
 
 	@ManyToOne
 	@JoinColumn(name = "reg_user_no")
@@ -55,5 +55,6 @@ public class Content extends BaseTimeEntity implements Serializable {
 		this.jobClass = jobClass;
 		this.donationRatio = donationRatio;
 		this.registrant = registrant;
+		this.deleted = false;
 	}
 }

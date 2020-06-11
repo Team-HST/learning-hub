@@ -1,7 +1,7 @@
 package com.hst.learninghub.content.ui.response;
 
 import com.hst.learninghub.content.entity.Content;
-import com.hst.learninghub.content.entity.ContentFile;
+import com.hst.learninghub.file.ui.response.FileResponse;
 import com.hst.learninghub.user.ui.response.UserResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class ContentResponse {
 	private Integer donationRatio;
 	private LocalDateTime createAt;
 	private UserResponse registrant;
-	private List<ContentFileResponse> contentFiles;
+	private List<FileResponse> contentFiles;
 
 	public static ContentResponse from(Content content) {
 		return builder()
@@ -34,7 +34,10 @@ public class ContentResponse {
 				.donationRatio(content.getDonationRatio())
 				.createAt(content.getCreatedAt())
 				.registrant(UserResponse.from(content.getRegistrant()))
-				.contentFiles(content.getContentFiles().stream().map(ContentFileResponse::from).collect(Collectors.toList()))
+				.contentFiles(content.getContentFiles().stream()
+						.map(contentFile -> contentFile.getId().getFile())
+						.map(FileResponse::from)
+						.collect(Collectors.toList()))
 				.build();
 	}
 }

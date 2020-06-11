@@ -35,6 +35,7 @@ public class SwaggerConfiguration {
 	public static final String USER_API_TAG = "2. User APIs";
 	public static final String CONTENT_API_TAG = "3. Content APIs";
 	public static final String FILE_API_TAG = "4. File APIs";
+	public static final String ORGANIZATION_TAG = "5. Organization APIs";
 
 	private final TypeResolver typeResolver;
 
@@ -56,7 +57,8 @@ public class SwaggerConfiguration {
 					new Tag(CODE_API_TAG, "전체 시스템에서 사용하는 코드 관련 API", 2),
 					new Tag(USER_API_TAG, "회원(사용자) 관련 API", 3),
 					new Tag(CONTENT_API_TAG, "컨텐츠 관련 API", 4),
-					new Tag(FILE_API_TAG, "파일 관련 API", 5)
+					new Tag(FILE_API_TAG, "파일 관련 API", 5),
+					new Tag(ORGANIZATION_TAG, "기부기관 관련 API", 6)
 				)
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false);

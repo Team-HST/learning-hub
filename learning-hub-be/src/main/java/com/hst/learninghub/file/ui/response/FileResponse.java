@@ -1,6 +1,5 @@
-package com.hst.learninghub.content.ui.response;
+package com.hst.learninghub.file.ui.response;
 
-import com.hst.learninghub.content.entity.ContentFile;
 import com.hst.learninghub.file.entity.FileInfo;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,17 +11,16 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Builder
-public class ContentFileResponse {
+public class FileResponse {
 	private long fileNo;
 	private String fileTypeCode;
 	private LocalDateTime createAt;
 
-	public static ContentFileResponse from(ContentFile contentFile) {
-		FileInfo file = contentFile.getId().getFile();
-		return ContentFileResponse.builder()
+	public static FileResponse from(FileInfo file) {
+		return FileResponse.builder()
 				.fileNo(file.getNo())
 				.fileTypeCode(file.getFileType().getCode())
-				.createAt(contentFile.getCreatedAt())
+				.createAt(file.getCreatedAt())
 				.build();
 	}
 }
