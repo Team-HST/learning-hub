@@ -45,6 +45,9 @@ public class Content extends BaseTimeEntity implements Serializable {
 	@JoinColumn(name = "reg_user_no")
 	private User registrant;
 
+	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+	private List<ContentReply> replies = new ArrayList<>();
+
 	@OneToMany(mappedBy = "id.content", cascade = CascadeType.ALL)
 	private List<ContentFile> contentFiles = new ArrayList<>();
 

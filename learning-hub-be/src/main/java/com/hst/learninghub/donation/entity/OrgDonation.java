@@ -1,6 +1,8 @@
 package com.hst.learninghub.donation.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class OrgDonation {
         @Id
         @Column(name = "donation_no")
@@ -30,6 +33,7 @@ public class OrgDonation {
         @Column(name = "reg_user_no")
         private Long regUserNo;
 
+        @CreatedDate
         @Column(name = "reg_dtm")
         private LocalDateTime reg_dtm;
 
