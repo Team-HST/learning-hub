@@ -57,4 +57,11 @@ public class ContentController {
 		ContentResponse response = contentService.createContent(request);
 		return ResponseEntity.ok(response);
 	}
+
+	@PostMapping("{contentNo}/donate")
+	public ResponseEntity<String> donate(
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo) {
+		contentService.donate(contentNo);
+		return ResponseEntity.ok("");
+	}
 }

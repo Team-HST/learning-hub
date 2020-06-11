@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -19,8 +21,10 @@ public class ContentModifyingRequest {
 	private Integer donationRatio;
 	@ApiModelProperty(position = 5, value = "등록 사용자 No", example = "4")
 	private Long registrantNo;
-	@ApiModelProperty(position = 6, value = "썸네일", hidden = true)
+	@ApiModelProperty(position = 6, value = "후원기관", example = "4")
+	private List<Long> donationOrgNos;
+	@ApiModelProperty(position = 7, value = "썸네일", hidden = true)
 	private MultipartFile thumbnail;
-	@ApiModelProperty(position = 7, value = "메인 영상 파일", hidden = true)
+	@ApiModelProperty(position = 8, value = "메인 영상 파일", hidden = true)
 	private MultipartFile mailContent;
 }

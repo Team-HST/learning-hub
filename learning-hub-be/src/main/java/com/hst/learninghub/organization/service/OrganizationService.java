@@ -1,5 +1,6 @@
 package com.hst.learninghub.organization.service;
 
+import com.hst.learninghub.common.exception.NotFoundException;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
 import com.hst.learninghub.file.type.FileType;
@@ -43,5 +44,9 @@ public class OrganizationService {
 		return organizationRepository.findAll().stream()
 				.map(OrganizationResponse::from)
 				.collect(Collectors.toList());
+	}
+
+	public Organization getOrganization(Long organizationNo) {
+		return organizationRepository.findById(organizationNo).orElseThrow(() -> new NotFoundException("기관", organizationNo));
 	}
 }
