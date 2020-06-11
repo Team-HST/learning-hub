@@ -10,6 +10,7 @@ import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
 import com.hst.learninghub.content.ui.response.ContentListResponse;
 import com.hst.learninghub.content.ui.response.ContentResponse;
 import com.hst.learninghub.donation.service.DonationService;
+import com.hst.learninghub.donation.ui.request.DonateContentRequest;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
 import com.hst.learninghub.file.type.FileType;
@@ -105,11 +106,18 @@ public class ContentService {
 	/***
 	 * 컨텐츠에 후원
 	 * @param contentNo 컨텐츠 No
+	 * @param donationAmount
 	 */
-	public void donate(Long contentNo) {
+	@Transactional
+	public void donate(Long contentNo, Long orgNo, Integer donationAmount, Long donateUserNo) {
 		Content content = contentRepository.findById(contentNo)
 				.orElseThrow(() -> new NotFoundException("컨텐츠", contentNo));
 
-
+		donationService.donate(DonateContentRequest.builder()
+				.content(content)
+				.orgNo(orgNo)
+				.donationAmount(donationAmount)
+				.donateUserNo(donateUserNo)
+				.build());
 	}
 }

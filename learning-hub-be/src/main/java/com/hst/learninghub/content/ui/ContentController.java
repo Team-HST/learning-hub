@@ -58,10 +58,14 @@ public class ContentController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping("{contentNo}/donate")
+	@ApiOperation(value = "컨텐츠 후원", notes = "컨텐츠에 등록된 기관에 후원합니다.")
+	@PostMapping("donate/{contentNo}/{orgNo}")
 	public ResponseEntity<String> donate(
-			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo) {
-		contentService.donate(contentNo);
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo,
+			@ApiParam(name = "orgNo", value = "기관 No", example = "15") @PathVariable Long orgNo,
+			@ApiParam(name = "donationAmount", value = "후원금액", example = "15") @RequestParam Integer donationAmount,
+			@ApiParam(name = "donateUserNo", value = "후원 사용자 번호", example = "15") @RequestParam Long donateUserNo) {
+		contentService.donate(contentNo, orgNo, donationAmount, donateUserNo);
 		return ResponseEntity.ok("");
 	}
 }
