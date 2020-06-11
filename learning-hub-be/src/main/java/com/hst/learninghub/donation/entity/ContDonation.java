@@ -34,4 +34,11 @@ public class ContDonation {
 
     @Column(name = "don_dtm")
     private LocalDateTime don_dtm;
+
+    public boolean isValid() {
+        if (this.donationNo == null || this.contentNo == null || this.amount == null) {
+            return false;
+        }
+        return true;
+    }
 }

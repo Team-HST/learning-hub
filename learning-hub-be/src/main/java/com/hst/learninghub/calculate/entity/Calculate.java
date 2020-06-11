@@ -33,4 +33,5 @@ public class Calculate extends BaseTimeEntity {
 
     @Column(name = "calculate_yn")
     private String calcSuccessYN;
+
 }
