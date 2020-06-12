@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class ContentController {
 	public ResponseEntity<ContentListResponse> search(
 			@ApiParam(name = "jobClass", value = "직무분야코드") @RequestParam(required = false) String jobClass,
 			@ApiParam(name = "title", value = "제목") @RequestParam(required = false) String title,
-			@PageableDefault Pageable pageable) {
+			@PageableDefault(sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
 		ContentListResponse searchResult = contentService.searchContents(JobClass.get(jobClass), title, pageable);
 		return ResponseEntity.ok(searchResult);
 	}
