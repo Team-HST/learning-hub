@@ -15,7 +15,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="blog-item">
-                <div class="blog-block">
+                <div>
                   <div class="blog-box">
                     <div class="overflow-hidden">
                       <videoPlayer
@@ -128,7 +128,8 @@ export default {
         language: 'en',
         playbackRates: [0.7, 1.0, 1.5, 2.0],
         sources: [{
-          src: this.getVideoSource
+          type: "video/mp4",
+          src: '/api/files/'+this.getVideoSource
         }],
         poster: "/static/images/author.jpg",
       }
@@ -143,7 +144,9 @@ export default {
       return createAt
     },
     getVideoSource: function () {
-      return this.getContentDetail.contentFiles[1].fileNo
+      return this.getContentDetail.contentFiles.filter(file => 
+        file.fileTypeCode === 'F002'
+      )[0].fileNo
     }
   },
   methods: {
@@ -154,3 +157,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>
