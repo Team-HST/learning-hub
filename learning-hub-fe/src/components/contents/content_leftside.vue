@@ -69,7 +69,24 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
-  name: 'contentLeftside'
+  name: 'contentLeftside',
+  computed: {
+    ...mapGetters('code', ['getCodeMap']),
+    ...mapGetters('content', ['getJobClass'])
+  },
+  methods: {
+    ...mapMutations('content', ['initPageNum', 'setJobClass', 'setSearchInput', 'setSearchTitle']),
+    ...mapActions('content', ['searchContentPageList']),
+    clickCategoryJobClass: function (jobCode) {
+      this.setSearchInput('')
+      this.setSearchTitle('')
+      this.initPageNum()
+      this.setJobClass(jobCode)
+      this.searchContentPageList()
+    }
+  }
 }
 </script>
