@@ -1,5 +1,6 @@
 package com.hst.learninghub.donation.entity;
 
+import com.hst.learninghub.content.entity.Content;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

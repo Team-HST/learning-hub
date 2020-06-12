@@ -11,4 +11,15 @@ public interface ContentDonRepository extends JpaRepository<ContDonation, Long> 
     @Query("select CD from ContDonation CD " +
             "where CD.calculateNo IS NULL")
     List<ContDonation> findByNullToCalculateNo();
+
+    @Query("select CD " +
+           " from ContDonation CD" +
+           " where CD.contentNo in :contentNoList")
+    List<ContDonation> findAllByContentUserNo(List<Long> contentNoList);
+
+    @Query("select SUM(CD.amount) " +
+           " from ContDonation CD " +
+           " where CD.donUserNo = :userNo" +
+           " group by CD.donUserNo")
+    Long findSumAmountByDonUserNo(Long userNo);
 }

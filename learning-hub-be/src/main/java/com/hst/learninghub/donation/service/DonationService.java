@@ -77,4 +77,5 @@ public class DonationService {
 				.orgNo(request.getOrgNo())
 				.build());
 	}
+
 }

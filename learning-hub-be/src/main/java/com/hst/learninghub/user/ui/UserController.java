@@ -5,7 +5,9 @@ import com.hst.learninghub.user.service.UserService;
 import com.hst.learninghub.user.ui.request.SignInRequest;
 import com.hst.learninghub.user.ui.request.SignUpRequest;
 import com.hst.learninghub.user.ui.response.SignInResponse;
+import com.hst.learninghub.user.ui.response.UserDonationResponse;
 import com.hst.learninghub.user.ui.response.UserResponse;
+import com.hst.learninghub.user.ui.response.UserRevenueResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +38,17 @@ public class UserController {
 	@GetMapping("/{userNo}")
 	public ResponseEntity<UserResponse> getUser(@PathVariable long userNo){
 		return ResponseEntity.ok(userService.getUser(userNo));
+	}
+
+	@ApiOperation(value = "사용자 수익금 현황 조회", notes = "사용자 총 수익금 현황 조회")
+	@GetMapping("/{userNo}/revenueStatus")
+	public ResponseEntity<UserRevenueResponse> getUserRevenueStatus(@PathVariable long userNo) {
+		return ResponseEntity.ok(userService.getUserRevenueStatus(userNo));
+	}
+
+	@ApiOperation(value = "사용자 기부금 현황 조회", notes = "사용자 총 기부금 현황 조회")
+	@GetMapping("/{userNo}/donationStatus")
+	public ResponseEntity<UserDonationResponse> getUserDonationStatus(@PathVariable long userNo) {
+		return ResponseEntity.ok(userService.getUserDonationStatus(userNo));
 	}
 }

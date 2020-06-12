@@ -37,7 +37,7 @@ public class CalculateScheduler {
      * 매월 5일 정산(이전 달 기준)
      */
     // @Scheduled(cron = "* * * 5 * *") /* 실제 서비스용 */
-    @Scheduled(fixedDelay = 300000) /* 개발용(5분에 1번) */
+    // @Scheduled(fixedDelay = 300000) /* 개발용(5분에 1번) */
     public void periodicalCalcSchedule() {
         LocalDateTime now = LocalDateTime.now();        // 현재 일시
         LocalDateTime calcTargetDate = LocalDateTime.now().minusMonths(1);   // 정산 기준 일시(이전 달)
@@ -77,7 +77,7 @@ public class CalculateScheduler {
     /**
      * 즉시 정산(특정 사용자 기준)
      */
-    @Scheduled(cron = "* * * * * * ")
+    // @Scheduled(cron = "* * * * * * ")
     public void immediateCalcSchedule() {
 
     }

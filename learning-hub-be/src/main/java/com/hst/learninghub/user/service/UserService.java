@@ -4,14 +4,21 @@ import com.hst.learninghub.authentication.model.AuthenticationToken;
 import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
 import com.hst.learninghub.authentication.provider.JwtAuthenticationTokenProvider;
 import com.hst.learninghub.common.exception.NotFoundException;
+import com.hst.learninghub.content.repository.ContentRepository;
+import com.hst.learninghub.donation.entity.ContDonation;
+import com.hst.learninghub.donation.repository.ContentDonRepository;
 import com.hst.learninghub.user.entity.User;
+import com.hst.learninghub.user.entity.UserReceipt;
+import com.hst.learninghub.user.repository.UserReceiptRepository;
 import com.hst.learninghub.user.repository.UserRepository;
 import com.hst.learninghub.user.type.LoginStatus;
 import com.hst.learninghub.user.type.UserRole;
 import com.hst.learninghub.user.ui.request.SignInRequest;
 import com.hst.learninghub.user.ui.request.SignUpRequest;
 import com.hst.learninghub.user.ui.response.SignInResponse;
+import com.hst.learninghub.user.ui.response.UserDonationResponse;
 import com.hst.learninghub.user.ui.response.UserResponse;
+import com.hst.learninghub.user.ui.response.UserRevenueResponse;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -28,11 +36,18 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
 	private final UserRepository userRepository;
+	private final UserReceiptRepository userReceiptRepository;
+	private final ContentRepository contentRepository;
+	private final ContentDonRepository contentDonRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationTokenProvider authenticationTokenProvider;
 
-	public UserService(UserRepository userRepository, AuthenticationTokenProvider authenticationTokenProvider) {
+	public UserService(UserRepository userRepository, UserReceiptRepository userReceiptRepository, ContentRepository contentRepository,
+					   ContentDonRepository contentDonRepository, AuthenticationTokenProvider authenticationTokenProvider) {
 		this.userRepository = userRepository;
+		this.userReceiptRepository = userReceiptRepository;
+		this.contentRepository = contentRepository;
+		this.contentDonRepository = contentDonRepository;
 		this.authenticationTokenProvider = authenticationTokenProvider;
 		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
@@ -98,5 +113,22 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String no) throws UsernameNotFoundException {
 		return userRepository.findById(Long.valueOf(no))
 				.orElseThrow(() -> new UsernameNotFoundException(String.format("Not found id %s", no)));
+	}
+
+	/**
+	 * 사용자 총 수익금 현황 조회
+	 * @param userNo
+	 * @return 사용자 수익금 현황
+	 */
+	public UserRevenueResponse getUserRevenueStatus(long userNo) {
+		List<Long> contentNoList = contentRepository.findIdByUserNo(userNo);
+		List<ContDonation> userRevenueList = contentDonRepository.findAllByContentUserNo(contentNoList);
+		// UserReceipt userReceipt = userReceiptRepository.findTotReceiptAmountByUserNo(userNo);
+		Long totalReceiptAmount = userReceiptRepository.findTotReceiptAmountByUserNo(userNo);
+		return UserRevenueResponse.userRevenueStatus(userRevenueList, totalReceiptAmount);
+	}
+
+	public UserDonationResponse getUserDonationStatus(long userNo) {
+		return UserDonationResponse.userDonationStatus(contentDonRepository.findSumAmountByDonUserNo(userNo));
 	}
 }
