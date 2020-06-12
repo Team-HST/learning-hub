@@ -9,14 +9,11 @@ import com.hst.learninghub.donation.repository.ContentDonOrgRepository;
 import com.hst.learninghub.donation.repository.ContentDonRepository;
 import com.hst.learninghub.donation.repository.OrgDonationRepository;
 import com.hst.learninghub.donation.ui.request.DonateContentRequest;
-import com.hst.learninghub.organization.entity.Organization;
-import com.hst.learninghub.organization.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +22,6 @@ public class DonationService {
 	private final ContentDonRepository contentDonationRepository;
 	private final OrgDonationRepository orgDonationRepository;
 	private final ContentDonOrgRepository contentDonationOrgRepository;
-	private final OrganizationService organizationService;
 
 	/***
 	 * 컨텐츠 -> 기관 매핑
@@ -39,18 +35,6 @@ public class DonationService {
 				.deleted(false)
 				.regUserNo(registrantNo)
 				.build());
-	}
-
-	/***
-	 * 컨텐츠에 매핑된 기관 조회
-	 * @param contentNo 컨텐츠 No
-	 * @return 기관 목록
-	 */
-	public List<Organization> getContentDonationOrgs(Long contentNo) {
-		return contentDonationOrgRepository.findAllContentDonationOrgs(contentNo)
-				.stream()
-				.map(cdo -> organizationService.getOrganization(cdo.getPk().getOrgNo()))
-				.collect(Collectors.toList());
 	}
 
 	/***
@@ -76,5 +60,15 @@ public class DonationService {
 				.regUserNo(request.getDonateUserNo())
 				.orgNo(request.getOrgNo())
 				.build());
+	}
+
+	/***
+	 * 기관이 획득한 총 기부금 조회
+	 * @param no
+	 * @return
+	 */
+	public long getTotalDonations(Long no) {
+		List<OrgDonation> list = orgDonationRepository.findAllByOrgNo(no);
+		return list.stream().mapToLong(amount->amount.getAmount()).sum();
 	}
 }

@@ -1,6 +1,7 @@
 package com.hst.learninghub.organization.service;
 
 import com.hst.learninghub.common.exception.NotFoundException;
+import com.hst.learninghub.donation.service.DonationService;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
 import com.hst.learninghub.file.type.FileType;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class OrganizationService {
 
 	private final OrganizationRepository organizationRepository;
+	private final DonationService donationService;
 	private final FileService fileService;
 
 
@@ -37,12 +39,12 @@ public class OrganizationService {
 				.thumbnail(uploadedFile)
 				.deleted(false)
 				.build());
-		return OrganizationResponse.from(organization);
+		return OrganizationResponse.from(organization, 0);
 	}
 
 	public List<OrganizationResponse> getAll() {
 		return organizationRepository.findAll().stream()
-				.map(OrganizationResponse::from)
+				.map(e -> OrganizationResponse.from(e, donationService.getTotalDonations(e.getNo())))
 				.collect(Collectors.toList());
 	}
 
