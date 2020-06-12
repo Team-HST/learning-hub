@@ -18,7 +18,9 @@
                 <div class="blog-block">
                   <div class="blog-box">
                     <div class="overflow-hidden">
-                      <img :src='"@/assets/images/blog/blog-details.jpg"' alt="blog" class="img-fluid">
+                      <videoPlayer
+                        :options="playerOptions"
+                      />
                     </div>
                   </div>
                 </div>
@@ -107,16 +109,29 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { DateUtils } from '@/utils/common'
+import { videoPlayer } from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 
 export default {
   name: 'ContentDetail',
+  components: {
+    videoPlayer
+  },
   data() {
     return {
       breadcrumb: [
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'},
         {name: '컨텐츠 상세', to: '/contentDetail'}
-      ]
+      ],
+      playerOptions: {
+        language: 'en',
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        sources: [{
+          src: this.getVideoSource
+        }],
+        poster: "/static/images/author.jpg",
+      }
     }
   },
   computed: {
@@ -126,6 +141,9 @@ export default {
         this.getContentDetail.createAt, 'YYYY년 MM월 DD일'
       )
       return createAt
+    },
+    getVideoSource: function () {
+      return this.getContentDetail.contentFiles[1].fileNo
     }
   },
   methods: {

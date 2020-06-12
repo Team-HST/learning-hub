@@ -118,6 +118,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { contentService } from '@/lib/axios/service';
 
 export default {
   name: 'ContentCreate',
@@ -140,8 +141,42 @@ export default {
     ...mapGetters('code', ['getCodeMap'])
   },
   methods: {
-    clickContentCreate: function() {
-      
+    clickContentCreate: async function() {
+      const formData = new FormData()
+
+      formData.append('title', this.title)
+      formData.append('contents', this.contents)
+      formData.append('registrantNo', 13)
+      if (this.jobSelected) {
+        formData.append('jobClassType', this.jobSelected)
+      } else {
+        alert('직무분야를 선택하여 주세요.')
+      }
+      if (this.donRangeSelected) {
+        formData.append('donationRatio', this.donRangeSelected)
+      } else {
+        alert('기부율을 선택하여 주세요.')
+      }
+      if (this.bannerFile)
+      formData.append('thumbnail', this.bannerFile)
+      if (this.videoFile) {
+        formData.append('mainContent', this.videoFile)
+      } else {
+        alert('영상은 필수입니다.')
+        return;
+      }
+
+      // const content = {
+      //   'title': this.title,
+      //   'contents': this.contents,
+      //   'jobClassType': this.jobSelected,
+      //   'donationRatio': this.donRangeSelected,
+      //   'thumbnail': this.bannerFile,
+      //   'mainContent': this.videoFile
+      // }
+
+      await contentService.createContent(formData)
+      this.$router.push('/contents')
     },
     changeBannerFile: function(event) {
       const file = event.target.files

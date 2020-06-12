@@ -26,7 +26,6 @@
     "vue-router": "^3.3.2",
     "vue-scroll": "^2.1.7",
     "vue-video-player": "^5.0.2",
-    "vue-vimeo-player": "0.0.9",
     "vue-window-modal": "git+https://github.com/ropbla9/vue-window-modal.git",
     "vuejs-countdown": "^0.2.1",
     "vuetify": "^2.2.30",
