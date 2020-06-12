@@ -15,13 +15,15 @@ public class OrganizationResponse {
 	private String address;
 	private String phoneNumber;
 	private FileResponse thumbnail;
+	private long totalDonations;
 
-	public static OrganizationResponse from(Organization organization) {
+	public static OrganizationResponse from(Organization organization, long totalDonations) {
 		return builder()
 				.name(organization.getName())
 				.address(organization.getAddress())
 				.phoneNumber(organization.getPhoneNumber())
 				.thumbnail(FileResponse.from(organization.getThumbnail()))
+				.totalDonations(totalDonations)
 				.build();
 	}
 }

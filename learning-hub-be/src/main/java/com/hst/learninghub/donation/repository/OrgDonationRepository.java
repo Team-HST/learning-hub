@@ -11,4 +11,6 @@ public interface OrgDonationRepository extends JpaRepository<OrgDonation, Long> 
     @Query("select OD from OrgDonation OD " +
             "where OD.calculateNo IS NULL")
     List<OrgDonation> findByNullToCalculateNo();
+
+    List<OrgDonation> findAllByOrgNo(Long orgNo);
 }

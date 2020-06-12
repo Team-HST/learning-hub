@@ -19,7 +19,6 @@ import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.service.FileService;
 import com.hst.learninghub.file.type.FileType;
 import com.hst.learninghub.user.service.UserService;
-import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +26,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -62,7 +60,7 @@ public class ContentService {
 	 * @return 컨텐츠
 	 */
 	public ContentResponse getContent(Long contentNo) {
-		return ContentResponse.of(getContentEntity(contentNo), donationService.getContentDonationOrgs(contentNo));
+		return ContentResponse.fromWithReplies(getContentEntity(contentNo));
 	}
 
 	/***
@@ -72,7 +70,7 @@ public class ContentService {
 	 */
 	@Transactional
 	public ContentResponse createContent(ContentModifyingRequest request) throws Exception {
-		Content createdContent = Content.builder()
+		Content content = Content.builder()
 				.title(request.getTitle())
 				.contents(request.getContents())
 				.jobClass(JobClass.get(request.getJobClassType()))
@@ -82,22 +80,15 @@ public class ContentService {
 
 		if (Optional.ofNullable(request.getThumbnail()).isPresent()) {
 			FileInfo uploadedFileInfo = fileService.uploadFile(request.getThumbnail(), FileType.THUMBNAIL);
-			createdContent.getContentFiles().add(ContentFile.of(createdContent, uploadedFileInfo));
+			content.getContentFiles().add(ContentFile.of(content, uploadedFileInfo));
 		}
 
 		FileInfo uploadedFileInfo = fileService.uploadFile(request.getMailContent(), FileType.MAIN_MOVIE);
-		createdContent.getContentFiles().add(ContentFile.of(createdContent, uploadedFileInfo));
+		content.getContentFiles().add(ContentFile.of(content, uploadedFileInfo));
 
-		contentRepository.save(createdContent);
+		contentRepository.save(content);
 
-		List<Long> donationOrgNoList = request.getDonationOrgNos();
-		if (!Collections.isEmpty(donationOrgNoList)) {
-			for (Long donationOrgNo : donationOrgNoList) {
-				donationService.addContentDonationOrg(createdContent.getNo(), donationOrgNo, request.getRegistrantNo());
-			}
-		}
-
-		return getContent(createdContent.getNo());
+		return getContent(content.getNo());
 	}
 
 	/***
