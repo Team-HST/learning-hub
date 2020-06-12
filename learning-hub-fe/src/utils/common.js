@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 /**
  * @description 문자열 관련 유틸
  */
@@ -16,6 +18,13 @@ const StringUtils = {
   }
 }
 
+const DateUtils = {
+  getDateFormatStr: (dataStr, format) => {
+    return moment(dataStr).format(format)
+  }
+}
+
 export {
-  StringUtils
+  StringUtils,
+  DateUtils
 }

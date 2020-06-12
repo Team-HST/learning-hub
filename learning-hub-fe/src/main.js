@@ -13,6 +13,7 @@ import '@/assets/index.scss'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
+
 new Vue({
   render: h => h(App),
   router,

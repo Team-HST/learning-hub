@@ -7,6 +7,7 @@ import SignIn from '@/page/sign_in'
 import SignUp from '@/page/sign_up'
 import Content from '@/page/content'
 import ContentCreate from '@/page/content_create'
+import ContentDetail from '@/page/content_detail'
 import Faq from '@/page/faq'
 
 // components
@@ -29,6 +30,7 @@ Vue.component('SignUp', SignUp)
 Vue.component('Faq', Faq)
 Vue.component('ContentList', ContentList)
 Vue.component('ContentCreate', ContentCreate)
+Vue.component('ContentDetail', ContentDetail)
 
 // components
 Vue.use(Router)
@@ -76,6 +78,14 @@ export default new Router({
       name: 'content_create',
       components: {
         default: ContentCreate,
+        navbar: Navbar
+      }
+    },
+    {
+      path: '/contents/:srno',
+      name: 'content_detail',
+      components: {
+        default: ContentDetail,
         navbar: Navbar
       }
     },
