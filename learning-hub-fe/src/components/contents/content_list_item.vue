@@ -3,17 +3,15 @@
     <div class="blog-block">
       <div class="blog-box">
         <div class="overflow-hidden">
-          <router-link :to="{path: '/contents/'+content.no}" >
+          <router-link :to="'/contents/'+content.no" >
             <img :src='"@/assets/images/blog/9.jpg"' alt="blog" class="img-fluid">
           </router-link>
           </div>
       </div>
     </div>
     <div class="blog-text">
-      <router-link>
-        <h3>{{content.title}}</h3>
-        <p>{{content.jobClassType}}</p>
-      </router-link>
+      <h3>{{content.title}}</h3>
+      <p>{{content.jobClassType}}</p>
       <h5>{{content.registrant.name}} - {{getFormatDate}}</h5>
     </div>
   </div>

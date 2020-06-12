@@ -24,7 +24,8 @@
                   <div class="theme-form">
                     <div class="form-group">
                         <input 
-                          type="text" class="form-control" 
+                          type="text" class="form-control"
+                          v-model="title"
                           placeholder="제목을 입력하여 주세요." required="required"
                           maxlength=49
                         />
@@ -33,6 +34,7 @@
                       <textarea 
                         class="form-control" 
                         id="message" name="message" 
+                        v-model="contents"
                         rows="8" placeholder="내용을 입력하여 주세요." 
                         required="required"
                       ></textarea>
@@ -121,6 +123,8 @@ export default {
   name: 'ContentCreate',
   data() {
     return {
+      title: '',
+      contents: '',
       jobSelected: null,
       donRangeSelected: null,
       bannerFile: null,
@@ -137,7 +141,7 @@ export default {
   },
   methods: {
     clickContentCreate: function() {
-      console.log(this.getCodeMap['job-classes'][0])
+      
     },
     changeBannerFile: function(event) {
       const file = event.target.files

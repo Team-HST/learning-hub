@@ -27,7 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/error",
 			"/users/sign-in",
 			"/users/sign-up",
-			"/files/**"
+			"/files/**",
+			"/contents/**"
 	};
 
 	@Bean
