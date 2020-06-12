@@ -4,7 +4,7 @@
       <div class="blog-box">
         <div class="overflow-hidden">
           <router-link :to="'/contents/'+content.no" >
-            <img :src='"@/assets/images/blog/9.jpg"' alt="blog" class="img-fluid">
+            <img :src="thumbnailFileNo" alt="blog" class="img-fluid">
           </router-link>
           </div>
       </div>
@@ -33,6 +33,14 @@ export default {
     getFormatDate: function () {
       const createAt = DateUtils.getDateFormatStr(this.content.createAt, 'YYYY년 MM월 DD일')
       return createAt
+    },
+    thumbnailFileNo() {
+      let thumbnailFile = this.content.contentFiles.filter(e => e.fileTypeCode == 'F001');      
+      if (thumbnailFile.length == 1) {
+        return `/api/files/${thumbnailFile[0].fileNo}`;
+      } else {
+        return '@/assets/images/blog/9.jpg'
+      }
     }
   }
 }

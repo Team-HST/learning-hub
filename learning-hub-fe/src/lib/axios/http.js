@@ -11,7 +11,7 @@ import axios from 'axios';
 axios.interceptors.request.use((config) => {
   // 로그인 유저 token 조회
   // const token = store.getters['user/getUserToken'];
-  config.headers.Authorization = `Bearer hst_13`
+  config.headers.Authorization = `hst_13`
   
   // if (StringUtils.isNotEmpty(token)) {
   //   config.headers.Authorization = `Bearer ${token}`
