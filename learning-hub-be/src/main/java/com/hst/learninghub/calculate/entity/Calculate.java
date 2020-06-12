@@ -3,6 +3,8 @@ package com.hst.learninghub.calculate.entity;
 import com.hst.learninghub.calculate.type.CalculateType;
 import com.hst.learninghub.common.entity.BaseTimeEntity;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +17,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Calculate extends BaseTimeEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class Calculate {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,13 +27,19 @@ public class Calculate extends BaseTimeEntity {
     @Column(name = "calculate_no")
     private Long no;
 
+    @CreatedDate
     @Column(name = "calculate_dtm")
     private LocalDateTime calcDtm;
 
     @Column(name = "calculate_type_cd")
     @Convert(converter = CalculateType.Converter.class)
-    private String calcType;
+    private CalculateType calcType;
 
     @Column(name = "calculate_yn")
-    private String calcSuccessYN;
+    private Boolean calcSuccess;
+
+    public void markSuccessYN(boolean calcSuccess) {
+        this.calcSuccess = calcSuccess;
+    }
+
 }

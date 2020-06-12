@@ -39,11 +39,14 @@ public class Content extends BaseTimeEntity implements Serializable {
 	private Integer donationRatio;
 
 	@Column(name = "del_yn")
-	private boolean deleted;
+	private Boolean deleted;
 
 	@ManyToOne
 	@JoinColumn(name = "reg_user_no")
 	private User registrant;
+
+	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+	private List<ContentReply> replies = new ArrayList<>();
 
 	@OneToMany(mappedBy = "id.content", cascade = CascadeType.ALL)
 	private List<ContentFile> contentFiles = new ArrayList<>();
@@ -55,5 +58,6 @@ public class Content extends BaseTimeEntity implements Serializable {
 		this.jobClass = jobClass;
 		this.donationRatio = donationRatio;
 		this.registrant = registrant;
+		this.deleted = false;
 	}
 }

@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'contentLeftside',
@@ -41,11 +41,13 @@ export default {
   },
   methods: {
     ...mapMutations('content', ['initPageNum', 'setJobClass', 'setSearchInput', 'setSearchTitle']),
+    ...mapActions('content', ['searchContentPageList']),
     clickCategoryJobClass: function (jobCode) {
       this.setSearchInput('')
       this.setSearchTitle('')
       this.initPageNum()
       this.setJobClass(jobCode)
+      this.searchContentPageList()
     }
   }
 }

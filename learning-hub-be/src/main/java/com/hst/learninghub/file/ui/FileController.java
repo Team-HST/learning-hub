@@ -31,7 +31,7 @@ public class FileController {
 	@ApiOperation(value = "파일 바이너리 서빙 API", notes = "컨텐츠를 검색합니다.")
 	@GetMapping("{fileNo}")
 	public ResponseEntity<byte[]> serveFile(
-			@ApiParam(name = "fileNo", value = "파일 No") @PathVariable Long fileNo) throws IOException {
+			@ApiParam(name = "fileNo", value = "파일 No", example = "4") @PathVariable Long fileNo) throws IOException {
 		FileRawData fileRawData = fileService.getFileRawData(fileNo);
 
 		return ResponseEntity.status(HttpStatus.OK)

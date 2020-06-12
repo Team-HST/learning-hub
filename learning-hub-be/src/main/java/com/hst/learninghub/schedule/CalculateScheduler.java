@@ -1,6 +1,9 @@
 package com.hst.learninghub.schedule;
 
+import com.hst.learninghub.calculate.entity.Calculate;
+import com.hst.learninghub.calculate.repository.CalculateRepository;
 import com.hst.learninghub.calculate.service.CalculateService;
+import com.hst.learninghub.calculate.type.CalculateType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class CalculateScheduler {
 
     @Autowired
     private CalculateService calculateService;
+
+    @Autowired
+    private CalculateRepository calculateRepository;
 
 
     /**
@@ -49,13 +55,22 @@ public class CalculateScheduler {
 
         calcStartDate = LocalDateTime.of(calcYear, calcMonth, 1, 0, 0, 0);              // ex: 2020-05-01 00:00:00
         calcEndDate = LocalDateTime.of(calcYear, calcMonth, calcEndDay, calcEndHour, calcEndMinutes, calcEndSeconds); // ex: 2020-05-31 23:59:59
-
+        // 정산 내역 생성
+        Calculate calculate = Calculate.builder()
+                .calcSuccess(true)
+                .calcType(CalculateType.PERIODICAL)
+                .build();
+        calculateRepository.saveAndFlush(calculate);
         try {
             // 정산 시작(UPDATE, INSERT), SERVICE == NULL
-            Map<String ,Object> result = calculateService.periodicalCalculate(calcStartDate, calcEndDate);
+            logger.debug("================== PERIODICAL CALCULATE START !!!");
+            calculateService.periodicalCalculate(calcStartDate, calcEndDate, calculate);
+            logger.debug("================== PERIODICAL CALCULATE END !!!");
         } catch (Exception e) {
             // 정산 실패 처리
             logger.error("=================== CALCULATE IS FAILED !!!", e); // 임시
+            calculate.markSuccessYN(false);
+            calculateRepository.save(calculate);
         }
     }
 

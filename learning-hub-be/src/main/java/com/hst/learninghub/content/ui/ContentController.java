@@ -1,10 +1,13 @@
 package com.hst.learninghub.content.ui;
 
 import com.hst.learninghub.configuration.SwaggerConfiguration;
+import com.hst.learninghub.content.entity.ContentReply;
 import com.hst.learninghub.content.service.ContentService;
 import com.hst.learninghub.content.type.JobClass;
 import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
+import com.hst.learninghub.content.ui.request.ContentReplyModifyingRequest;
 import com.hst.learninghub.content.ui.response.ContentListResponse;
+import com.hst.learninghub.content.ui.response.ContentReplyResponse;
 import com.hst.learninghub.content.ui.response.ContentResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,7 +45,7 @@ public class ContentController {
 	@ApiOperation(value = "컨텐츠 조회", notes = "컨텐츠 한 건을 검색합니다.")
 	@GetMapping("{contentNo}")
 	public ResponseEntity<ContentResponse> getContent(
-			@ApiParam(name = "contentNo", value = "컨텐츠 no") @PathVariable Long contentNo) {
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo) {
 		return ResponseEntity.ok(contentService.getContent(contentNo));
 	}
 
@@ -56,5 +59,25 @@ public class ContentController {
 		request.setMailContent(mainContent);
 		ContentResponse response = contentService.createContent(request);
 		return ResponseEntity.ok(response);
+	}
+
+	@ApiOperation(value = "컨텐츠 후원", notes = "컨텐츠에 등록된 기관에 후원합니다.")
+	@PostMapping("donate/{contentNo}/{orgNo}")
+	public ResponseEntity<String> donate(
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo,
+			@ApiParam(name = "orgNo", value = "기관 No", example = "15") @PathVariable Long orgNo,
+			@ApiParam(name = "donationAmount", value = "후원금액", example = "15") @RequestParam Integer donationAmount,
+			@ApiParam(name = "donateUserNo", value = "후원 사용자 번호", example = "15") @RequestParam Long donateUserNo) {
+		contentService.donate(contentNo, orgNo, donationAmount, donateUserNo);
+		return ResponseEntity.ok("");
+	}
+
+	@ApiOperation(value = "컨텐츠 댓글 등록", notes = "컨텐츠에 댓글을 등록합니다.")
+	@PostMapping("{contentNo}/reply")
+	public ResponseEntity<ContentReplyResponse> reply(
+			@ApiParam(name = "contentNo", value = "컨텐츠 No", example = "15") @PathVariable Long contentNo,
+			@RequestBody ContentReplyModifyingRequest request) {
+		request.setContentNo(contentNo);
+		return ResponseEntity.ok(contentService.reply(request));
 	}
 }

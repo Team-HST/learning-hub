@@ -1,7 +1,9 @@
 package com.hst.learninghub.content.ui.response;
 
 import com.hst.learninghub.content.entity.Content;
-import com.hst.learninghub.content.entity.ContentFile;
+import com.hst.learninghub.file.ui.response.FileResponse;
+import com.hst.learninghub.organization.entity.Organization;
+import com.hst.learninghub.organization.ui.response.OrganizationResponse;
 import com.hst.learninghub.user.ui.response.UserResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +25,9 @@ public class ContentResponse {
 	private Integer donationRatio;
 	private LocalDateTime createAt;
 	private UserResponse registrant;
-	private List<ContentFileResponse> contentFiles;
+	private List<FileResponse> contentFiles;
+	private List<OrganizationResponse> donationOrgs;
+	private List<ContentReplyResponse> replies;
 
 	public static ContentResponse from(Content content) {
 		return builder()
@@ -34,7 +38,28 @@ public class ContentResponse {
 				.donationRatio(content.getDonationRatio())
 				.createAt(content.getCreatedAt())
 				.registrant(UserResponse.from(content.getRegistrant()))
-				.contentFiles(content.getContentFiles().stream().map(ContentFileResponse::from).collect(Collectors.toList()))
+				.contentFiles(content.getContentFiles().stream()
+						.map(contentFile -> contentFile.getId().getFile())
+						.map(FileResponse::from)
+						.collect(Collectors.toList()))
+				.build();
+	}
+
+	public static ContentResponse of(Content content, List<Organization> donationOrgs) {
+		return builder()
+				.no(content.getNo())
+				.title(content.getTitle())
+				.contents(content.getContents())
+				.jobClassType(content.getJobClass().getCode())
+				.donationRatio(content.getDonationRatio())
+				.createAt(content.getCreatedAt())
+				.registrant(UserResponse.from(content.getRegistrant()))
+				.contentFiles(content.getContentFiles().stream()
+						.map(contentFile -> contentFile.getId().getFile())
+						.map(FileResponse::from)
+						.collect(Collectors.toList()))
+				.donationOrgs(donationOrgs.stream().map(OrganizationResponse::from).collect(Collectors.toList()))
+				.replies(content.getReplies().stream().map(ContentReplyResponse::from).collect(Collectors.toList()))
 				.build();
 	}
 }
