@@ -12,14 +12,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ContentListItem from '@/components/contents/content_list_item'
 
 import ContentListItem from './ContentListItem'
 
 export default {
-  components: {
-    ContentListItem
-  },
   name: 'ContentList',
   components: {
     ContentListItem

@@ -119,7 +119,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import { contentService } from '@/lib/axios/service'
-import CreateFileInput from '@/components/contents/content_file_input'
 
 import CreateFileInput from '@/components/common/CreateFileInput';
 

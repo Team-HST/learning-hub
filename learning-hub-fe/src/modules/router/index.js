@@ -14,13 +14,14 @@ Vue.component('Navbar', Navbar) // 상단 메뉴 컴포넌트
 Vue.component('Js', Js)
 Vue.component('Breadcrumb', Breadcrumb)
 Vue.component('Footer', Footer)
+Vue.component('Page', Page)
 
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       components: {
         default: () => import('@/page/HomePage'),
         navbar: Navbar
@@ -53,7 +54,6 @@ export default new Router({
       }
     },
     {
-<<<<<<< HEAD
       path: '/content-create',
       name: 'content-create',
       components: {
@@ -71,7 +71,7 @@ export default new Router({
     },
     {
       path: '/faq',
-      name: 'Faq',
+      name: 'faq',
       components: {
         default: () => import('@/page/FaqPage'),
         navbar: Navbar
