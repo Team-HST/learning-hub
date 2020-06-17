@@ -35,16 +35,18 @@
      </div>
    </section>
    <!--Home Section End -->
-
    <About />
-
   </div>  
 </template>
   
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex' 
+import About from '@/components/about'
 
 export default {
+  components: {
+    About
+  },
   name: 'Home',
     computed: {
     ...mapGetters('code', ['getCodeMap', 'getIsCodeSetting'])

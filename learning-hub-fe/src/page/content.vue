@@ -62,9 +62,15 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex';
+import { mapMutations, mapGetters, mapActions } from 'vuex'
+import ContentLeftside from '@/components/contents/content_leftside'
+import Page from '@/components/common/page'
 
 export default {
+  components: {
+    ContentLeftside,
+    Page
+  },
   name: 'Content',
   data () {
     return {
