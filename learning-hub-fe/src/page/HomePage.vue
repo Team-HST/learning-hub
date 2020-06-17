@@ -38,6 +38,7 @@
   
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex' 
+import About from '@/components/about'
 
 export default {
   name: 'HomePage',
