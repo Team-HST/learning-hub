@@ -1,8 +1,7 @@
 <template>
   <div>
     <!--blog Section start-->
-    <div class="page-margin">
-      
+    <div class="page-margin">      
       <Breadcrumb 
         title="컨텐츠"
         v-bind:breadcrumb="breadcrumb"

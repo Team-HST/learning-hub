@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class ContDonation {
+public class ContentDonation {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,7 +37,7 @@ public class ContDonation {
 
     @CreatedDate
     @Column(name = "don_dtm")
-    private LocalDateTime don_dtm;
+    private LocalDateTime donationAt;
 
     public boolean isValid() {
         if (this.donationNo == null || this.contentNo == null || this.amount == null) {
