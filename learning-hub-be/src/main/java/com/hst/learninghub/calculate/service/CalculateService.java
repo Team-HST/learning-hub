@@ -2,15 +2,12 @@ package com.hst.learninghub.calculate.service;
 
 import com.hst.learninghub.calculate.entity.Calculate;
 import com.hst.learninghub.calculate.repository.CalculateRepository;
-import com.hst.learninghub.calculate.type.CalculateType;
-import com.hst.learninghub.donation.entity.ContDonation;
+import com.hst.learninghub.donation.entity.ContentDonation;
 import com.hst.learninghub.donation.entity.OrgDonation;
 import com.hst.learninghub.donation.repository.ContentDonRepository;
 import com.hst.learninghub.donation.repository.OrgDonationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,15 +42,15 @@ public class CalculateService {
 
         try {
             // 1. 사용자측 기부금 - 정산되지 않은 내역 조회(전월 1일~말일)
-            List<ContDonation> contDonationList = contentDonRepository.findByNullToCalculateNo();
+            List<ContentDonation> contentDonationList = contentDonRepository.findByNullToCalculateNo();
 
-            if (contDonationList != null) {
-                for (ContDonation contDonation : contDonationList) {
-                    if (!contDonation.isValid()) {
-                        logger.debug("======================= CONTDONATION DOES NOT HAVE A REQUIRED VALUE !!! : [{}]", contDonation);
+            if (contentDonationList != null) {
+                for (ContentDonation contentDonation : contentDonationList) {
+                    if (!contentDonation.isValid()) {
+                        logger.debug("======================= CONTDONATION DOES NOT HAVE A REQUIRED VALUE !!! : [{}]", contentDonation);
                     } else {
-                        contDonation.successCalculate(calculate.getNo());
-                        contentDonRepository.save(contDonation);
+                        contentDonation.successCalculate(calculate.getNo());
+                        contentDonRepository.save(contentDonation);
                     }
                 }
             }

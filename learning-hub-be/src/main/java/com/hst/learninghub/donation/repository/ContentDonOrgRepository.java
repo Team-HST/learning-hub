@@ -1,16 +1,16 @@
 package com.hst.learninghub.donation.repository;
 
-import com.hst.learninghub.donation.entity.ContentDonOrg;
-import com.hst.learninghub.donation.entity.ContentDonOrgPK;
+import com.hst.learninghub.donation.entity.ContentDonationOrg;
+import com.hst.learninghub.donation.entity.ContentDonationOrgId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ContentDonOrgRepository extends JpaRepository<ContentDonOrg, ContentDonOrgPK> {
+public interface ContentDonOrgRepository extends JpaRepository<ContentDonationOrg, ContentDonationOrgId> {
 
-	@Query("select cdo from ContentDonOrg cdo" +
-		   " where cdo.pk.contentNo = :contentNo")
-	List<ContentDonOrg> findAllContentDonationOrgs(Long contentNo);
+	@Query("select cdo from ContentDonationOrg cdo" +
+		   " where cdo.id.contentNo = :contentNo")
+	List<ContentDonationOrg> findAllContentDonationOrgs(Long contentNo);
 
 }

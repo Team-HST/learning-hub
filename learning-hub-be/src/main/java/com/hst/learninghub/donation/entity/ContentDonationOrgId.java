@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Embeddable
 @ToString
 @Getter
-public class ContentDonOrgPK implements Serializable {
+public class ContentDonationOrgId implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "content_no")
@@ -19,8 +19,8 @@ public class ContentDonOrgPK implements Serializable {
     @Column(name = "donation_org_no")
     private Long orgNo;
 
-    public static ContentDonOrgPK of(Long contentNo, Long orgNo) {
-        ContentDonOrgPK pk = new ContentDonOrgPK();
+    public static ContentDonationOrgId of(Long contentNo, Long orgNo) {
+        ContentDonationOrgId pk = new ContentDonationOrgId();
         pk.contentNo = contentNo;
         pk.orgNo = orgNo;
         return pk;

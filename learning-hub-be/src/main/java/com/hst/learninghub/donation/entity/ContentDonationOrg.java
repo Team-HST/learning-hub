@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class ContentDonOrg {
+public class ContentDonationOrg {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private ContentDonOrgPK pk;
+    private ContentDonationOrgId id;
 
     @Column(name = "del_yn")
     private Boolean deleted;
 
     @Column(name = "reg_user_no")
-    private Long regUserNo;
+    private Long registrantNo;
 
     @CreatedDate
     @Column(name = "REG_DTM")

@@ -1,9 +1,9 @@
 package com.hst.learninghub.donation.service;
 
 import com.hst.learninghub.content.entity.Content;
-import com.hst.learninghub.donation.entity.ContDonation;
-import com.hst.learninghub.donation.entity.ContentDonOrg;
-import com.hst.learninghub.donation.entity.ContentDonOrgPK;
+import com.hst.learninghub.donation.entity.ContentDonation;
+import com.hst.learninghub.donation.entity.ContentDonationOrg;
+import com.hst.learninghub.donation.entity.ContentDonationOrgId;
 import com.hst.learninghub.donation.entity.OrgDonation;
 import com.hst.learninghub.donation.repository.ContentDonOrgRepository;
 import com.hst.learninghub.donation.repository.ContentDonRepository;
@@ -30,10 +30,10 @@ public class DonationService {
 	 * @param registrantNo 등록 사용자 번호
 	 */
 	public void addContentDonationOrg(Long contentNo, Long organizationNo, Long registrantNo) {
-		contentDonationOrgRepository.save(ContentDonOrg.builder()
-				.pk(ContentDonOrgPK.of(contentNo, organizationNo))
+		contentDonationOrgRepository.save(ContentDonationOrg.builder()
+				.id(ContentDonationOrgId.of(contentNo, organizationNo))
 				.deleted(false)
-				.regUserNo(registrantNo)
+				.registrantNo(registrantNo)
 				.build());
 	}
 
@@ -48,7 +48,7 @@ public class DonationService {
 		long orgProceeds = request.getDonationAmount() - contentProceeds;
 
 
-		contentDonationRepository.save(ContDonation.builder()
+		contentDonationRepository.save(ContentDonation.builder()
 				.contentNo(content.getNo())
 				.amount(contentProceeds)
 				.donUserNo(request.getDonateUserNo())
@@ -69,6 +69,6 @@ public class DonationService {
 	 */
 	public long getTotalDonations(Long no) {
 		List<OrgDonation> list = orgDonationRepository.findAllByOrgNo(no);
-		return list.stream().mapToLong(amount->amount.getAmount()).sum();
+		return list.stream().mapToLong(OrgDonation::getAmount).sum();
 	}
 }
