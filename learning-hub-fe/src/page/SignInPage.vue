@@ -1,5 +1,4 @@
 <template>
-  <!-- sign in start -->
   <section class="authentication-form">
     <div class="innerpage-decor">
       <div class="innerpage-circle1"><img :src='"../assets/images/Testimonial2.png"' alt=""></div>
@@ -37,7 +36,6 @@
       </div>
     </div>
   </section>
-  <!-- sign in end-->
 </template>
 
 <script>
@@ -46,7 +44,7 @@
   import { mapMutations, mapActions } from 'vuex'
 
   export default {
-    name: 'SignIn',
+    name: 'SignInPage',
     data () {
       return {
         userInfo: {
@@ -63,7 +61,7 @@
         this.signIn(this.userInfo)
       },
       clickToSignUpBtn: function() {
-        this.$router.push('/signUp')
+        this.$router.push('/sign-up')
       }
     }
   }

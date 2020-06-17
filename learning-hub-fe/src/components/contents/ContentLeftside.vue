@@ -40,14 +40,12 @@ export default {
     ...mapGetters('content', ['getJobClass'])
   },
   methods: {
-    ...mapMutations('content', ['initPageNum', 'setJobClass', 'setSearchInput', 'setSearchTitle']),
+    ...mapMutations('content', ['setJobClass', 'setSearchTitle']),
     ...mapActions('content', ['searchContentPageList']),
     clickCategoryJobClass: function (jobCode) {
-      this.setSearchInput('')
       this.setSearchTitle('')
-      this.initPageNum()
       this.setJobClass(jobCode)
-      this.searchContentPageList()
+      this.searchContentPageList(1)
     }
   }
 }

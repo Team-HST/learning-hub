@@ -76,22 +76,22 @@
                       </b-form-select>
                     </div>
                     <div class="form-group">
-                      <CreateFileInput
+                      <create-file-input
                         id="banner_file"
                         :placeholder="this.bannerFile ? this.bannerFile.name : '배너이미지를 선택하여 주세요.'"
                         btnText="파일찾기"
                         accept="image/jpg, image/png"
                         :change="changeBannerFile"
-                      ></CreateFileInput>
+                      />
                     </div>
                     <div class="form-group">
-                      <CreateFileInput
+                      <create-file-input
                         id="video_file"
                         :placeholder="this.videoFile ? this.videoFile.name : '영상을 선택하여 주세요.'"
                         btnText="파일찾기"
                         accept="video/avi, video/mp4, video/mkv"
                         :change="changeVideoFile"
-                      ></CreateFileInput>
+                      />
                     </div>
                     <div class="form-button text-center">
                       <button 
@@ -120,8 +120,13 @@
 import { mapGetters } from 'vuex';
 import { contentService } from '@/lib/axios/service';
 
+import CreateFileInput from '@/components/common/CreateFileInput';
+
 export default {
-  name: 'ContentCreate',
+  name: 'ContentCreatePage',
+  components: {
+    CreateFileInput
+  },
   data() {
     return {
       title: '',

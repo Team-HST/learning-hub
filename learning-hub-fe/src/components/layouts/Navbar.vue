@@ -3,19 +3,19 @@
     <div class="container">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand class="navbar-brand" :to="{name:'home'}">
-      <img :src='"../assets/images/logo.png"' alt="logo">
+      <img :src='"@/assets/images/logo.png"' alt="logo">
     </b-navbar-brand>
     <b-collapse class="default-nav"  is-nav id="nav_collapse">
       <b-navbar-nav class="navbar-nav navbar-nav ml-auto" id="mymenu">
         <b-nav-item :to="{name: 'home'}">홈</b-nav-item>
         <b-nav-item :to="{name: 'about'}">소개</b-nav-item>
-        <b-nav-item :to="{name: 'content'}">컨텐츠</b-nav-item>
+        <b-nav-item :to="{name: 'contents'}">컨텐츠</b-nav-item>
         <b-nav-item :to="{name: 'faq'}">FAQ</b-nav-item>
         <b-nav-item-dropdown right-alignment text="나의 정보" class="nav-link">
           <b-dropdown-item class="nav-link"  :to="{name: 'profile'}">프로필</b-dropdown-item>
           <b-dropdown-item class="nav-link"  :to="{name:'myDonation'}" >기부금 관리</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item class="nav-link" :to="{name: 'sign_in'}">로그인</b-nav-item>
+        <b-nav-item class="nav-link" :to="{name: 'sign-in'}">로그인</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
     </div>

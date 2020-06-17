@@ -83,6 +83,6 @@
 </template>
 <script>
 export default {
-  name: 'about'
+  name: 'AboutPage'
 }
 </script>

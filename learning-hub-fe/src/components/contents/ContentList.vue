@@ -5,7 +5,7 @@
       v-for="(content ,index) in getContents" 
       :key="index"
     >
-      <ContentListItem :content="content" />
+      <content-list-item :content="content" />
     </div>
   </div>
 </template>
@@ -13,8 +13,13 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import ContentListItem from './ContentListItem'
+
 export default {
   name: 'ContentList',
+  components: {
+    ContentListItem
+  },
   computed: {
     ...mapGetters('content', ['getContents'])
   }

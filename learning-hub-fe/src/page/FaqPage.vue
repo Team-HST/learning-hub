@@ -83,7 +83,7 @@
 <script>
 
 export default {
-  name: 'Faq',
+  name: 'FaqPage',
   data() {
     return {
       breadcrumb: [
