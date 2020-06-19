@@ -1,6 +1,9 @@
 import { userService } from '@/lib/axios/service'
 
+import router from '@/modules/router'
+
 const state = {
+  signedIn: false,
   token: '',
   userInfo: {}
 }
@@ -16,31 +19,37 @@ const getters = {
 
 const mutations = {
   // 사용자 정보
-  setUserInfo: (state, userInfo) => {
-    state.userInfo = userInfo;
+  changeUserSignedIn: (state, userData) => {
+    state.userInfo = userData.user;
+    state.token = userData.token;
+    state.signedIn = true    
   },
-  setToken: (state, token) => {
-    state.token = token;
+  changeUserSignedOut: (state) => {
+    state.userInfo = {};
+    state.token = '';
+    state.signedIn = false    
   }
 }
 
 const actions = {
   async signIn({commit}, userInfo) {
     let response = await userService.signIn(userInfo);
-    let status = response.data.status;
-    
-    // 로그인 성공 처리
+    let status = response.data.status.code;
+
     if (status === "L001") {
-      commit('setUserInfo', response.user);
-      commit('setToken', response.token);
-
-    // 로그인 실패 처리 (사용자 조회 실패)
+      commit('changeUserSignedIn', response.data);
+      router.push({name: 'home'});      
     } else if (status === "L101") {
-      alert("조회 실패");
-
-    // 로그인 실패 처리 (패스워드 틀림)
+      alert("ID를 찾을 수 없습니다.");
     } else if (status === "L102") {
-      alert("비밀번호 틀림");
+      alert("비밀번호가 잘못되었습니다.");
+    }
+  },
+  signOut({commit}) {
+    commit('changeUserSignedOut');
+    alert('로그아웃 되었습니다.');
+    if (router.currentRoute.name != 'home') {
+      router.push({name: 'home'});
     }
   }
 }

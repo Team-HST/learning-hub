@@ -134,18 +134,18 @@ export default {
       formData.append('profileImage', this.profileFile);
       return formData;
     },
-    clickJoinBtn: async function() {
-      if (!this.validUserJoinInfo()) return
+    async clickJoinBtn() {
+      if (!this.validateUserSignUpInfo()) return;
       
-      let userJoinForm = this.buildFormData();
-      console.log(userJoinForm)
-      const response = await userService.userJoin(userJoinForm)
+      let userSignUpForm = this.buildFormData();
+      const response = await userService.signUp(userSignUpForm)
 
-      if (response.status === HttpConstants.HTTP_SUCCESS_CDOE)
-      alert('회원가입이 정상적으로 처리되었습니다.')
-      this.$router.push('/sign-in')
+      if (response.status === HttpConstants.HTTP_SUCCESS_CDOE) {
+        alert('회원가입이 정상적으로 처리되었습니다.') 
+        this.$router.push('/sign-in')
+      }
     },
-    validUserJoinInfo: function() {
+    validateUserSignUpInfo() {
       const { id, name, birthDate, password, confirmPassword } = this.join
       const birthDateRegex = /^\d{4}-\d{2}-\d{2}$/
 
@@ -159,12 +159,17 @@ export default {
         alert("생년월일을 정확하게 입력하여 주세요.")
         return false
       } else if (password.length === 0) {
-        alert("비밀번호를 입력하여 주세.");
+        alert("비밀번호를 입력하여 주세요.");
         return false
       } else if (password !== confirmPassword) {
         alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
         return false
       } 
+
+      if (this.profileFile) {
+        alert("프로필 이미지를 선택해주세요.");
+        return false
+      }
 
       return true
     },

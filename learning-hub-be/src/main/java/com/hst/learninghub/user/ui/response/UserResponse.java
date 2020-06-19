@@ -17,6 +17,7 @@ public class UserResponse {
 	private String name;
 	private LocalDate birthDate;
 	private String roleType;
+	private Long profileImageFileNo;
 
 	/***
 	 * 사용자 엔티티로 사용자 응답 생성
@@ -30,7 +31,7 @@ public class UserResponse {
 		response.name = entity.getName();
 		response.birthDate = entity.getBirthDate();
 		response.roleType = entity.getRoleType().getCode();
-
+		response.profileImageFileNo = entity.getProfileImage().getNo();
 		return response;
 	}
 }

@@ -6,20 +6,15 @@ const state = {
 }
 
 const getters = {
-  getIsCodeSetting: (state) => {
-    return state.isCodeSetting
-  },
   getCodeMap: (state) => {
     return state.codeMap
   }
 }
 
 const mutations = {
-  setIsCodeSetting: (state, isCodeSetting) => {
-    state.isCodeSetting = isCodeSetting
-  },
   setCodeMap: (state, codeMap) => {
-    state.codeMap = codeMap
+    state.isCodeSetting = true;
+    state.codeMap = codeMap;
   }
 }
 

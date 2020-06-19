@@ -10,10 +10,10 @@ export default {
           return response.data;
       })
   }, 
-  userLogin: (userInfo) => {
+  signIn: (userInfo) => {
     return http.post('/api/users/sign-in', userInfo)            
   },
-  userJoin: (joinInfo) => {
+  signUp: (joinInfo) => {
     return http.post('/api/users/sign-up', joinInfo)
   }
 }

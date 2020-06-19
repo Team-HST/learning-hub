@@ -37,22 +37,23 @@
 </template>
   
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex' 
+import { mapState, mapActions } from 'vuex' 
 
 export default {
   name: 'HomePage',
     computed: {
-    ...mapGetters('code', ['getCodeMap', 'getIsCodeSetting'])
+    ...mapState('code', ['codeMap', 'isCodeSetting']),
+    ...mapState('user', ['userInfo', 'signedIn'])
   },
   methods: {
     ...mapActions('code', ['initCodeMap']),
-    ...mapMutations('code', ['setIsCodeSetting'])
   },
-  mounted () {
-    if (!this.getIsCodeSetting) {
+  created () {
+    console.log(this.signedIn);
+    console.log(this.userInfo);
+    if (!this.is) {
       this.initCodeMap();
-      this.setIsCodeSetting(true);
-    }
+    }    
   }
 }
 </script>
