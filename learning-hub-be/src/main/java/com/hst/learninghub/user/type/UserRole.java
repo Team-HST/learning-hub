@@ -10,8 +10,8 @@ import java.util.Map;
  * @author dlgusrb0808@gmail.com
  */
 public enum UserRole implements PersistableType<String> {
-	OPAL("U001", "오팔(OPAL) 사용자", "컨텐츠를 제작하는 오팔(OPAL)세대 사용자"),
-	NORMAL("U002", "일반 사용자", "컨텐츠를 소비하는 일반 사용자")
+	OPAL("U001", "오팔회원", "컨텐츠를 제작하는 오팔(OPAL)세대 사용자"),
+	NORMAL("U002", "일반회원", "컨텐츠를 소비하는 일반 사용자")
 	;
 
 	private static final Map<String, UserRole> FINDER = EnumUtils.asMap(UserRole.class);

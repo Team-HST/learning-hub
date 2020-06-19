@@ -1,6 +1,7 @@
 package com.hst.learninghub.user.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
+import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.user.type.UserRole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,8 +56,16 @@ public class User extends BaseTimeEntity implements UserDetails, Serializable {
 	@Column(name = "del_yn")
 	private Boolean deleted;
 
+	@OneToOne
+	@JoinColumn(name = "profile_image_file_no")
+	private FileInfo profileImage;
+
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+	public void changeUserProfile(FileInfo profileImage) {
+		this.profileImage = profileImage;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

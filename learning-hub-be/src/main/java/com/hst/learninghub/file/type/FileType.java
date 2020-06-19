@@ -12,7 +12,8 @@ import java.util.Map;
 public enum FileType implements PersistableType<String> {
 	THUMBNAIL("F001", "컨텐츠 썸네일", "컨텐츠를 대표하는 썸네일"),
 	MAIN_MOVIE("F002", "컨텐츠 메인 동영상", "컨텐츠 메인 동영상"),
-	ATTACHMENT("F003", "컨텐츠 첨부파일", "썸네일, 동영상을 제외한 나머지 첨부파일")
+	ATTACHMENT("F003", "컨텐츠 첨부파일", "썸네일, 동영상을 제외한 나머지 첨부파일"),
+	PROFILE_IMAGE("F004", "회원 프로필 이미지", "회원 프로필 이미지")
 	;
 
 	private static final Map<String, FileType> FINDER = EnumUtils.asMap(FileType.class);

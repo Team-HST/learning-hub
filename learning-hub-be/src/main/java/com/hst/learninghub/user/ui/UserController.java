@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("users")
@@ -21,7 +22,10 @@ public class UserController {
 
 	@ApiOperation(value = "사용자 회원가입", notes = "사용자 회원가입")
 	@PostMapping("sign-up")
-	public ResponseEntity<UserResponse> signUp(@RequestBody SignUpRequest request){
+	public ResponseEntity<UserResponse> signUp(
+			SignUpRequest request,
+			@RequestParam(name = "profileImage") MultipartFile profileImage) throws Exception {
+		request.setProfileImage(profileImage);
 		UserResponse response = userService.signUp(request);
 		return ResponseEntity.ok(response);
 	}

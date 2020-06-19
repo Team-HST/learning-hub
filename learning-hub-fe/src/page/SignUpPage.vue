@@ -6,8 +6,8 @@
       <div class="innerpage-circle2"><img :src='"@/assets/images/Testimonial1.png"' alt=""></div>
     </div>
     <div>
-      <h2 class="title text-center">It's Free<span> Join US</span></h2>
-      <p class="text-center">Welcome to tovo, Please join us with your personal account information.</p>
+      <h2 class="title text-center"><span>회원가입</span></h2>
+      <p class="text-center">러닝허브에 오신 것을 환영합니다. 아래 정보를 입력한 후 가입해주세요.</p>
       <div class="card">
         <div class="theme-form">
           <div class="form-group">
@@ -56,6 +56,15 @@
               <span :class="{show:showConfirmPassword}"></span>
             </div>
           </div>
+          <div class="form-group">
+            <create-file-input
+              id="profile_file"
+              :placeholder="this.profileFile ? this.profileFile.name : '프로필 이미지를 선택하여 주세요.'"
+              btnText="파일찾기"
+              accept="image/jpg, image/png"
+              :change="changeProfileFile"
+            />
+          </div>
           <div class="form-group text-center">
             <b-form-radio-group
               id="btn-radios-1"
@@ -64,12 +73,6 @@
               buttons
               name="radios-btn-default"
             ></b-form-radio-group>
-            <!-- <b-form-radio-group
-              v-model="join.roleType"
-              :options="roleRadioOptions"
-              plain
-              name="radios-btn-default"
-            ></b-form-radio-group> -->
           </div>
           <div class="form-button text-center">
             <button 
@@ -84,17 +87,25 @@
   <!-- sign up end-->
 </template>
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { userService } from '@/lib/axios/service'
-import * as HttpConstants from '@/constants/HttpConstants'
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+import { userService } from '@/lib/axios/service';
+import * as HttpConstants from '@/constants/HttpConstants';
+import { mapState } from 'vuex';
+
+import CreateFileInput from '@/components/common/CreateFileInput';
 
 export default {
   name: 'SignUpPage',
+  components: {
+    CreateFileInput
+  },
   data () {
     return {
       showPassword: true,
       showConfirmPassword: true,
+      profileFile: null,
       join: {
         id: '',
         name: '',
@@ -103,21 +114,36 @@ export default {
         confirmPassword: '',
         roleType: 'U001'
       },
-      roleRadioOptions: [
-        { text: '오팔회원', value: 'U001' },
-        { text: '일반회원', value: 'U002' }
-      ]
+      roleRadioOptions: null
     }
   },
+  computed: {
+    ...mapState('code', ['codeMap'])
+  },
+  created() {
+    this.roleRadioOptions = this.codeMap['user-roles'].map(e => ({text: e.codeName, value: e.code}));
+  },
   methods: {
+    buildFormData() {
+      const formData = new FormData();
+      formData.append('id', this.join.id);
+      formData.append('name', this.join.name);
+      formData.append('password', this.join.password);
+      formData.append('birthDate', this.join.birthDate);
+      formData.append('roleType', this.join.roleType);
+      formData.append('profileImage', this.profileFile);
+      return formData;
+    },
     clickJoinBtn: async function() {
       if (!this.validUserJoinInfo()) return
       
-      const response = await userService.userJoin(this.join)
+      let userJoinForm = this.buildFormData();
+      console.log(userJoinForm)
+      const response = await userService.userJoin(userJoinForm)
 
       if (response.status === HttpConstants.HTTP_SUCCESS_CDOE)
       alert('회원가입이 정상적으로 처리되었습니다.')
-      this.$router.push('/signIn')
+      this.$router.push('/sign-in')
     },
     validUserJoinInfo: function() {
       const { id, name, birthDate, password, confirmPassword } = this.join
@@ -141,6 +167,14 @@ export default {
       } 
 
       return true
+    },
+    changeProfileFile() {
+      const file = event.target.files
+      if (file.length > 0) {
+        this.profileFile = file[0]
+      } else {
+        this.profileFile = null
+      }
     }
   }
 }

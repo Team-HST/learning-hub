@@ -2,8 +2,10 @@ package com.hst.learninghub.user.service;
 
 import com.hst.learninghub.authentication.model.AuthenticationToken;
 import com.hst.learninghub.authentication.provider.AuthenticationTokenProvider;
-import com.hst.learninghub.authentication.provider.JwtAuthenticationTokenProvider;
 import com.hst.learninghub.common.exception.NotFoundException;
+import com.hst.learninghub.file.entity.FileInfo;
+import com.hst.learninghub.file.service.FileService;
+import com.hst.learninghub.file.type.FileType;
 import com.hst.learninghub.user.entity.User;
 import com.hst.learninghub.user.repository.UserRepository;
 import com.hst.learninghub.user.type.LoginStatus;
@@ -12,6 +14,7 @@ import com.hst.learninghub.user.ui.request.SignInRequest;
 import com.hst.learninghub.user.ui.request.SignUpRequest;
 import com.hst.learninghub.user.ui.response.SignInResponse;
 import com.hst.learninghub.user.ui.response.UserResponse;
+import com.hst.learninghub.utils.TimeUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,11 +33,13 @@ public class UserService implements UserDetailsService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationTokenProvider authenticationTokenProvider;
+	private final FileService fileService;
 
-	public UserService(UserRepository userRepository, AuthenticationTokenProvider authenticationTokenProvider) {
+	public UserService(UserRepository userRepository, AuthenticationTokenProvider authenticationTokenProvider, FileService fileService) {
 		this.userRepository = userRepository;
 		this.authenticationTokenProvider = authenticationTokenProvider;
 		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		this.fileService = fileService;
 	}
 
 	/**
@@ -42,16 +47,21 @@ public class UserService implements UserDetailsService {
 	 * @param request 회원가입 요청
 	 * @return 가입된 회원정보
 	 */
-	public UserResponse signUp(SignUpRequest request) {
+	public UserResponse signUp(SignUpRequest request) throws Exception {
 		User user = User.builder()
 				.id(request.getId())
 				.name(request.getName())
 				.password(passwordEncoder.encode(request.getPassword()))
-				.birthDate(request.getBirthDate())
+				.birthDate(TimeUtils.parse(request.getBirthDate()))
 				.roleType(UserRole.get(request.getRoleType()))
 				.deleted(false)
 				.build();
+
+
+		FileInfo uploadedFileInfo = fileService.uploadFile(request.getProfileImage(), FileType.PROFILE_IMAGE);
+		user.changeUserProfile(uploadedFileInfo);
 		userRepository.save(user);
+
 		return UserResponse.from(user);
 	}
 
