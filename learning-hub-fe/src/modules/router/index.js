@@ -76,6 +76,14 @@ export default new Router({
         default: () => import('@/page/FaqPage'),
         navbar: Navbar
       }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      components: {
+        default: () => import('@/page/ProfilePage'),
+        navbar: Navbar
+      }      
     }
   ]
 })

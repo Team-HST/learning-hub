@@ -4,7 +4,7 @@
       <div class="blog-box">
         <div class="overflow-hidden">
           <router-link :to="'/contents/'+content.no" >
-            <img :src="thumbnailFileNo" alt="blog" class="img-fluid">
+            <img :src="thumbnailFileNo" alt="blog" width="100%" height="240">
           </router-link>
           </div>
       </div>

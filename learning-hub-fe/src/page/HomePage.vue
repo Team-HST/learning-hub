@@ -1,6 +1,5 @@
 <template>
  <div id="main_div">
-
    <!-- Home Section start-->
    <section id="home" class="home">
      <div class="home-decor">
@@ -20,13 +19,6 @@
                </h1>
                <p>경험을 공유하고, 도움이 얻은 컨텐츠에 후원하세요.</p>
              </div>
-           </div>
-         </div>
-         <div class="col-sm-6 offset-md-1">
-           <div class="home-right">
-             <!-- Tile js start -->
-             <!-- <tilt :image = '"mobile.png"'/> -->
-             <!-- Tile js end -->
            </div>
          </div>
        </div>
