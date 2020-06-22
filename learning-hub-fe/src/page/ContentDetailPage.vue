@@ -8,19 +8,22 @@
             <div class="blog-item">
               <div>
                 <div class="blog-box">
-                  <div class="overflow-hidden">
-                    <videoPlayer :options="playerOptions" />
-                  </div>
+                  <video width="100%" height="640" :src="`/api/files/${getMainContentSource}`" controls />
                 </div>
               </div>
+              <div class="blog-divider"></div>
               <div class="blog-text">
-                <h6>{{getFormatDate}}</h6>
-                <a href="#">
-                  <h3 class="blog-head">{{getContentDetail.title}}</h3>
-                </a>
-                <div class="blog-divider"></div>
+                <div class="row">
+                  <div class="col-sm-1">
+                    <img :src="`/api/files/${getContentDetail.registrant.profileImageFileNo}`" width="64" height="64">
+                    by {{getContentDetail.registrant.name}}
+                  </div>
+                  <div class="col-sm-11">                                        
+                    <h2 class="blog-head"><strong>{{getContentDetail.title}}</strong></h2>
+                    <h6>{{getFormatDate}}</h6>
+                  </div>
+                </div>
                 <div class="blog-description">
-                  <!-- <img :src='"@/assets/images/blog/blog-details.jpg"' alt="blog" class="img-fluid img-banner"> -->
                   <p>{{getContentDetail.contents}}</p>
                 </div>
               </div>
@@ -30,9 +33,7 @@
               <div class="media">
                 <img class="align-self-top mr-3" :src='"@/assets/images/blog/blog-comment.jpg"' alt="blog">
                 <div class="media-body">
-                  <router-link  :to="{name:'Blog_details'}">
-                    <h5 class="mt-0">Lorem Ipsum Is Simply Dummy</h5>
-                  </router-link>
+                  <h5 class="mt-0">Lorem Ipsum Is Simply Dummy</h5>
                   <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Donec sed odio dui.</p>
                 </div>
               </div>
@@ -89,30 +90,16 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { DateUtils } from '@/utils/common'
-import { videoPlayer } from 'vue-video-player'
-import 'video.js/dist/video-js.css'
 
 export default {
   name: 'ContentDetailPage',
-  components: {
-    videoPlayer
-  },
   data() {
     return {
       breadcrumb: [
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'},
         {name: '컨텐츠 상세', to: '/contentDetail'}
-      ],
-      playerOptions: {
-        language: 'en',
-        playbackRates: [0.7, 1.0, 1.5, 2.0],
-        sources: [{
-          type: "video/mp4",
-          src: '/api/files/'+this.getVideoSource
-        }],
-        poster: "/static/images/author.jpg",
-      }
+      ]
     }
   },
   computed: {
@@ -120,7 +107,7 @@ export default {
     getFormatDate() {
       return DateUtils.getDateFormatStr(this.getContentDetail.createAt, 'YYYY년 MM월 DD일');
     },
-    getVideoSource() {
+    getMainContentSource() {
       return this.getContentDetail.contentFiles.filter(file => 
         file.fileTypeCode === 'F002'
       )[0].fileNo
@@ -131,7 +118,7 @@ export default {
   },
   created() {
     this.searchContentDetail(this.$route.params.srno)
-    console.log(this.getContentDetail)
+    console.log(this.getVideoSource)
   }
 }
 </script>
