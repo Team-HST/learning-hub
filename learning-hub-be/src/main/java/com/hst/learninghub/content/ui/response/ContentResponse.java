@@ -31,7 +31,7 @@ public class ContentResponse {
 				.no(content.getNo())
 				.title(content.getTitle())
 				.contents(content.getContents())
-				.jobClassType(content.getJobClass().getCodeName())
+				.jobClassType(content.getJobClass().getCode())
 				.donationRatio(content.getDonationRatio())
 				.createAt(content.getCreatedAt())
 				.registrant(UserResponse.from(content.getRegistrant()))

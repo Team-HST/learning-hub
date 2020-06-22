@@ -15,7 +15,7 @@
                 <i class="fa fa-angle-right " aria-hidden="true"></i> 전체
               </div>
             </li>
-            <li class="marg-15" v-for="category in getCodeMap['job-classes']" :key="category.code">
+            <li class="marg-15" v-for="category in codeMap['JobClasses']" :key="category.code">
               <div 
                 class="router-link-active" 
                 :class="getJobClass === category.code ? 'job-active' : ''"
@@ -31,12 +31,12 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'contentLeftside',
   computed: {
-    ...mapGetters('code', ['getCodeMap']),
+    ...mapState('code', ['codeMap']),
     ...mapGetters('content', ['getJobClass'])
   },
   methods: {

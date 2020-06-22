@@ -11,14 +11,15 @@
     </div>
     <div class="blog-text">
       <h3>{{content.title}}</h3>
-      <p>{{content.jobClassType}}</p>
+      <p>{{getCodeName('JobClasses', content.jobClassType)}}</p>
       <h5>{{content.registrant.name}} - {{getFormatDate}}</h5>
     </div>
   </div>
 </template>
 
 <script>
-import { DateUtils } from '@/utils/common'
+import { mapGetters } from 'vuex';
+import { DateUtils } from '@/utils/common';
 
 export default {
   props: {
@@ -30,6 +31,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('code', ['getCode', 'getCodeName']),
     getFormatDate: function () {
       const createAt = DateUtils.getDateFormatStr(this.content.createAt, 'YYYY년 MM월 DD일')
       return createAt

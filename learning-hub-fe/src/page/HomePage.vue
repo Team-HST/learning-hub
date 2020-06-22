@@ -43,6 +43,7 @@ export default {
   created () {
     console.log(this.signedIn);
     console.log(this.userInfo);
+    console.log(this.codeMap);
     if (!this.is) {
       this.initCodeMap();
     }    
