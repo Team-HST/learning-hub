@@ -114,14 +114,16 @@ export default {
         confirmPassword: '',
         roleType: 'U001'
       },
-      roleRadioOptions: null
+      roleRadioOptions: []
     }
   },
   computed: {
     ...mapState('code', ['codeMap'])
   },
   created() {
-    this.roleRadioOptions = this.codeMap['user-roles'].map(e => ({text: e.codeName, value: e.code}));
+    this.roleRadioOptions = Object.keys(this.codeMap['UserRoles']).map(key => ({
+      text: this.codeMap.UserRoles[key].codeName, value: this.codeMap.UserRoles[key].code
+    }))
   },
   methods: {
     buildFormData() {
