@@ -32,7 +32,7 @@ public class FreepassAuthenticationTokenProvider implements AuthenticationTokenP
 	public AuthenticationToken issue(Long userNo) {
 		return AuthenticationToken.builder()
 				.token(String.format("%s_%d", getFreePassProps().getMasterToken(), userNo))
-				.userNo(userNo)
+				// .userNo(userNo)
 				.build();
 	}
 

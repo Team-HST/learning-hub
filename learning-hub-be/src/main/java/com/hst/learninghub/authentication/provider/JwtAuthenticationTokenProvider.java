@@ -37,7 +37,7 @@ public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvid
     @Override
     public AuthenticationToken issue(Long userNo) {
         return AuthenticationToken.builder()
-                .userNo(userNo)
+//                .userNo(userNo)
                 .token(buildToken(userNo))
                 .build();
     }

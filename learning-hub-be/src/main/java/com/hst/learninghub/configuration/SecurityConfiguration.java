@@ -3,11 +3,9 @@ package com.hst.learninghub.configuration;
 import com.hst.learninghub.configuration.entrypoint.RestAuthenticationEntryPoint;
 import com.hst.learninghub.configuration.filter.ExceptionHandlingFilter;
 import com.hst.learninghub.configuration.filter.TokenAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,7 +17,6 @@ import org.springframework.web.filter.CorsFilter;
  * @author dlgusrb0808@gmail.com
  */
 @Configuration
-@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_URI = {
@@ -31,12 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/contents/**",
 			"/codes/**"
 	};
-
-	@Bean
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
 
 	@Override
 	public void configure(WebSecurity web) {

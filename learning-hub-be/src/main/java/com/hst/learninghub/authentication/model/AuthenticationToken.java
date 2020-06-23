@@ -7,5 +7,4 @@ import lombok.Getter;
 @Getter
 public class AuthenticationToken {
     private String token;
-    private Long userNo;
 }
