@@ -60,7 +60,7 @@ public class ContentService {
 	 * @return 컨텐츠
 	 */
 	public ContentResponse getContent(Long contentNo) {
-		return ContentResponse.fromWithReplies(getContentEntity(contentNo));
+		return ContentResponse.from(getContentEntity(contentNo));
 	}
 
 	/***

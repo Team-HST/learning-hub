@@ -37,9 +37,9 @@ export default {
       return createAt
     },
     thumbnailFileNo() {
-      let thumbnailFile = this.content.contentFiles.filter(e => e.fileTypeCode == 'F001');      
-      if (thumbnailFile.length == 1) {
-        return `/api/files/${thumbnailFile[0].fileNo}`;
+      let thumbnailFile = this.content.thumbnailFile;      
+      if (thumbnailFile) {
+        return `/api/files/${thumbnailFile.fileNo}`;
       } else {
         return '@/assets/images/blog/9.jpg'
       }

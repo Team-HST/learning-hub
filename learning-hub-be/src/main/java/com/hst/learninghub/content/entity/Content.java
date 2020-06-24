@@ -2,6 +2,8 @@ package com.hst.learninghub.content.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
 import com.hst.learninghub.content.type.JobClass;
+import com.hst.learninghub.file.entity.FileInfo;
+import com.hst.learninghub.file.type.FileType;
 import com.hst.learninghub.user.entity.User;
 import lombok.*;
 
@@ -59,5 +61,21 @@ public class Content extends BaseTimeEntity implements Serializable {
 		this.donationRatio = donationRatio;
 		this.registrant = registrant;
 		this.deleted = false;
+	}
+
+	public FileInfo getThumbnailFile() {
+		return this.contentFiles.stream()
+				.map(ContentFile::getFile)
+				.filter(file -> file.getFileType() == FileType.THUMBNAIL)
+				.findFirst()
+				.orElse(null);
+	}
+
+	public FileInfo getMainContentFile() {
+		return this.contentFiles.stream()
+				.map(ContentFile::getFile)
+				.filter(file -> file.getFileType() == FileType.MAIN_MOVIE)
+				.findFirst()
+				.orElseThrow(() -> new IllegalStateException("메인 컨텐츠가 존재하지 않음"));
 	}
 }

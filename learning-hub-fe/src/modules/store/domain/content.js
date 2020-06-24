@@ -1,7 +1,5 @@
 import { contentService } from '@/lib/axios/service';
 
-import { DateUtils } from '@/utils/common'
-
 const state = {
   searchBar: {
     title: ''  // 조회 검색 
@@ -14,20 +12,7 @@ const state = {
   pageNum: 1, // 현재 조회 페이지 
   totalPage: null, // 총 페이지
   jobClass: '', // 선택 카테고리
-  contents: [], // 목록 컨텐츠
-  contentDetail: {
-    no: 0,
-    title: '',
-    contents: '',
-    jobClassTypeName: '',
-    donationRatio: 0,
-    mainContentFileNo: 0,
-    createAt: '',
-    registrant: {
-      name: '',
-      profileImageFileNo: 0
-    }
-  }
+  contents: []
 }
 
 const getters = {
@@ -63,19 +48,6 @@ const mutations = {
   },
   setContents: (state, contents) => {
     state.contents = contents
-  },
-  setContentDetail: (state, content) => {
-    state.contentDetail.no = content.no;
-    state.contentDetail.title = content.title;
-    state.contentDetail.contents = content.contents;
-    state.contentDetail.jobClassTypeName = content.jobClassType;
-    state.contentDetail.donationRatio = content.donationRatio;
-    state.contentDetail.createAt = DateUtils.getDateFormatStr(content.no, 'YYYY년 MM월 DD일');
-    state.contentDetail.mainContentFileNo = content.contentFiles.filter(file => 
-      file.fileTypeCode === 'F002'
-    )[0].fileNo;
-    state.contentDetail.registrant.name = content.registrant.name;
-    state.contentDetail.registrant.profileImageFileNo = content.registrant.profileImageFileNo;
   }
 }
 
@@ -92,11 +64,6 @@ const actions = {
     const totalPage = response.data.totalPage;
     commit('setTotalPage', totalPage > 0 ? totalPage : 1);
     commit('setContents', response.data.contents);
-  },
-  // 컨텐츠 상세조회
-  searchContentDetail: async function ({commit}, srno) {
-    const response = await contentService.searchContentDetail(srno)
-    commit('setContentDetail', response.data)
   }
 }
 

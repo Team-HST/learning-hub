@@ -23,6 +23,10 @@ public class ContentFile extends BaseTimeEntity {
 	@Column(name = "del_yn")
 	private Boolean deleted;
 
+	public FileInfo getFile() {
+		return this.id.getFile();
+	}
+
 	public static ContentFile of(Content content, FileInfo file) {
 		ContentFile contentFile = new ContentFile();
 		contentFile.id = ContentFileId.of(content, file);

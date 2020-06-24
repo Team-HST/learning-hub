@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -16,15 +14,15 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 public class ContentResponse {
-	private Long no;
-	private String title;
-	private String contents;
-	private String jobClassType;
-	private Integer donationRatio;
-	private LocalDateTime createAt;
-	private UserResponse registrant;
-	private List<FileResponse> contentFiles;
-	private List<ContentReplyResponse> replies;
+	private final Long no;
+	private final String title;
+	private final String contents;
+	private final String jobClassType;
+	private final Integer donationRatio;
+	private final LocalDateTime createAt;
+	private final UserResponse registrant;
+	private final FileResponse thumbnailFile;
+	private final FileResponse mainContentFile;
 
 	public static ContentResponse from(Content content) {
 		return builder()
@@ -35,27 +33,8 @@ public class ContentResponse {
 				.donationRatio(content.getDonationRatio())
 				.createAt(content.getCreatedAt())
 				.registrant(UserResponse.from(content.getRegistrant()))
-				.contentFiles(content.getContentFiles().stream()
-						.map(contentFile -> contentFile.getId().getFile())
-						.map(FileResponse::from)
-						.collect(Collectors.toList()))
-				.build();
-	}
-
-	public static ContentResponse fromWithReplies(Content content) {
-		return builder()
-				.no(content.getNo())
-				.title(content.getTitle())
-				.contents(content.getContents())
-				.jobClassType(content.getJobClass().getCodeName())
-				.donationRatio(content.getDonationRatio())
-				.createAt(content.getCreatedAt())
-				.registrant(UserResponse.from(content.getRegistrant()))
-				.contentFiles(content.getContentFiles().stream()
-						.map(contentFile -> contentFile.getId().getFile())
-						.map(FileResponse::from)
-						.collect(Collectors.toList()))
-				.replies(content.getReplies().stream().map(ContentReplyResponse::from).collect(Collectors.toList()))
+				.thumbnailFile(FileResponse.from(content.getThumbnailFile()))
+				.mainContentFile(FileResponse.from(content.getMainContentFile()))
 				.build();
 	}
 }

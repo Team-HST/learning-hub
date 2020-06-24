@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { DateUtils } from '@/utils/common'
+import { contentService } from '@/lib/axios/service';
 
 import ContentReplyList from '@/components/contents/ContentReplyList'
 
@@ -51,20 +52,44 @@ export default {
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'},
         {name: '컨텐츠 상세', to: '/contentDetail'}
-      ]
+      ],
+      contentDetail: {
+        no: 0,
+        title: '',
+        contents: '',
+        jobClassTypeName: '',
+        donationRatio: 0,
+        mainContentFileNo: 0,
+        createAt: '',
+        registrant: {
+          name: '',
+          profileImageFileNo: 0
+        }
+      }
     }
   },
   computed: {
-    ...mapState('content', ['contentDetail']),
     contentNo() {
       return this.$route.params.contentNo;
     }
   },
   methods: {
-    ...mapActions('content', ['searchContentDetail'])
+    async initContentDetail() {
+      let response = await contentService.searchContentDetail(this.contentNo);
+      let content = response.data;
+      this.contentDetail.no = content.no;
+      this.contentDetail.title = content.title;
+      this.contentDetail.contents = content.contents;
+      this.contentDetail.jobClassTypeName = content.jobClassType;
+      this.contentDetail.donationRatio = content.donationRatio;
+      this.contentDetail.createAt = DateUtils.getDateFormatStr(content.no, 'YYYY년 MM월 DD일');
+      this.contentDetail.mainContentFileNo = content.mainContentFile.fileNo;
+      this.contentDetail.registrant.name = content.registrant.name;
+      this.contentDetail.registrant.profileImageFileNo = content.registrant.profileImageFileNo;
+    }
   },
   created() {
-    this.searchContentDetail(this.contentNo)
+    this.initContentDetail();
   }
 }
 </script>
