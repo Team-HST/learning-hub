@@ -1,22 +1,12 @@
   <template>
     <div>
-      <!--blog Section start-->
       <div class="page-margin">
-
-        <!--breadcrumb start-->
-        <Breadcrumb 
-          title="컨텐츠 등록"
-          v-bind:breadcrumb="breadcrumb"
-        />
-        <!--breadcrumb end -->
-
-        <!-- sign in -->
-        <section>
+        <breadcrumb title="컨텐츠 등록" :breadcrumb="breadcrumb" />
+        <section id="content-create">
           <div class="innerpage-decor">
             <div class="innerpage-circle1"><img :src='"@/assets/images/Testimonial2.png"' alt=""></div>
             <div class="innerpage-circle2"><img :src='"@/assets/images/Testimonial1.png"' alt=""></div>
           </div>
-          <!--content_create in -->
           <div class="content_create">
             <div class="container">
               <div class="row">
@@ -51,9 +41,9 @@
                         </template>
 
                         <b-form-select-option
-                          v-for="classes in getCodeMap['job-classes']" :key="classes.code"
-                          :value="classes.code">
-                          {{classes.codeName}}
+                          v-for="jobClass in jobClassTypes" :key="jobClass.code"
+                          :value="jobClass.code">
+                          {{jobClass.codeName}}
                         </b-form-select-option>
                       </b-form-select>
                     </div>
@@ -104,15 +94,10 @@
               </div>
             </div>
           </div>
-          <!-- content_create up -->
         </section>
-        <!-- sign up -->
-      <!--blog Section end-->
     </div>
-    <!--Footer Section start-->
-    <Footer/>
-    <js/>
-    <!--Footer Section End-->
+    <footer />
+    <js />
   </div>
 </template>
 
@@ -139,11 +124,15 @@ export default {
         {name: '홈', to: '/'},
         {name: '컨텐츠', to: '/contents'},
         {name: '컨텐츠 등록', to: '/contentCreate'}
-      ]
+      ],
+      jobClassTypes: []
     }
   },
   computed: {
-    ...mapGetters('code', ['getCodeMap'])
+    ...mapGetters('code', ['getCodeGroup'])
+  },
+  created() {
+    this.jobClassTypes = this.getCodeGroup('JobClasses', code => ({ codeName: code.codeName, code: code.code }))
   },
   methods: {
     clickContentCreate: async function() {
@@ -170,16 +159,6 @@ export default {
         alert('영상은 필수입니다.')
         return;
       }
-
-      // const content = {
-      //   'title': this.title,
-      //   'contents': this.contents,
-      //   'jobClassType': this.jobSelected,
-      //   'donationRatio': this.donRangeSelected,
-      //   'thumbnail': this.bannerFile,
-      //   'mainContent': this.videoFile
-      // }
-
       await contentService.createContent(formData)
       this.$router.push('/contents')
     },

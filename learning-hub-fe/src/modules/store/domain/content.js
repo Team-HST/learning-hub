@@ -1,5 +1,7 @@
 import { contentService } from '@/lib/axios/service';
 
+import { DateUtils } from '@/utils/common'
+
 const state = {
   searchBar: {
     title: ''  // 조회 검색 
@@ -13,7 +15,19 @@ const state = {
   totalPage: null, // 총 페이지
   jobClass: '', // 선택 카테고리
   contents: [], // 목록 컨텐츠
-  contentDetail: {} // 상세 컨텐츠
+  contentDetail: {
+    no: 0,
+    title: '',
+    contents: '',
+    jobClassTypeName: '',
+    donationRatio: 0,
+    mainContentFileNo: 0,
+    createAt: '',
+    registrant: {
+      name: '',
+      profileImageFileNo: 0
+    }
+  }
 }
 
 const getters = {
@@ -28,9 +42,6 @@ const getters = {
   },
   getContents: (state) => {
     return state.contents
-  },
-  getContentDetail: (state) => {
-    return state.contentDetail
   }
 }
 
@@ -54,7 +65,17 @@ const mutations = {
     state.contents = contents
   },
   setContentDetail: (state, content) => {
-    state.contentDetail = content
+    state.contentDetail.no = content.no;
+    state.contentDetail.title = content.title;
+    state.contentDetail.contents = content.contents;
+    state.contentDetail.jobClassTypeName = content.jobClassType;
+    state.contentDetail.donationRatio = content.donationRatio;
+    state.contentDetail.createAt = DateUtils.getDateFormatStr(content.no, 'YYYY년 MM월 DD일');
+    state.contentDetail.mainContentFileNo = content.contentFiles.filter(file => 
+      file.fileTypeCode === 'F002'
+    )[0].fileNo;
+    state.contentDetail.registrant.name = content.registrant.name;
+    state.contentDetail.registrant.profileImageFileNo = content.registrant.profileImageFileNo;
   }
 }
 

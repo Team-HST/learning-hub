@@ -62,7 +62,7 @@ export default new Router({
       }
     },
     {
-      path: '/contents/:srno',
+      path: '/contents/:contentNo',
       name: 'content-detail',
       components: {
         default: () => import('@/page/ContentDetailPage'),

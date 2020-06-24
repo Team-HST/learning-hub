@@ -7,79 +7,29 @@
           <div class="col-sm-12">
             <div class="blog-item">
               <div>
-                <div class="blog-box">
-                  <video width="100%" height="640" :src="`/api/files/${getMainContentSource}`" controls />
+                <div class="blog-box" v-if="contentDetail.mainContentFileNo != 0">
+                  <video width="100%" height="640" :src="`/api/files/${contentDetail.mainContentFileNo}`" controls />
                 </div>
               </div>
               <div class="blog-divider"></div>
               <div class="blog-text">
                 <div class="row">
-                  <div class="col-sm-1">
-                    <img :src="`/api/files/${getContentDetail.registrant.profileImageFileNo}`" width="64" height="64">
-                    by {{getContentDetail.registrant.name}}
+                  <div class="col-sm-1" v-if="contentDetail.registrant.profileImageFileNo != 0">
+                    <img :src="`/api/files/${contentDetail.registrant.profileImageFileNo}`" width="64" height="64">
+                    by {{contentDetail.registrant.name}}
                   </div>
                   <div class="col-sm-11">                                        
-                    <h2 class="blog-head"><strong>{{getContentDetail.title}}</strong></h2>
-                    <h6>{{getFormatDate}}</h6>
+                    <h2 class="blog-head"><strong>{{contentDetail.title}}</strong></h2>
+                    <h6>{{contentDetail.createAt}}</h6>
                   </div>
                 </div>
                 <div class="blog-description">
-                  <p>{{getContentDetail.contents}}</p>
+                  <p>{{contentDetail.contents}}</p>
                 </div>
               </div>
             </div>
             <div class="blog-divider"></div>
-            <div class="reply-comment">
-              <div class="media">
-                <img class="align-self-top mr-3" :src='"@/assets/images/blog/blog-comment.jpg"' alt="blog">
-                <div class="media-body">
-                  <h5 class="mt-0">Lorem Ipsum Is Simply Dummy</h5>
-                  <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Donec sed odio dui.</p>
-                </div>
-              </div>
-              <div class="media">
-                <img class="align-self-top mr-3" :src='"@/assets/images/blog/blog-comment-two.jpg"' alt="blog">
-                <div class="media-body">
-                  <router-link  :to="{name:'Blog_details'}">
-                    <h5 class="mt-0">Lorem Ipsum has been the</h5>
-                  </router-link>
-                  <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Donec sed odio dui.</p>
-                </div>
-              </div>
-              <div class="media">
-                <img class="align-self-top mr-3" :src='"@/assets/images/blog/blog-comment-three.jpg"' alt="blog">
-                <div class="media-body">
-                  <router-link  :to="{name:'Blog_details'}">
-                    <h5 class="mt-0">all the Lorem Ipsum Generator</h5>
-                  </router-link>
-                  <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                </div>
-              </div>
-            </div>
-            <div class="blog-divider"></div>
-            <div class="row">
-              <div class="col-md-10 offset-md-1 leave-coment">
-                <h3 class="text-center">Leave Your Comment</h3>
-                <form class="theme-form footer-form p-0 mt-3">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-lg-6 col-md-12 md-fgrup-margin">
-                        <input type="text" class="form-control" placeholder="your name">
-                      </div>
-                      <div class="col-lg-6 col-md-12">
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email address">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="message"></textarea>
-                  </div>
-                  <div class="form-button">
-                    <button type="submit" class="btn btn-custom theme-color">send</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+            <content-reply-list />
           </div>
         </div>
       </div>
@@ -88,11 +38,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { DateUtils } from '@/utils/common'
+import { mapState, mapActions } from 'vuex';
+
+import ContentReplyList from '@/components/contents/ContentReplyList'
 
 export default {
   name: 'ContentDetailPage',
+  components: { ContentReplyList },
   data() {
     return {
       breadcrumb: [
@@ -103,22 +55,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('content', ['getContentDetail']),
-    getFormatDate() {
-      return DateUtils.getDateFormatStr(this.getContentDetail.createAt, 'YYYY년 MM월 DD일');
-    },
-    getMainContentSource() {
-      return this.getContentDetail.contentFiles.filter(file => 
-        file.fileTypeCode === 'F002'
-      )[0].fileNo
+    ...mapState('content', ['contentDetail']),
+    contentNo() {
+      return this.$route.params.contentNo;
     }
   },
   methods: {
     ...mapActions('content', ['searchContentDetail'])
   },
   created() {
-    this.searchContentDetail(this.$route.params.srno)
-    console.log(this.getVideoSource)
+    this.searchContentDetail(this.contentNo)
   }
 }
 </script>

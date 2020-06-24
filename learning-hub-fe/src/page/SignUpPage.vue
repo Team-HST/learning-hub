@@ -92,7 +92,7 @@
 
 import { userService } from '@/lib/axios/service';
 import * as HttpConstants from '@/constants/HttpConstants';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import CreateFileInput from '@/components/common/CreateFileInput';
 
@@ -118,12 +118,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('code', ['codeMap'])
+    ...mapGetters('code', ['getCodeGroup'])
   },
   created() {
-    this.roleRadioOptions = Object.keys(this.codeMap['UserRoles']).map(key => ({
-      text: this.codeMap.UserRoles[key].codeName, value: this.codeMap.UserRoles[key].code
-    }))
+    this.roleRadioOptions = this.getCodeGroup('UserRoles', code => ({ text: code.codeName, value: code.code }))
   },
   methods: {
     buildFormData() {
