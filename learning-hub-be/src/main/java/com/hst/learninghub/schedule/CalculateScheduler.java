@@ -26,7 +26,7 @@ public class CalculateScheduler {
     /**
      * 매월 5일 정산(이전 달 기준)
      */
-    @Scheduled(fixedDelay = 300000)
+    // @Scheduled(fixedDelay = 300000)
     @Transactional
     public void periodicalCalcSchedule() {
         logger.info("[정산 서비스] 주기 정산 시작");
