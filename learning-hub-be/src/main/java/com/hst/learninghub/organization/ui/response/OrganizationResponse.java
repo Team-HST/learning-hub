@@ -11,14 +11,16 @@ import lombok.Getter;
 @Getter
 @Builder
 public class OrganizationResponse {
+	private Long no;
 	private String name;
 	private String address;
 	private String phoneNumber;
 	private FileResponse thumbnail;
 	private long totalDonations;
 
-	public static OrganizationResponse from(Organization organization, long totalDonations) {
+	public static OrganizationResponse of(Organization organization, long totalDonations) {
 		return builder()
+				.no(organization.getNo())
 				.name(organization.getName())
 				.address(organization.getAddress())
 				.phoneNumber(organization.getPhoneNumber())

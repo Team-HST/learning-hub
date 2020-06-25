@@ -38,8 +38,12 @@ public class Calculate {
     @Column(name = "calculate_yn")
     private Boolean calcSuccess;
 
-    public void markSuccessYN(boolean calcSuccess) {
-        this.calcSuccess = calcSuccess;
+    public void markSuccess() {
+        this.calcSuccess = true;
+    }
+
+    public void markFailed() {
+        this.calcSuccess = false;
     }
 
 }

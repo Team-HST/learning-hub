@@ -1,75 +1,54 @@
 package com.hst.learninghub.calculate.service;
 
 import com.hst.learninghub.calculate.entity.Calculate;
-import com.hst.learninghub.calculate.repository.CalculateRepository;
 import com.hst.learninghub.donation.entity.ContentDonation;
+import com.hst.learninghub.donation.entity.Donation;
 import com.hst.learninghub.donation.entity.OrgDonation;
-import com.hst.learninghub.donation.repository.ContentDonRepository;
+import com.hst.learninghub.donation.repository.ContentDonationRepository;
 import com.hst.learninghub.donation.repository.OrgDonationRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class CalculateService {
-    private static final Logger logger = LoggerFactory.getLogger(CalculateService.class);
-    private CalculateRepository calculateRepository;
-    private ContentDonRepository contentDonRepository;
-    private OrgDonationRepository orgDonationRepository;
+	private static final Logger logger = LoggerFactory.getLogger(CalculateService.class);
 
-    public CalculateService(CalculateRepository calculateRepository, ContentDonRepository contentDonRepository
-                            , OrgDonationRepository orgDonationRepository) {
-        this.calculateRepository = calculateRepository;
-        this.contentDonRepository = contentDonRepository;
-        this.orgDonationRepository = orgDonationRepository;
-    }
+	private final ContentDonationRepository contentDonationRepository;
+	private final OrgDonationRepository orgDonationRepository;
 
-    /**
-     * 주기 정산(매월 5일)
-     * @param calcStartDate
-     * @param calcEndDate
-     * @return
-     */
-    @Transactional
-    public void periodicalCalculate(LocalDateTime calcStartDate, LocalDateTime calcEndDate, Calculate calculate) throws Exception {
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+	/**
+	 * 정산
+	 * @param startAt 정산 시작일
+	 * @param endAt 정산 종료일
+	 */
+	@Transactional
+	public void processCalculate(LocalDateTime startAt, LocalDateTime endAt, Calculate calculate) throws Exception {
+		List<ContentDonation> contentDonations = contentDonationRepository.findByNotCalculatedDonations(startAt, endAt);
+		calculateDonation(contentDonations, calculate, ContentDonation.class);
 
-        try {
-            // 1. 사용자측 기부금 - 정산되지 않은 내역 조회(전월 1일~말일)
-            List<ContentDonation> contentDonationList = contentDonRepository.findByNullToCalculateNo();
+		List<OrgDonation> orgDonations = orgDonationRepository.findByNotCalculatedDonations(startAt, endAt);
+		calculateDonation(orgDonations, calculate, OrgDonation.class);
+	}
 
-            if (contentDonationList != null) {
-                for (ContentDonation contentDonation : contentDonationList) {
-                    if (!contentDonation.isValid()) {
-                        logger.debug("======================= CONTDONATION DOES NOT HAVE A REQUIRED VALUE !!! : [{}]", contentDonation);
-                    } else {
-                        contentDonation.successCalculate(calculate.getNo());
-                        contentDonRepository.save(contentDonation);
-                    }
-                }
-            }
-
-            // 2. 기관측 기부금 - 정산되지 않은 내역 조회(전월 1일~말일)
-            List<OrgDonation> orgDonationList = orgDonationRepository.findByNullToCalculateNo();
-
-            if (orgDonationList != null) {
-                for (OrgDonation orgDonation : orgDonationList) {
-                    if (!orgDonation.isValid()) {
-                        logger.debug("======================= ORGDONATION DOES NOT HAVE A REQUIRED VALUE !!!: [{}]", orgDonation);
-                    } else {
-                        orgDonation.successCalculate(calculate.getNo());
-                        orgDonationRepository.save(orgDonation);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.error("========================= PERIODICAL CALCULATE IS FAILED !!!", e);
-        }
-    };
+	private <T extends Donation> void calculateDonation(List<T> donations, Calculate calculate, Class<T> clazz) {
+		for (T donation : donations) {
+			if (donation.isValid()) {
+				donation.markCalculateNo(calculate.getNo());
+				if (clazz.isAssignableFrom(ContentDonation.class)) {
+					contentDonationRepository.save((ContentDonation) donation);
+				} else {
+					orgDonationRepository.save((OrgDonation) donation);
+				}
+			} else {
+				logger.warn("비정상 데이터 발견. 정산에서 제외합니다. donation: {}", donation);
+			}
+		}
+	}
 }

@@ -6,7 +6,7 @@ import com.hst.learninghub.donation.entity.ContentDonationOrg;
 import com.hst.learninghub.donation.entity.ContentDonationOrgId;
 import com.hst.learninghub.donation.entity.OrgDonation;
 import com.hst.learninghub.donation.repository.ContentDonOrgRepository;
-import com.hst.learninghub.donation.repository.ContentDonRepository;
+import com.hst.learninghub.donation.repository.ContentDonationRepository;
 import com.hst.learninghub.donation.repository.OrgDonationRepository;
 import com.hst.learninghub.donation.ui.request.DonateContentRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DonationService {
 
-	private final ContentDonRepository contentDonationRepository;
+	private final ContentDonationRepository contentDonationRepository;
 	private final OrgDonationRepository orgDonationRepository;
 	private final ContentDonOrgRepository contentDonationOrgRepository;
 
@@ -48,18 +48,8 @@ public class DonationService {
 		long orgProceeds = request.getDonationAmount() - contentProceeds;
 
 
-		contentDonationRepository.save(ContentDonation.builder()
-				.contentNo(content.getNo())
-				.amount(contentProceeds)
-				.donUserNo(request.getDonateUserNo())
-				.build());
-
-		orgDonationRepository.save(OrgDonation.builder()
-				.contentNo(content.getNo())
-				.amount(orgProceeds)
-				.regUserNo(request.getDonateUserNo())
-				.orgNo(request.getOrgNo())
-				.build());
+		contentDonationRepository.save(new ContentDonation(content.getNo(), contentProceeds, request.getDonateUserNo()));
+		orgDonationRepository.save(new OrgDonation(content.getNo(), orgProceeds, request.getDonateUserNo(), request.getOrgNo()));
 	}
 
 	/***
@@ -68,7 +58,7 @@ public class DonationService {
 	 * @return
 	 */
 	public long getTotalDonations(Long no) {
-		List<OrgDonation> list = orgDonationRepository.findAllByOrgNo(no);
+		List<OrgDonation> list = orgDonationRepository.findAllByOrganizationNo(no);
 		return list.stream().mapToLong(OrgDonation::getAmount).sum();
 	}
 }

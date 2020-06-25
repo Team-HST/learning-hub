@@ -39,12 +39,12 @@ public class OrganizationService {
 				.thumbnail(uploadedFile)
 				.deleted(false)
 				.build());
-		return OrganizationResponse.from(organization, 0);
+		return OrganizationResponse.of(organization, 0);
 	}
 
 	public List<OrganizationResponse> getAll() {
 		return organizationRepository.findAll().stream()
-				.map(e -> OrganizationResponse.from(e, donationService.getTotalDonations(e.getNo())))
+				.map(e -> OrganizationResponse.of(e, donationService.getTotalDonations(e.getNo())))
 				.collect(Collectors.toList());
 	}
 

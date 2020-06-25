@@ -2,7 +2,6 @@ package com.hst.learninghub.calculate.type;
 
 import com.hst.learninghub.common.converter.EnumAttributeConverter;
 import com.hst.learninghub.common.type.PersistableType;
-import com.hst.learninghub.user.type.UserRole;
 import com.hst.learninghub.utils.EnumUtils;
 
 import java.util.Map;
