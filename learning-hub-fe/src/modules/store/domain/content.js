@@ -1,4 +1,9 @@
 import { contentService } from '@/lib/axios/service';
+import { 
+  Getters as ContentGetters, 
+  Mutations as ContentMutations,
+  Actions as ContentActions
+} from '../types/content';
 
 const state = {
   searchBar: {
@@ -16,37 +21,37 @@ const state = {
 }
 
 const getters = {
-  getPageNum: (state) => {
+  [ContentGetters.GET_PAGE_NUM]: (state) => {
     return state.pagination.pageNum
   },
-  getTotalPage: (state) => {
+  [ContentGetters.GET_TOTAL_PAGE]: (state) => {
     return state.pagination.totalPage
   },
-  getJobClass: (state) => {
+  [ContentGetters.GET_JOB_CLASS]: (state) => {
     return state.jobClass
   },
-  getContents: (state) => {
+  [ContentGetters.GET_CONTENTS]: (state) => {
     return state.contents
   }
 }
 
 const mutations = {
-  initPageNum: (state) => {
+  [ContentMutations.INIT_PARAM_NUM]: (state) => {
     state.pageNum = 1
   },
-  setPageNum: (state, pageNum) => {
+  [ContentMutations.SET_PAGE_NUM]: (state, pageNum) => {
     state.pagination.pageNum = pageNum
   },
-  setTotalPage: (state, totalPage) => {
+  [ContentMutations.SET_TOTAL_PAGE]: (state, totalPage) => {
     state.pagination.totalPage = totalPage
   },
-  setSearchTitle: (state, title) => {
+  [ContentMutations.SET_SEARCH_TITLE]: (state, title) => {
     state.searchBar.title = title
   },
-  setJobClass: (state, jobClass) => {
+  [ContentMutations.SET_JOB_CLASS]: (state, jobClass) => {
     state.jobClass = jobClass
   },
-  setContents: (state, contents) => {
+  [ContentMutations.SET_CONTENTS]: (state, contents) => {
     state.contents = contents
   }
 }
@@ -54,7 +59,7 @@ const mutations = {
 const actions = {
   // 조건 별 컨텐츠 목록 조회
   // 타이틀 검색, 카테고리 검색, 페이지 조회
-  searchContentPageList: async function ({commit, state}, pageNum) {
+  [ContentActions.SEARCH_CONTENT_PAGE_LIST]: async function ({commit, state}, pageNum) {
     commit('setPageNum', pageNum);
 
     const response = await contentService.searchContentPageList(
