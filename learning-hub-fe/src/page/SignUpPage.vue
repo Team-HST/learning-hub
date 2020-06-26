@@ -91,8 +91,9 @@
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import { userService } from '@/lib/axios/service';
-import * as HttpConstants from '@/constants/HttpConstants';
 import { mapGetters } from 'vuex';
+import { Getters as CodeGetters } from '@/modules/store/types/code';
+import * as HttpConstants from '@/constants/HttpConstants';
 
 import CreateFileInput from '@/components/common/CreateFileInput';
 
@@ -118,7 +119,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('code', ['getCodeGroup'])
+    ...mapGetters('code', [CodeGetters.GET_CODE_GROUP])
   },
   created() {
     this.roleRadioOptions = this.getCodeGroup('UserRoles', code => ({ text: code.codeName, value: code.code }))

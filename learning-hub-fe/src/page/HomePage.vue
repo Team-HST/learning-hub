@@ -30,6 +30,7 @@
   
 <script>
 import { mapState, mapActions } from 'vuex' 
+import { Actions as CodeActions } from '@/modules/store/types/code';
 
 export default {
   name: 'HomePage',
@@ -38,12 +39,9 @@ export default {
     ...mapState('user', ['userInfo', 'signedIn'])
   },
   methods: {
-    ...mapActions('code', ['initCodeMap']),
+    ...mapActions('code', [CodeActions.INIT_CODE_MAP]),
   },
   created () {
-    console.log(this.signedIn);
-    console.log(this.userInfo);
-    console.log(this.codeMap);
     if (!this.is) {
       this.initCodeMap();
     }    

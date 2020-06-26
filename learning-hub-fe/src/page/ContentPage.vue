@@ -32,11 +32,13 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 import ContentList from '@/components/contents/ContentList';
 import ContentLeftside from '@/components/contents/ContentLeftside';
 import ContentSearchBar from '@/components/contents/ContentSearchBar'
+
+import { Actions as ContentActions } from '@/modules/store/types/content';
 
 export default {
   name: 'ContentPage',
@@ -60,8 +62,7 @@ export default {
     this.searchContentPageList()
   },
   methods: {
-    ...mapActions('content', ['searchContentPageList']),
-    ...mapMutations('content', ['initPageNum', 'setPageNum', 'setSearchInput', 'setSearchTitle']),
+    ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
     clickToContentCreate: function () {
       this.$router.push('/content-create');
     },

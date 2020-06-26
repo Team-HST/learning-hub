@@ -39,9 +39,8 @@
 </template>
 
 <script>
-  // import 'bootstrap/dist/css/bootstrap.css'
-  // import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import { mapMutations, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
+  import { Actions as UserActions } from '@/modules/store/types/user';
 
   export default {
     name: 'SignInPage',
@@ -55,8 +54,7 @@
       }
     },
     methods: {
-      ...mapMutations(['setUserInfo']),
-      ...mapActions('user', ['signIn']),
+      ...mapActions('user', [UserActions.SIGN_IN]),
       clickSignInBtn: function() {
         this.signIn(this.userInfo)
       },

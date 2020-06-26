@@ -32,6 +32,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import { Getters as CodeGetters } from '@/modules/store/types/code';
 
 export default {
   name: 'ProfilePage',
@@ -46,7 +47,7 @@ export default {
   computed: {
     ...mapState('user', ['userInfo']),
     ...mapState('code', ['codeMap']),    
-    ...mapGetters('code', ['getCode', 'getCodeName'])
+    ...mapGetters('code', [CodeGetters.GET_CODE, CodeGetters.GET_CODE_NAME])
   }
 }
 </script>

@@ -40,7 +40,6 @@
 <script>
 import { DateUtils } from '@/utils/common'
 import { contentService } from '@/lib/axios/service';
-
 import ContentReplyList from '@/components/contents/ContentReplyList'
 
 export default {
