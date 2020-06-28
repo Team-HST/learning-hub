@@ -20,14 +20,16 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
 
+import { Mutations as ContentMutations, Actions as ContentActions } from '@/modules/store/types/content';
+
 export default {
   name: 'ContentSearchBar',
   computed: {
     ...mapState('content', ['searchBar'])
   },
   methods: {
-    ...mapMutations('content', ['setSearchTitle']),
-    ...mapActions('content', ['searchContentPageList']),
+    ...mapMutations('content', [ContentMutations.SET_SEARCH_TITLE]),
+    ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
     updateSearchTitle(e) {
       this.setSearchTitle(e.target.value);
     }

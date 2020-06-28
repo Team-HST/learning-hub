@@ -32,20 +32,25 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { 
+  Getters as ContentGetters, 
+  Mutations as ContentMutations, 
+  Actions as ContentActions 
+} from '@/modules/store/types/content';
 
 export default {
   name: 'contentLeftside',
   computed: {
     ...mapState('code', ['codeMap']),
-    ...mapGetters('content', ['getJobClass'])
+    ...mapGetters('content', [ContentGetters.GET_JOB_CLASS])
   },
   methods: {
-    ...mapMutations('content', ['setJobClass', 'setSearchTitle']),
-    ...mapActions('content', ['searchContentPageList']),
-    clickCategoryJobClass: function (jobCode) {
-      this.setSearchTitle('')
-      this.setJobClass(jobCode)
-      this.searchContentPageList(1)
+    ...mapMutations('content', [ContentMutations.SET_JOB_CLASS, ContentMutations.SET_SEARCH_TITLE]),
+    ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
+    clickCategoryJobClass(jobCode) {
+      this.setSearchTitle('');
+      this.setJobClass(jobCode);
+      this.searchContentPageList(1);
     }
   }
 }

@@ -19,6 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { Getters as CodeGetters } from '@/modules/store/types/code';
 import { DateUtils } from '@/utils/common';
 
 export default {
@@ -31,7 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('code', ['getCode', 'getCodeName']),
+    ...mapGetters('code', [CodeGetters.GET_CODE, CodeGetters.GET_CODE_NAME]),
     getFormatDate: function () {
       const createAt = DateUtils.getDateFormatStr(this.content.createAt, 'YYYY년 MM월 DD일')
       return createAt
