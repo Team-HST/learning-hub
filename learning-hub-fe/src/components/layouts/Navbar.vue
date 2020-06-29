@@ -25,13 +25,15 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
+import { Actions as UserActions } from '@/modules/store/types/user';
+
 export default {
   name:'Navbar',
   computed: {
     ...mapState('user', ['signedIn'])    
   },
   methods: {
-    ...mapActions('user', ['signOut']),
+    ...mapActions('user', [UserActions.SIGN_OUT]),
     clickSignOutBtn() {
       this.signOut();
     }
