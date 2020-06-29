@@ -7,7 +7,7 @@ import com.hst.learninghub.content.entity.ContentReply;
 import com.hst.learninghub.content.entity.specs.ContentSpecifications;
 import com.hst.learninghub.content.repository.ContentReplyRepository;
 import com.hst.learninghub.content.repository.ContentRepository;
-import com.hst.learninghub.content.type.JobClass;
+import com.hst.learninghub.content.type.JobCategory;
 import com.hst.learninghub.content.ui.request.ContentModifyingRequest;
 import com.hst.learninghub.content.ui.request.ContentReplyModifyingRequest;
 import com.hst.learninghub.content.ui.response.ContentListResponse;
@@ -42,13 +42,13 @@ public class ContentService {
 
 	/***
 	 * 컨텐츠 검색
-	 * @param jobClass 카테고리
+	 * @param jobCategory 카테고리
 	 * @param title 검색
 	 * @param pageable 페이징
 	 * @return 검색결과
 	 */
-	public ContentListResponse searchContents(JobClass jobClass, String title, Pageable pageable) {
-		Specification<Content> searchSpec = ContentSpecifications.byJobClassAndTitle(jobClass, title);
+	public ContentListResponse searchContents(JobCategory jobCategory, String title, Pageable pageable) {
+		Specification<Content> searchSpec = ContentSpecifications.byJobClassAndTitle(jobCategory, title);
 		Page<Content> searchResult = contentRepository.findAll(searchSpec, pageable);
 		return ContentListResponse.from(searchResult);
 	}
@@ -73,7 +73,7 @@ public class ContentService {
 		Content content = Content.builder()
 				.title(request.getTitle())
 				.contents(request.getContents())
-				.jobClass(JobClass.get(request.getJobClassType()))
+				.jobCategory(JobCategory.get(request.getJobCategory()))
 				.donationRatio(request.getDonationRatio())
 				.registrant(userService.getUserEntity(request.getRegistrantNo()))
 				.build();

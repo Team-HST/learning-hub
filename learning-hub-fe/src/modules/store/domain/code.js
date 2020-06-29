@@ -22,7 +22,7 @@ const getters = {
     return state.codeMap[codeGroup][code];
   },
   [CodeGetters.GET_CODE_NAME]: (state, getters) => (codeGroup, code) => {
-    return getters.getCode(codeGroup, code).codeName;
+    return getters[CodeGetters.GET_CODE](codeGroup, code).codeName;
   }
 }
 

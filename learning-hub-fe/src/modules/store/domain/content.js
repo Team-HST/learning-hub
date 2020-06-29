@@ -16,7 +16,7 @@ const state = {
   },
   pageNum: 1, // 현재 조회 페이지 
   totalPage: null, // 총 페이지
-  jobClass: '', // 선택 카테고리
+  jobCategory: '', // 선택 카테고리
   contents: []
 }
 
@@ -28,7 +28,7 @@ const getters = {
     return state.pagination.totalPage
   },
   [ContentGetters.GET_JOB_CLASS]: (state) => {
-    return state.jobClass
+    return state.jobCategory
   },
   [ContentGetters.GET_CONTENTS]: (state) => {
     return state.contents
@@ -48,8 +48,8 @@ const mutations = {
   [ContentMutations.SET_SEARCH_TITLE]: (state, title) => {
     state.searchBar.title = title
   },
-  [ContentMutations.SET_JOB_CLASS]: (state, jobClass) => {
-    state.jobClass = jobClass
+  [ContentMutations.SET_JOB_CLASS]: (state, jobCategory) => {
+    state.jobCategory = jobCategory
   },
   [ContentMutations.SET_CONTENTS]: (state, contents) => {
     state.contents = contents
@@ -63,7 +63,7 @@ const actions = {
     commit('setPageNum', pageNum);
 
     const response = await contentService.searchContentPageList(
-      state.pagination, state.searchBar.title, state.jobClass
+      state.pagination, state.searchBar.title, state.jobCategory
     );
     // 전체 페이지 수
     const totalPage = response.data.totalPage;

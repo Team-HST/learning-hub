@@ -11,12 +11,12 @@
         <b-nav-item :to="{name: 'about'}">소개</b-nav-item>
         <b-nav-item :to="{name: 'contents'}">컨텐츠</b-nav-item>
         <b-nav-item :to="{name: 'faq'}">FAQ</b-nav-item>
-        <b-nav-item-dropdown v-if="this.signedIn" right-alignment text="나의 정보" class="nav-link">
+        <b-nav-item-dropdown v-if="isUserSignedIn" right-alignment text="나의 정보" class="nav-link">
           <b-dropdown-item class="nav-link"  :to="{name: 'profile'}">프로필</b-dropdown-item>
           <b-dropdown-item class="nav-link"  :to="{name:'myDonation'}" >기부금 관리</b-dropdown-item>
           <b-dropdown-item class="nav-link" @click="clickSignOutBtn">로그아웃</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item v-if="!this.signedIn" class="nav-link" :to="{name: 'sign-in'}">로그인</b-nav-item>        
+        <b-nav-item v-if="!isUserSignedIn" class="nav-link" :to="{name: 'sign-in'}">로그인</b-nav-item>        
       </b-navbar-nav>
     </b-collapse>
     </div>
@@ -30,12 +30,14 @@ import { Actions as UserActions } from '@/modules/store/types/user';
 export default {
   name:'Navbar',
   computed: {
-    ...mapState('user', ['signedIn'])    
+    ...mapState('user', {
+      isUserSignedIn: 'signedIn'
+    })
   },
   methods: {
     ...mapActions('user', [UserActions.SIGN_OUT]),
     clickSignOutBtn() {
-      this.signOut();
+      this[UserActions.SIGN_OUT]();
     }
   }
 }

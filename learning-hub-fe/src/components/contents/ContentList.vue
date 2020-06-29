@@ -1,10 +1,6 @@
 <template>
   <div class="row blog-list">
-    <div 
-      class="col-lg-6 col-md-12"
-      v-for="(content ,index) in contents" 
-      :key="index"
-    >
+    <div v-for="(content ,index) in contents" :key="index" class="col-lg-6 col-md-12" >
       <content-list-item :content="content" />
     </div>
   </div>

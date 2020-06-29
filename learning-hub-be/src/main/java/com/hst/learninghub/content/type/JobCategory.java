@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author dlgusrb0808@gmail.com
  */
-public enum JobClass implements PersistableType<String> {
+public enum JobCategory implements PersistableType<String> {
 	OFFICE("J001", "경영 / 사무", "경영 / 사무 카테고리"),
 	MEDIA("J002", "미디어", "미디어 카테고리"),
 	SPECIAL("J003", "전문 / 특수직", "전문 / 특수직 카테고리"),
@@ -25,13 +25,13 @@ public enum JobClass implements PersistableType<String> {
 	SERVICE("J013", "서비스", "서비스 카테고리")
 	;
 
-	private static final Map<String, JobClass> FINDER = EnumUtils.asMap(JobClass.class);
+	private static final Map<String, JobCategory> FINDER = EnumUtils.asMap(JobCategory.class);
 
 	private String code;
 	private String codeName;
 	private String description;
 
-	JobClass(String code, String codeName, String description) {
+	JobCategory(String code, String codeName, String description) {
 		this.code = code;
 		this.codeName = codeName;
 		this.description = description;
@@ -52,13 +52,13 @@ public enum JobClass implements PersistableType<String> {
 		return description;
 	}
 
-	public static JobClass get(String code) {
+	public static JobCategory get(String code) {
 		return FINDER.get(code);
 	}
 
-	public static class Converter extends EnumAttributeConverter<JobClass, String> {
+	public static class Converter extends EnumAttributeConverter<JobCategory, String> {
 		public Converter() {
-			super(JobClass.class, false);
+			super(JobCategory.class, false);
 		}
 	}
 }

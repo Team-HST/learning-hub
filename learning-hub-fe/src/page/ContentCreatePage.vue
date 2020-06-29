@@ -133,7 +133,7 @@ export default {
     ...mapGetters('code', [CodeGetters.GET_CODE_GROUP])
   },
   created() {
-    this.jobClassTypes = this.getCodeGroup('JobClasses', code => ({ codeName: code.codeName, code: code.code }))
+    this.jobClassTypes = this.getCodeGroup('JobCategories', code => ({ codeName: code.codeName, code: code.code }))
   },
   methods: {
     clickContentCreate: async function() {
@@ -143,7 +143,7 @@ export default {
       formData.append('contents', this.contents)
       formData.append('registrantNo', 13)
       if (this.jobSelected) {
-        formData.append('jobClassType', this.jobSelected)
+        formData.append('jobCategory', this.jobSelected)
       } else {
         alert('직무분야를 선택하여 주세요.')
       }

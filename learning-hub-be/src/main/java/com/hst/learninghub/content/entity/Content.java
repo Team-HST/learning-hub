@@ -1,7 +1,7 @@
 package com.hst.learninghub.content.entity;
 
 import com.hst.learninghub.common.entity.BaseTimeEntity;
-import com.hst.learninghub.content.type.JobClass;
+import com.hst.learninghub.content.type.JobCategory;
 import com.hst.learninghub.file.entity.FileInfo;
 import com.hst.learninghub.file.type.FileType;
 import com.hst.learninghub.user.entity.User;
@@ -34,8 +34,8 @@ public class Content extends BaseTimeEntity implements Serializable {
 	private String contents;
 
 	@Column(name = "job_class_cd")
-	@Convert(converter = JobClass.Converter.class)
-	private JobClass jobClass;
+	@Convert(converter = JobCategory.Converter.class)
+	private JobCategory jobCategory;
 
 	@Column(name = "don_rate")
 	private Integer donationRatio;
@@ -54,10 +54,10 @@ public class Content extends BaseTimeEntity implements Serializable {
 	private List<ContentFile> contentFiles = new ArrayList<>();
 
 	@Builder
-	public Content(String title, String contents, JobClass jobClass, Integer donationRatio, User registrant) {
+	public Content(String title, String contents, JobCategory jobCategory, Integer donationRatio, User registrant) {
 		this.title = title;
 		this.contents = contents;
-		this.jobClass = jobClass;
+		this.jobCategory = jobCategory;
 		this.donationRatio = donationRatio;
 		this.registrant = registrant;
 		this.deleted = false;

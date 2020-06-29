@@ -3,7 +3,7 @@
     <div class="blog-block">
       <div class="blog-box">
         <div class="overflow-hidden">
-          <router-link :to="'/contents/'+content.no" >
+          <router-link :to="`/contents/${content.no}`" >
             <img :src="thumbnailFileNo" alt="blog" width="100%" height="240">
           </router-link>
           </div>
@@ -11,8 +11,8 @@
     </div>
     <div class="blog-text">
       <h3>{{content.title}}</h3>
-      <p>{{getCodeName('JobClasses', content.jobClassType)}}</p>
-      <h5>{{content.registrant.name}} - {{getFormatDate}}</h5>
+      <p>{{jobClassName}}</p>
+      <h5>{{content.registrant.name}} - {{createAt}}</h5>
     </div>
   </div>
 </template>
@@ -26,16 +26,13 @@ export default {
   props: {
     content: Object
   },
-  data() {
-    return {
-      createAt: ''
-    }
-  },
   computed: {
-    ...mapGetters('code', [CodeGetters.GET_CODE, CodeGetters.GET_CODE_NAME]),
-    getFormatDate: function () {
-      const createAt = DateUtils.getDateFormatStr(this.content.createAt, 'YYYY년 MM월 DD일')
-      return createAt
+    ...mapGetters('code', [CodeGetters.GET_CODE_NAME]),
+    jobClassName() {
+      return this[CodeGetters.GET_CODE_NAME]('JobCategories', this.content.jobClassType);
+    },    
+    createAt() {
+      return DateUtils.getDateFormatStr(this.content.createAt, 'YYYY년 MM월 DD일')
     },
     thumbnailFileNo() {
       let thumbnailFile = this.content.thumbnailFile;      

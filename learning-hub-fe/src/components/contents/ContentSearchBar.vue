@@ -5,14 +5,14 @@
         type="text"
         class="form-control digits mb-1 search-text"
         :value="searchBar.title"
-        @input="updateSearchTitle"
+        @input="changeSearchTitle($event.target.value)"
         placeholder="제목를 입력하여 주세요."
       />
     </div>
     <div class="col-2">
       <button 
         class="btn btn-custom theme-color" 
-        @click="searchContentPageList(1)">검색</button>
+        @click="searchContents(1)">검색</button>
     </div>
   </div>
 </template>
@@ -28,11 +28,12 @@ export default {
     ...mapState('content', ['searchBar'])
   },
   methods: {
-    ...mapMutations('content', [ContentMutations.SET_SEARCH_TITLE]),
-    ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
-    updateSearchTitle(e) {
-      this.setSearchTitle(e.target.value);
-    }
+    ...mapMutations('content', {
+      changeSearchTitle: ContentMutations.SET_SEARCH_TITLE
+    }),
+    ...mapActions('content', {
+      searchContents: ContentActions.SEARCH_CONTENT_PAGE_LIST
+    })
   }
 }
 </script>

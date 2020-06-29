@@ -8,18 +8,16 @@
           <ul>
             <li class="marg-15">
               <div 
-                class="router-link-active" 
-                :class="getJobClass === '' ? 'job-active' : ''"
-                @click="clickCategoryJobClass('')"
+                :class="`router-link-active ${jobClassActivation('')}`" 
+                @click="clickJobClass('')"
               >
                 <i class="fa fa-angle-right " aria-hidden="true"></i> 전체
               </div>
             </li>
-            <li class="marg-15" v-for="category in codeMap['JobClasses']" :key="category.code">
+            <li class="marg-15" v-for="category in codeMap['JobCategories']" :key="category.code">
               <div 
-                class="router-link-active" 
-                :class="getJobClass === category.code ? 'job-active' : ''"
-                @click="clickCategoryJobClass(category.code)"
+                :class="`router-link-active ${jobClassActivation(category.code)}`" 
+                @click="clickJobClass(category.code)"
               >
                 <i class="fa fa-angle-right" aria-hidden="true"></i> {{category.codeName}}
               </div>
@@ -47,10 +45,13 @@ export default {
   methods: {
     ...mapMutations('content', [ContentMutations.SET_JOB_CLASS, ContentMutations.SET_SEARCH_TITLE]),
     ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
-    clickCategoryJobClass(jobCode) {
-      this.setSearchTitle('');
-      this.setJobClass(jobCode);
-      this.searchContentPageList(1);
+    jobClassActivation(jobClass) {
+      return this[ContentGetters.GET_JOB_CLASS] === jobClass ? 'job-active' : '';
+    },
+    clickJobClass(jobCode) {
+      this[ContentMutations.SET_SEARCH_TITLE]('');
+      this[ContentMutations.SET_JOB_CLASS](jobCode);
+      this[ContentActions.SEARCH_CONTENT_PAGE_LIST](1);
     }
   }
 }
