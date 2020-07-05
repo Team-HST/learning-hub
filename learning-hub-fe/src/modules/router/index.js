@@ -9,6 +9,7 @@ import Content from '@/page/content'
 import ContentCreate from '@/page/content_create'
 import ContentDetail from '@/page/content_detail'
 import Faq from '@/page/faq'
+import MyDonation from '@/page/myDonation'
 
 // components
 import Navbar from '@/components/navbar'
@@ -20,7 +21,9 @@ import ContentLeftside from '@/components/contents/content_leftside'
 import Breadcrumb from '@/components/common/breadcrumb'
 import CreateFileInput from '@/components/contents/content_file_input'
 import Footer from '@/components/footer'
-import Page from '@/components/common/page';
+import Page from '@/components/common/page'
+import MyDonationStatus from '@/components/user/myDonationStatus'
+import MyRevenueStatus from '@/components/user/myRevenueStatus';
 
 
 // pages
@@ -31,6 +34,7 @@ Vue.component('Faq', Faq)
 Vue.component('ContentList', ContentList)
 Vue.component('ContentCreate', ContentCreate)
 Vue.component('ContentDetail', ContentDetail)
+Vue.component('MyDonation', MyDonation)
 
 // components
 Vue.use(Router)
@@ -43,6 +47,8 @@ Vue.component('Breadcrumb', Breadcrumb)
 Vue.component('CreateFileInput', CreateFileInput)
 Vue.component('Footer', Footer)
 Vue.component('Page', Page)
+Vue.component('MyDonationStatus', MyDonationStatus)
+Vue.component('MyRevenueStatus', MyRevenueStatus)
 
 export default new Router({
   mode: 'history',
@@ -94,6 +100,15 @@ export default new Router({
       name: 'faq',
       components: {
         default: Faq,
+        navbar: Navbar
+      }
+    },
+    {
+      path: '/myDonation',
+      name: 'myDonation',
+      components: {
+        default: MyDonation,
+        // default: MyDonationStatus,
         navbar: Navbar
       }
     }
