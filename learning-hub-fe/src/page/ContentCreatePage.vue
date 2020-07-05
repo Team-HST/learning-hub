@@ -104,6 +104,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { Getters as CodeGetters } from '@/modules/store/types/code';
+import { CODE } from '@/modules/store/types/namespaces';
 import { contentService } from '@/lib/axios/service'
 import CreateFileInput from '@/components/common/CreateFileInput';
 
@@ -129,7 +130,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('code', [CodeGetters.GET_CODE_GROUP])
+    ...mapGetters(CODE, [CodeGetters.GET_CODE_GROUP])
   },
   created() {
     this.jobClassTypes = this[CodeGetters.GET_CODE_GROUP]('JobCategories', code => ({ codeName: code.codeName, code: code.code }))

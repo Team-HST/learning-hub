@@ -31,15 +31,16 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 import { Actions as CodeActions } from '@/modules/store/types/code';
+import { CODE, USER } from '@/modules/store/types/namespaces';
 
 export default {
   name: 'HomePage',
     computed: {
-    ...mapState('code', ['codeMap', 'isCodeSetting']),
-    ...mapState('user', ['userInfo', 'signedIn'])
+    ...mapState(CODE, ['codeMap', 'isCodeSetting']),
+    ...mapState(USER, ['userInfo', 'signedIn'])
   },
   methods: {
-    ...mapActions('code', [CodeActions.INIT_CODE_MAP]),
+    ...mapActions(CODE, [CodeActions.INIT_CODE_MAP]),
   },
   created () {
     if (!this.is) {

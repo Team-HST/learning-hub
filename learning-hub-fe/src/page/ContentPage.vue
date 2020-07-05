@@ -34,6 +34,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { Actions as ContentActions } from '@/modules/store/types/content';
+import { CONTENT } from '@/modules/store/types/namespaces';
 
 import ContentList from '@/components/contents/ContentList';
 import ContentLeftside from '@/components/contents/ContentLeftside';
@@ -55,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('content', ['pagination'])
+    ...mapState(CONTENT, ['pagination'])
   },
   created() {
     this[ContentActions.SEARCH_CONTENT_PAGE_LIST]()

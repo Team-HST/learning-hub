@@ -41,6 +41,7 @@
 <script>
   import { mapActions } from 'vuex'
   import { Actions as UserActions } from '@/modules/store/types/user';
+  import { USER } from '@/modules/store/types/namespaces';
 
   export default {
     name: 'SignInPage',
@@ -54,7 +55,7 @@
       }
     },
     methods: {
-      ...mapActions('user', [UserActions.SIGN_IN]),
+      ...mapActions(USER, [UserActions.SIGN_IN]),
       clickSignInBtn: function() {
         this[UserActions.SIGN_IN](this.userInfo)
       },
