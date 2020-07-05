@@ -22,12 +22,14 @@ import { mapGetters } from 'vuex';
 import { Getters as CodeGetters } from '@/modules/store/types/code';
 import { DateUtils } from '@/utils/common';
 
+import { CODE } from '@/modules/store/types/namespaces';
+
 export default {
   props: {
     content: Object
   },
   computed: {
-    ...mapGetters('code', [CodeGetters.GET_CODE_NAME]),
+    ...mapGetters(CODE, [CodeGetters.GET_CODE_NAME]),
     jobClassName() {
       return this[CodeGetters.GET_CODE_NAME]('JobCategories', this.content.jobClassType);
     },    

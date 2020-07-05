@@ -16,7 +16,7 @@
             </div>
             <!-- 페이지네이션 -->
             <div class="col-md-12">
-              <Page :clickPageNum="clickPageNum" :totalPage="pagination.totalPage" :pageNum="pagination.pageNum" />
+              <page :clickPageNum="clickPageNum" :totalPage="pagination.totalPage" :pageNum="pagination.pageNum" />
             </div>
             <!-- 등록버튼 -->
             <div class="col-md-2 ml-auto">

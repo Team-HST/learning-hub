@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import { CONTENT } from '@/modules/store/types/namespaces';
 import { Getters as ContentGetters } from '@/modules/store/types/content';
 
 import ContentListItem from './ContentListItem'
@@ -19,7 +19,7 @@ export default {
     ContentListItem
   },
   computed: {
-    ...mapGetters('content', { contents: ContentGetters.GET_CONTENTS })
+    ...mapGetters(CONTENT, { contents: ContentGetters.GET_CONTENTS })
   }
 }
 </script>

@@ -30,6 +30,7 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { CODE, CONTENT } from '@/modules/store/types/namespaces';
 import { 
   Getters as ContentGetters, 
   Mutations as ContentMutations, 
@@ -39,12 +40,12 @@ import {
 export default {
   name: 'contentLeftside',
   computed: {
-    ...mapState('code', ['codeMap']),
-    ...mapGetters('content', [ContentGetters.GET_JOB_CLASS])
+    ...mapState(CODE, ['codeMap']),
+    ...mapGetters(CONTENT, [ContentGetters.GET_JOB_CLASS])
   },
   methods: {
-    ...mapMutations('content', [ContentMutations.SET_JOB_CLASS, ContentMutations.SET_SEARCH_TITLE]),
-    ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
+    ...mapMutations(CONTENT, [ContentMutations.SET_JOB_CLASS, ContentMutations.SET_SEARCH_TITLE]),
+    ...mapActions(CONTENT, [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
     jobClassActivation(jobClass) {
       return this[ContentGetters.GET_JOB_CLASS] === jobClass ? 'job-active' : '';
     },

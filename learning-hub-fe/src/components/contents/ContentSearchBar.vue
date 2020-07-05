@@ -22,16 +22,18 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 
 import { Mutations as ContentMutations, Actions as ContentActions } from '@/modules/store/types/content';
 
+import { CONTENT } from '@/modules/store/types/namespaces';
+
 export default {
   name: 'ContentSearchBar',
   computed: {
-    ...mapState('content', ['searchBar'])
+    ...mapState(CONTENT, ['searchBar'])
   },
   methods: {
-    ...mapMutations('content', {
+    ...mapMutations(CONTENT, {
       changeSearchTitle: ContentMutations.SET_SEARCH_TITLE
     }),
-    ...mapActions('content', {
+    ...mapActions(CONTENT, {
       searchContents: ContentActions.SEARCH_CONTENT_PAGE_LIST
     })
   }

@@ -2,8 +2,12 @@
   <b-navbar type="light" class="navbar-light theme-nav fixed-top" toggleable="lg" fixed="top"  v-b-scrollspy:nav-scroller>
     <div class="container">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand class="navbar-brand" :to="{name:'home'}">
-      <img :src='"@/assets/images/logo.png"' alt="logo">
+    <b-navbar-brand class="navbar-brand" :to="{name:'home'}" style="padding-top: 30px;">
+      <!-- <img :src='"@/assets/images/learning-hub.png"' width="300" height="50" alt="logo"> -->
+      <h2 style="color: #18e7d3">
+        L<span class="f-bold">e</span>a<span class="f-bold">n</span>i<span class="f-bold">n</span>g
+                 <span class="f-bold f-color">hub</span>
+      </h2>
     </b-navbar-brand>
     <b-collapse class="default-nav"  is-nav id="nav_collapse">
       <b-navbar-nav class="navbar-nav navbar-nav ml-auto" id="mymenu">
@@ -27,15 +31,17 @@ import { mapState, mapActions } from 'vuex';
 
 import { Actions as UserActions } from '@/modules/store/types/user';
 
+import { USER } from '@/modules/store/types/namespaces';
+
 export default {
   name:'Navbar',
   computed: {
-    ...mapState('user', {
+    ...mapState(USER, {
       isUserSignedIn: 'signedIn'
     })
   },
   methods: {
-    ...mapActions('user', [UserActions.SIGN_OUT]),
+    ...mapActions(USER, [UserActions.SIGN_OUT]),
     clickSignOutBtn() {
       this[UserActions.SIGN_OUT]();
     }
