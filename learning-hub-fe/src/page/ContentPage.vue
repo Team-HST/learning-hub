@@ -33,12 +33,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { Actions as ContentActions } from '@/modules/store/types/content';
 
 import ContentList from '@/components/contents/ContentList';
 import ContentLeftside from '@/components/contents/ContentLeftside';
 import ContentSearchBar from '@/components/contents/ContentSearchBar'
-
-import { Actions as ContentActions } from '@/modules/store/types/content';
 
 export default {
   name: 'ContentPage',
@@ -59,7 +58,7 @@ export default {
     ...mapState('content', ['pagination'])
   },
   created() {
-    this.searchContentPageList()
+    this[ContentActions.SEARCH_CONTENT_PAGE_LIST]()
   },
   methods: {
     ...mapActions('content', [ContentActions.SEARCH_CONTENT_PAGE_LIST]),
@@ -67,7 +66,7 @@ export default {
       this.$router.push('/content-create');
     },
     clickPageNum: function (pageNum) {
-      this.searchContentPageList(pageNum);
+      this[ContentActions.SEARCH_CONTENT_PAGE_LIST](pageNum);
     }
   }
 }

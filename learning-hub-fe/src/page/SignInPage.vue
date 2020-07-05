@@ -56,7 +56,7 @@
     methods: {
       ...mapActions('user', [UserActions.SIGN_IN]),
       clickSignInBtn: function() {
-        this.signIn(this.userInfo)
+        this[UserActions.SIGN_IN](this.userInfo)
       },
       clickToSignUpBtn: function() {
         this.$router.push('/sign-up')

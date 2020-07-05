@@ -43,7 +43,7 @@ export default {
   },
   created () {
     if (!this.is) {
-      this.initCodeMap();
+      this[CodeActions.INIT_CODE_MAP]();
     }    
   }
 }

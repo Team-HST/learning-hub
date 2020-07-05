@@ -122,7 +122,7 @@ export default {
     ...mapGetters('code', [CodeGetters.GET_CODE_GROUP])
   },
   created() {
-    this.roleRadioOptions = this.getCodeGroup('UserRoles', code => ({ text: code.codeName, value: code.code }))
+    this.roleRadioOptions = this[CodeGetters.GET_CODE_GROUP]('UserRoles', code => ({ text: code.codeName, value: code.code }))
   },
   methods: {
     buildFormData() {

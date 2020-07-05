@@ -11,7 +11,7 @@
               </div>
               <div class="team-text">
                 <h3>{{`${userInfo.name} (${userInfo.id})`}}</h3>
-                <h6>{{ getCodeName('UserRoles', userInfo.roleType) }}</h6>                
+                <h6>{{ getCodeName('UserRoles', userInfo.roleType) }}</h6>
               </div>
               <div class="overlay">
                 <ul class="team-social">

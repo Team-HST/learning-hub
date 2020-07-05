@@ -103,10 +103,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { contentService } from '@/lib/axios/service'
 import { Getters as CodeGetters } from '@/modules/store/types/code';
+import { contentService } from '@/lib/axios/service'
 import CreateFileInput from '@/components/common/CreateFileInput';
-
 
 export default {
   name: 'ContentCreatePage',
@@ -133,7 +132,7 @@ export default {
     ...mapGetters('code', [CodeGetters.GET_CODE_GROUP])
   },
   created() {
-    this.jobClassTypes = this.getCodeGroup('JobCategories', code => ({ codeName: code.codeName, code: code.code }))
+    this.jobClassTypes = this[CodeGetters.GET_CODE_GROUP]('JobCategories', code => ({ codeName: code.codeName, code: code.code }))
   },
   methods: {
     clickContentCreate: async function() {
